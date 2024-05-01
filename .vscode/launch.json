@@ -1,0 +1,17 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            //This config allows the building and watching of the server
+            //so that the server can be debugged and restarted on file changes.
+            "type": "node",
+            "name": "Debug Vue",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "dev"],
+            "cwd": "${workspaceFolder}/client",
+            "outputCapture": "std",
+          },
+        
+    ]
+}
