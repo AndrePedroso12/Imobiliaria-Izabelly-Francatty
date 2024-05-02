@@ -37,3 +37,7 @@ npm run build
 ```sh
 npm run lint
 ```
+
+https://ismail9k.github.io/vue3-carousel/
+
+https://icon-sets.iconify.design
