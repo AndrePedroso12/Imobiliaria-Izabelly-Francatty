@@ -1,96 +1,140 @@
 <template>
   <Carousel :autoplay="5000" :wrap-around="true">
-    <Slide v-for="slide in 10" :key="slide">
+    <Slide v-for="slide in banners" :key="slide.id">
       <div class="carousel__overlay"></div>
-      <div
-        class="carousel__item"
-        style="
-          background-image: url(https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg);
-        "
-      >
+      <div class="carousel__item" :style="{ backgroundImage: `url(${slide.mainImage})` }">
         <div class="carousel__text">
-          {{ slide }}
-          <div class="carousel__description">4 Quartos - 2 Banheiros - 180m²</div>
-          <div class="carousel__title">Oportunidade em <br />Nova Jaguariúna</div>
-          <div class="carousel__price">R$ 300<span>mil</span></div>
-          <div class="carousel__button">Saiba Mais</div>
+          <div class="carousel__description">
+            {{ slide.details.rooms }} Quartos - {{ slide.details.bathrooms }} Banheiros -
+            {{ slide.details.area }}m²
+          </div>
+          <div class="carousel__title">
+            Oportunidade em <br />
+            {{ slide.location.neighborhood }}
+          </div>
+          <div class="carousel__price">R$ {{ slide.price }}<span>mil</span></div>
+          <button class="carousel__button">
+            Saiba Mais <Icon icon="lets-icons:arrow-right" width="1.5em" height="1.5em" />
+          </button>
         </div>
       </div>
     </Slide>
 
     <template #addons>
-      <Navigation />
-      <Pagination />
+      <!-- <Navigation /> -->
+      <navigation>
+        <template #next>
+          <span class="carousel__next"> > </span>
+        </template>
+        <template #prev>
+          <span class="carousel__prev"> < </span>
+        </template>
+      </navigation>
     </template>
   </Carousel>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+<script setup lang="ts">
+import { defineComponent, ref } from 'vue'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
+import { Icon } from '@iconify/vue'
 
 import 'vue3-carousel/dist/carousel.css'
+import type { ImovelType } from '@/interfaces/interfaces'
 
-export default defineComponent({
+const props = defineProps<{
+  imoveis: ImovelType[]
+}>()
+
+const banners = ref(props.imoveis)
+
+defineComponent({
   name: 'Basic',
   components: {
     Carousel,
     Slide,
-    Pagination,
     Navigation
   }
 })
 </script>
 
 <style scoped lang="scss">
-.carousel__item {
-  min-height: 200px;
-  width: 100%;
-  height: 100%;
-  background-color: var(--vc-clr-white);
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: var(--vc-clr-white);
-  font-size: 20px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
+.carousel {
+  &__item {
+    min-height: 200px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--vc-clr-white);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: var(--vc-clr-white);
+    font-size: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__slide {
+    min-height: 41rem;
+    background: white;
+  }
 
-.carousel__slide {
-  min-height: 41rem;
-  background: white;
-}
+  &__prev,
+  &__next {
+    box-sizing: content-box;
+    border: 5px solid white;
+  }
 
-.carousel__prev,
-.carousel__next {
-  box-sizing: content-box;
-  border: 5px solid white;
-}
+  &__overlay {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 
-.carousel__overlay {
-  background: rgb(0, 0, 0);
-  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
+  &__text {
+    position: absolute;
+  }
 
-.carousel__text {
-  position: absolute;
-}
+  &__title {
+    font-size: 60px;
+    line-height: normal;
+    font-weight: 500;
+    padding: 3rem 0;
+  }
 
-.carousel__title {
-  font-size: 60px;
-  line-height: normal;
-  font-weight: 500;
-  padding: 3rem 0;
-}
+  &__description {
+    font-size: 17px;
+    font-weight: 400;
+  }
 
-.carousel__description {
-  font-size: 17px;
-  font-weight: 100;
+  &__price {
+    font-size: 21px;
+    font-weight: 600;
+    span {
+      font-weight: 400;
+      font-size: 70%;
+    }
+  }
+
+  &__button {
+    margin: 20px auto;
+  }
+
+  &__prev,
+  &__next {
+    border-color: transparent;
+    color: #fff;
+    font-weight: 300;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(50px);
+    opacity: 0.8;
+    border-radius: 40px;
+    width: 60px;
+    height: 40px;
+  }
 }
 </style>
