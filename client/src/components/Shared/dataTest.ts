@@ -119,7 +119,8 @@ export const ImoveisTeste: ImovelType[] = [
     isfavourite: true,
     category: 'Terreno',
     model: 'Compra',
-    mainImage: 'main_image_5.jpg',
+    mainImage:
+      'https://www.classearpimoveis.com.br/foto_/2021/3153/ribeirao-preto-terreno-condominio-vista-bella-20-10-2021_10-18-11-1.jpg',
     images: ['image13.jpg', 'image14.jpg', 'image15.jpg'],
     video: 'video_url',
     location: {
@@ -139,7 +140,8 @@ export const ImoveisTeste: ImovelType[] = [
     id: 6,
     category: 'Area',
     model: 'Compra',
-    mainImage: 'main_image_6.jpg',
+    mainImage:
+      'https://blog.julianooliva.com.br/wp-content/uploads/2023/01/terreno-na-praia.jpg.webp',
     images: ['image16.jpg', 'image17.jpg', 'image18.jpg'],
     video: 'video_url',
     location: {
@@ -160,7 +162,7 @@ export const ImoveisTeste: ImovelType[] = [
     isfavourite: true,
     category: 'Condomínio',
     model: 'Compra',
-    mainImage: 'main_image_7.jpg',
+    mainImage: 'https://casaantigaimoveis.com.br/wp-content/uploads/2019/05/condominio-806x467.jpg',
     images: ['image19.jpg', 'image20.jpg', 'image21.jpg'],
     video: 'video_url',
     location: {
@@ -169,8 +171,11 @@ export const ImoveisTeste: ImovelType[] = [
     },
     price: 300000,
     details: {
-      area: 1500,
-      tags: ['tag16', 'tag17']
+      rooms: 4,
+      bathrooms: 3,
+      garage: 2,
+      area: 250,
+      tags: ['tag10', 'tag11']
     },
     description: 'Description 7',
     tags: ['Tag 19', 'Tag 20', 'Tag 21'],
@@ -180,7 +185,7 @@ export const ImoveisTeste: ImovelType[] = [
     id: 8,
     category: 'Galpão',
     model: 'Alugar',
-    mainImage: 'main_image_8.jpg',
+    mainImage: 'https://mostaza.com.br/wp-content/uploads/2023/05/galpao-metalico-1.jpg',
     images: ['image22.jpg', 'image23.jpg', 'image24.jpg'],
     video: 'video_url',
     location: {
@@ -225,7 +230,8 @@ export const ImoveisTeste: ImovelType[] = [
     id: 10,
     category: 'Apartamento',
     model: 'Compra',
-    mainImage: 'main_image_10.jpg',
+    mainImage:
+      'https://www.chavesnamao.com.br/imn/0358x0250/N/imoveis/388262/18439209/sp-jaguariuna-vila-7-de-setembro-rua-dom-pedro-i-apartamento-a-venda-1-quarto-6585ee7f-00.jpg',
     images: ['image28.jpg', 'image29.jpg', 'image30.jpg'],
     video: 'video_url',
     location: {
@@ -250,7 +256,8 @@ export const ImoveisTeste: ImovelType[] = [
     id: 11,
     category: 'Casa',
     model: 'Alugar',
-    mainImage: 'main_image_11.jpg',
+    mainImage:
+      'https://primaveraimobiliaria.com.br/wp-content/uploads/2020/10/CASA-A-VENDA-JD-MORUMBI-PEDREIRA-1-800x600.jpg',
     images: ['image31.jpg', 'image32.jpg', 'image33.jpg'],
     video: 'video_url',
     location: {
@@ -262,7 +269,6 @@ export const ImoveisTeste: ImovelType[] = [
       rooms: 4,
       bathrooms: 3,
       garage: 2,
-      suites: 2,
       area: 250,
       tags: ['tag24', 'tag25']
     },
@@ -274,7 +280,8 @@ export const ImoveisTeste: ImovelType[] = [
     id: 12,
     category: 'Terreno',
     model: 'Compra',
-    mainImage: 'main_image_12.jpg',
+    mainImage:
+      'https://static.arboimoveis.com.br/TE0089_DPOZZO/terreno-a-venda-650-m-por-r-155-000-00-vila-nova-matelandia-pr1710352939461tfzwq.jpg',
     images: ['image34.jpg', 'image35.jpg', 'image36.jpg'],
     video: 'video_url',
     location: {
@@ -295,7 +302,8 @@ export const ImoveisTeste: ImovelType[] = [
     category: 'Area',
     isfavourite: true,
     model: 'Compra',
-    mainImage: 'main_image_13.jpg',
+    mainImage:
+      'https://s2-g1.glbimg.com/j96EBJaJYwnDUiRCU0NEp8VXrOI=/0x0:5464x3640/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2022/Y/M/ofPNZ6SfOyq0ASAHr9rw/04-loteamento-nossa-senhora-araquari-1-.jpg',
     images: ['image37.jpg', 'image38.jpg', 'image39.jpg'],
     video: 'video_url',
     location: {
@@ -316,7 +324,8 @@ export const ImoveisTeste: ImovelType[] = [
     category: 'Condomínio',
     isfavourite: true,
     model: 'Compra',
-    mainImage: 'main_image_14.jpg',
+    mainImage:
+      'https://www.casamineira.com.br/blog/wp-content/uploads/2022/04/morar-em-condominio-vantagens-desvantagens-1024x576.jpg',
     images: ['image40.jpg', 'image41.jpg', 'image42.jpg'],
     video: 'video_url',
     location: {
@@ -325,8 +334,11 @@ export const ImoveisTeste: ImovelType[] = [
     },
     price: 500000,
     details: {
-      area: 3000,
-      tags: ['tag30', 'tag31']
+      rooms: 4,
+      bathrooms: 3,
+      garage: 2,
+      area: 250,
+      tags: ['tag24', 'tag25']
     },
     description: 'Description 14',
     tags: ['Tag 40', 'Tag 41', 'Tag 42'],
@@ -336,7 +348,8 @@ export const ImoveisTeste: ImovelType[] = [
     id: 15,
     category: 'Galpão',
     model: 'Alugar',
-    mainImage: 'main_image_15.jpg',
+    mainImage:
+      'https://deltafacilities1.websiteseguro.com/blog/wp-content/uploads/2021/09/galpao_metalico_duas_aguas_beta_plus.jpeg',
     images: ['image43.jpg', 'image44.jpg', 'image45.jpg'],
     video: 'video_url',
     location: {

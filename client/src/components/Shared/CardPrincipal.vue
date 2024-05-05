@@ -1,12 +1,7 @@
 <template>
   <article class="card">
     <div class="image-wrapper">
-      <img
-        loading="lazy"
-        decoding="async"
-        src="https://demoapus1.com/justhome/wp-content/uploads/2024/02/slider7.jpg"
-        alt=""
-      />
+      <img loading="lazy" decoding="async" :src="card.mainImage" alt="" />
     </div>
 
     <div class="card__description">
@@ -15,7 +10,7 @@
         <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.location.city }}
       </p>
       <div class="card__bottom">
-        <div class="card__icons">
+        <div class="card__icons" :class="{ HouseCategory: !isArea(infos.category) }">
           <span v-if="card.details.rooms"
             ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
             {{ card.details.rooms }}
@@ -90,21 +85,23 @@ function isArea(value: string) {
   margin: 0 15px;
   width: 22rem;
   color: var(--color-text);
+  align-self: stretch;
   .image-wrapper {
-    width: 100%;
+    width: calc(100% + 27px);
     height: 15rem;
     overflow: hidden;
-    border-radius: 16px;
+    margin: -10px -10px 10px -10px;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   }
-  &_description {
+  &__description {
     color: var(--color-text);
     margin-top: 5px;
     font-size: 0.9375rem;
+    text-align: left;
   }
   &__title {
     font-size: 19px;
@@ -119,6 +116,8 @@ function isArea(value: string) {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    flex: 0 0 60px;
+    align-items: center;
 
     span:nth-of-type(2n) {
       padding: 0 15px;
@@ -149,6 +148,10 @@ function isArea(value: string) {
       color: grey;
       line-height: 1;
     }
+  }
+
+  .HouseCategory {
+    margin-top: 1rem;
   }
 }
 </style>

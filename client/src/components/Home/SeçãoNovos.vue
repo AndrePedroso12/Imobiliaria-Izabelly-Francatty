@@ -11,10 +11,12 @@
         <button>Alugar</button>
       </div>
     </div>
-    <div class="novos__wrapper scrollbar">
-      <Slide v-for="card in cards" :key="card">
-        <CardPrincipal :infos="card" />
-      </Slide>
+    <div class="novos__wrapper">
+      <Carousel :items-to-show="4.5">
+        <Slide v-for="card in cards" :key="card.id">
+          <CardPrincipal :infos="card" />
+        </Slide>
+      </Carousel>
     </div>
 
     <button class="novos__button">
@@ -28,13 +30,24 @@
 import { Icon } from '@iconify/vue'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
 import type { ImovelType } from '@/interfaces/interfaces'
-import { ref } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { Carousel, Navigation, Slide } from 'vue3-carousel'
+
+import 'vue3-carousel/dist/carousel.css'
 
 const props = defineProps<{
   novosCadastros: ImovelType[]
 }>()
 
 const cards = ref(props.novosCadastros)
+
+defineComponent({
+  name: 'WrapAround',
+  components: {
+    Carousel,
+    Slide
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -55,13 +68,7 @@ const cards = ref(props.novosCadastros)
   }
 
   &__wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    overflow-x: scroll;
-    overflow-y: clip;
-    margin: 4rem 0 4rem 13rem;
+    margin: 2rem 0 2rem 4rem;
   }
 
   &__title {
