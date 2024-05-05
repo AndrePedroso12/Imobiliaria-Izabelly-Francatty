@@ -6,6 +6,7 @@ import SeçãoEmpreendimentos from '@/components/Home/SeçãoEmpreendimentos.vue
 import SeçãoNovos from '@/components/Home/SeçãoNovos.vue'
 import SeçãoQuemSomos from '@/components/Home/SeçãoQuemSomos.vue'
 import SeçãoCategorias from '@/components/Home/SeçãoCategorias.vue'
+import SeçãoDestaques from '@/components/Home/SeçãoDestaques.vue'
 
 import { ImoveisTeste } from '../components/Shared/dataTest.js'
 import { ref } from 'vue'
@@ -18,6 +19,7 @@ const maisBuscados = ImoviesRef.value.filter((obj) => obj.isfavourite === true)
 const novosImoveis = ImoviesRef.value.filter(
   (item) => !item.isfavourite && !item.isTop && !item.banner
 )
+const destaque = ImoviesRef.value.filter((obj) => obj.isTop === true)[0]
 </script>
 
 <template>
@@ -29,6 +31,7 @@ const novosImoveis = ImoviesRef.value.filter(
     <SeçãoNovos :novosCadastros="novosImoveis" />
     <SeçãoQuemSomos />
     <SeçãoCategorias :categorias="ImoviesRef" />
+    <SeçãoDestaques :destaque="destaque" />
     <!-- <TheWelcome /> -->
   </main>
 </template>

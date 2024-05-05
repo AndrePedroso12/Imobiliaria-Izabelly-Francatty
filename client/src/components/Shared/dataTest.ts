@@ -5,11 +5,16 @@ export const ImoveisTeste: ImovelType[] = [
   {
     id: 1,
     banner: true,
+    isTop: true,
     category: 'Apartamento',
     model: 'Compra',
     mainImage: 'https://demoapus1.com/justhome/wp-content/uploads/2024/02/slider7.jpg',
-    images: ['image1.jpg', 'image2.jpg', 'image3.jpg'],
-    video: 'video_url',
+    images: [
+      'https://s2.glbimg.com/Z5wIQQE_oewkI4Owb1FPGya7VAc=/smart/e.glbimg.com/og/ed/f/original/2015/02/10/apartamento_laura_e_cristina_bezamat_02.jpg',
+      'https://www.papoimobiliario.com/wp-content/uploads/2021/12/Apartamentos-alto-padrao-em-Sao-Paulo-750x410-1.jpg',
+      'https://www.wkoerich.com.br/wp-content/uploads/2019/05/imagem393_1-960x581.jpg'
+    ],
+    video: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     location: {
       city: 'Jaguariuna',
       neighborhood: 'Nova Jaguariúna'
@@ -24,7 +29,8 @@ export const ImoveisTeste: ImovelType[] = [
       area: 100,
       tags: ['tag1', 'tag2']
     },
-    description: 'Description 1',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus elit, tristique eget nisi nec, volutpat porttitor enim. Phasellus vehicula, erat ac placerat tincidunt, purus magna ultrices mauris, sed interdum sem turpis facilisis diam. Quisque consectetur cursus est, ut interdum dolor vestibulum ut. In id lacus vitae eros tempus lobortis. Nullam quis nulla ac purus lacinia ultrices. Donec ullamcorper nisi non massa auctor sodales. Aenean blandit elit ex, non porta massa aliquet vitae. Duis egestas magna sit amet dignissim ultricies. Nulla nec pellentesque odio, eu ultricies nunc. Proin tincidunt libero arcu, eu lacinia purus iaculis a. Cras fringilla ac leo id semper. Ut pharetra mauris tortor, vel interdum velit tincidunt non. Phasellus ac tortor auctor, euismod dui eget, faucibus risus. Proin quis commodo risus, suscipit consequat purus.',
     tags: ['Tag 1', 'Tag 2', 'Tag 3'],
     sellerName: 'Seller 1'
   },

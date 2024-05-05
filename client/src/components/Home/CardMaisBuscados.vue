@@ -32,8 +32,6 @@
         <img
           loading="lazy"
           decoding="async"
-          width="500"
-          height="500"
           :src="infos.mainImage"
           class="attachment-justhome-property-grid-lg size-justhome-property-grid-lg"
           alt=""
@@ -154,6 +152,8 @@ function isArea(value: string) {
     position: absolute;
     top: 0;
     left: 0;
+    height: 100%;
+    width: 100%;
     &:before {
       content: '';
       width: 100%;
@@ -161,6 +161,10 @@ function isArea(value: string) {
       position: absolute;
       background: rgb(0, 0, 0);
       background: linear-gradient(0deg, rgba(0, 0, 0, 0.898004270067402) 15%, rgba(0, 0, 0, 0) 80%);
+    }
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 }
