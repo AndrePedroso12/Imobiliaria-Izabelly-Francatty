@@ -7,6 +7,8 @@ import SeçãoNovos from '@/components/Home/SeçãoNovos.vue'
 import SeçãoQuemSomos from '@/components/Home/SeçãoQuemSomos.vue'
 import SeçãoCategorias from '@/components/Home/SeçãoCategorias.vue'
 import SeçãoDestaques from '@/components/Home/SeçãoDestaques.vue'
+import BarraContato from '@/components/Shared/BarraContato.vue'
+import NuvemDeTags from '@/components/Shared/NuvemDeTags.vue'
 
 import { ImoveisTeste } from '../components/Shared/dataTest.js'
 import { ref } from 'vue'
@@ -32,6 +34,8 @@ const destaque = ImoviesRef.value.filter((obj) => obj.isTop === true)[0]
     <SeçãoQuemSomos />
     <SeçãoCategorias :categorias="ImoviesRef" />
     <SeçãoDestaques :destaque="destaque" />
+    <BarraContato />
+    <NuvemDeTags />
     <!-- <TheWelcome /> -->
   </main>
 </template>
