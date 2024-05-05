@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="empreendimentos">
     <h2 class="empreendimentos__title">Últimos Empreendimentos</h2>
@@ -6,7 +7,7 @@
     >
 
     <div class="empreendimentos__wrapper">
-      <Carousel :items-to-show="5" :autoplay="5000" :wrap-around="true">
+      <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="card in 15" :key="card">
           <CardEmpreendimentos />
         </Slide>
@@ -28,13 +29,31 @@
 
 <script setup lang="ts">
 import CardEmpreendimentos from './CardEmpreendimentos.vue'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
+const settings = ref({
+  itemsToShow: 1.3,
+  snapAlign: 'center',
+  autoplay: '5000',
+  wrapAround: true
+})
+
+const breakpoints = ref({
+  700: {
+    itemsToShow: 2,
+    snapAlign: 'center'
+  },
+  1024: {
+    itemsToShow: 6,
+    snapAlign: 'start'
+  }
+})
+
 defineComponent({
-  name: 'Basic',
+  name: 'SliderEmpreendimentos',
   components: {
     Carousel,
     Slide,

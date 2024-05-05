@@ -1,6 +1,6 @@
 <template>
   <div class="novos">
-    <div class="novos__top">
+    <div class="novos__topo">
       <div class="novos__text">
         <h2 class="novos__title">Novos Imóveis na sua região</h2>
         <span class="novos__subtitle">Descubra o seu lar ideal</span>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="novos__wrapper">
-      <Carousel :items-to-show="4.5">
+      <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="card in cards" :key="card.id">
           <CardPrincipal :infos="card" />
         </Slide>
@@ -31,7 +31,7 @@ import { Icon } from '@iconify/vue'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
 import type { ImovelType } from '@/interfaces/interfaces'
 import { defineComponent, ref } from 'vue'
-import { Carousel, Navigation, Slide } from 'vue3-carousel'
+import { Carousel, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
@@ -40,6 +40,23 @@ const props = defineProps<{
 }>()
 
 const cards = ref(props.novosCadastros)
+
+const settings = ref({
+  itemsToShow: 1.2,
+  snapAlign: 'center',
+  autoplay: '2000'
+})
+
+const breakpoints = ref({
+  700: {
+    itemsToShow: 1,
+    snapAlign: 'center'
+  },
+  1024: {
+    itemsToShow: 4.5,
+    snapAlign: 'start'
+  }
+})
 
 defineComponent({
   name: 'WrapAround',
@@ -59,16 +76,24 @@ defineComponent({
   text-align: left;
   overflow: hidden;
 
-  &__top {
+  &__topo {
     padding: 0 8rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    @media (max-width: 768px) {
+      padding: 1rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__wrapper {
     margin: 2rem 0 2rem 4rem;
+    @media (max-width: 768px) {
+      margin: 2rem 0;
+    }
   }
 
   &__title {
@@ -83,6 +108,9 @@ defineComponent({
 
   &__buttons {
     display: flex;
+    @media (max-width: 768px) {
+      margin-top: 1rem;
+    }
     button {
       margin: 0 1rem;
       background: #ffffff1a;
@@ -90,6 +118,11 @@ defineComponent({
       &.active {
         background: white;
         color: black;
+      }
+      &:first-of-type {
+        @media (max-width: 768px) {
+          margin: 0;
+        }
       }
     }
   }

@@ -29,6 +29,10 @@ import { Icon } from '@iconify/vue'
   justify-content: space-between;
   padding: 4rem;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 4rem 2rem;
+  }
 
   h4 {
     font-size: 30px;
@@ -46,6 +50,17 @@ import { Icon } from '@iconify/vue'
     justify-content: space-around;
     color: var(--color-text);
     font-weight: 500;
+  }
+  .button {
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+  button {
+    @media (max-width: 768px) {
+      margin: 1rem auto;
+      float: left;
+    }
   }
 }
 </style>

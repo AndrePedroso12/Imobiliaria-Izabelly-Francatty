@@ -49,7 +49,7 @@ const props = defineProps<{
 const banners = ref(props.imoveis)
 
 defineComponent({
-  name: 'Basic',
+  name: 'SliderBanner',
   components: {
     Carousel,
     Slide,
@@ -104,6 +104,9 @@ defineComponent({
     line-height: normal;
     font-weight: 500;
     padding: 3rem 0;
+    @media (max-width: 768px) {
+      font-size: 30px;
+    }
   }
 
   &__description {

@@ -28,10 +28,16 @@ const Tags = ref(TagsFooter)
     font-size: 40px;
     line-height: 1.3em;
     font-weight: 500;
+    @media (max-width: 768px) {
+      font-size: 23px;
+    }
   }
 
   &__subtitle {
     font-size: 17px;
+    @media (max-width: 768px) {
+      font-size: 11px;
+    }
   }
 
   &__wrapper {
@@ -48,14 +54,13 @@ const Tags = ref(TagsFooter)
       font-size: 15px;
       font-weight: 500;
       line-height: 48px;
-      fill: #1a1a1a;
       color: #1a1a1a;
-      background-color: #ffffff;
-      border-style: solid;
-      border-width: 1px 1px 1px 1px;
-      border-color: #1a1a1a;
-      border-radius: 50px 50px 50px 50px;
-      padding: 0px 25px 0px 25px;
+      border: 1px solid #1a1a1a;
+      border-radius: 50px;
+      padding: 0px 25px;
+      @media (max-width: 768px) {
+        font-size: 11px;
+      }
     }
   }
 }

@@ -69,6 +69,9 @@ function isArea(value: string) {
   position: relative;
   overflow: hidden;
   transition: all 0.2s ease-in-out 0s;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 
   &__tags {
     padding: 20px;

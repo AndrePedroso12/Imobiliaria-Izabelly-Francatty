@@ -12,6 +12,7 @@
       <img src="@/assets/logo-preto.svg" alt="Izabelly Francatti logo" srcset="" />
     </div>
     <div class="midias_sociais">
+      <span>Siga-nos nos:</span>
       <a href="http://" target="_blank" rel="noopener noreferrer">
         <Icon icon="ri:facebook-fill" width="1.5em" height="1.5em" />
       </a>
@@ -37,6 +38,10 @@ import { Icon } from '@iconify/vue'
   align-items: center;
   position: relative;
   padding: 1rem 0;
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+  }
 
   .back-to-top {
     position: absolute;
@@ -52,22 +57,50 @@ import { Icon } from '@iconify/vue'
       margin-top: 25%;
       color: white;
     }
+    @media (max-width: 768px) {
+      top: -11%;
+      right: 10px;
+    }
   }
 
   .copyright,
   .logo,
   .midias_sociais {
     margin: 0 auto;
+    @media (max-width: 768px) {
+      margin: 0;
+    }
   }
 
   .logo {
     margin-left: 3% !important;
+    @media (max-width: 768px) {
+      order: 1;
+    }
   }
 
   .midias_sociais {
+    span {
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1;
+    }
     svg {
       color: var(--color-text);
       margin: 0 10px;
+    }
+    @media (max-width: 768px) {
+      order: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 1rem;
+    }
+  }
+
+  .copyright {
+    @media (max-width: 768px) {
+      margin: 0 1rem;
     }
   }
 }

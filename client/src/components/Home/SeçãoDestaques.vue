@@ -85,12 +85,20 @@ function truncateText(text: string) {
   padding: 7rem 2rem;
   margin-bottom: 7rem;
   text-align: center;
+  @media (max-width: 768px) {
+    padding: 1rem;
+    margin-bottom: 7rem;
+  }
 
   h3 {
     color: #ffffff;
     font-size: 40px;
     line-height: 1.3em;
     font-weight: 500;
+    @media (max-width: 768px) {
+      font-size: 23px;
+      margin-top: 2rem;
+    }
   }
 
   p {
@@ -101,16 +109,31 @@ function truncateText(text: string) {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    @media (max-width: 768px) {
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: space-around;
+    }
   }
 
   &__card {
     &_principal {
       width: 50%;
       padding: 15px;
+      @media (max-width: 768px) {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 1rem;
+      }
       .cards_mais_buscados {
         width: 100%;
-        height: 100%;
+
         margin: 0;
+        @media (min-width: 768px) {
+          height: 100%;
+        }
       }
     }
 
@@ -121,6 +144,10 @@ function truncateText(text: string) {
       flex-direction: column;
       flex-wrap: nowrap;
       padding: 15px;
+      @media (max-width: 768px) {
+        width: 100%;
+        padding: 0;
+      }
     }
 
     &_slider {
@@ -128,10 +155,19 @@ function truncateText(text: string) {
       border-radius: 16px;
       margin-bottom: 1rem;
       overflow: hidden;
+      @media (max-width: 768px) {
+        max-height: 10rem;
+      }
       .carousel {
         max-height: 21rem;
         & img {
           max-height: 21rem;
+        }
+        @media (max-width: 768px) {
+          max-height: 10rem;
+          & img {
+            max-height: 10rem;
+          }
         }
       }
     }
@@ -141,6 +177,10 @@ function truncateText(text: string) {
       justify-content: space-around;
       flex-direction: row;
       height: 21rem;
+
+      @media (max-width: 768px) {
+        height: 50%;
+      }
     }
 
     &_video {
@@ -173,6 +213,11 @@ function truncateText(text: string) {
       .description {
         font-size: 14px;
         line-height: 1.8em;
+      }
+      .text {
+        @media (max-width: 768px) {
+          display: none;
+        }
       }
 
       .icon {

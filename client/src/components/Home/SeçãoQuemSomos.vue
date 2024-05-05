@@ -45,13 +45,20 @@ import { Icon } from '@iconify/vue'
 <style scoped lang="scss">
 .quem_somos {
   display: flex;
-
   justify-content: space-between;
   padding: 7rem 3rem;
+  @media (max-width: 768px) {
+    padding: 3rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   &__image {
     width: 50%;
     margin-right: 1rem;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
     img {
       width: 100%;
     }
@@ -61,12 +68,20 @@ import { Icon } from '@iconify/vue'
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @media (max-width: 768px) {
+      width: 90%;
+      margin: 0 auto;
+    }
 
     .title {
       font-size: 40px;
       line-height: 1.3em;
       font-weight: 500;
       margin-bottom: 1rem;
+      @media (max-width: 768px) {
+        font-size: 23px;
+        margin-top: 2rem;
+      }
     }
     .subtitle {
       margin-bottom: 2rem;

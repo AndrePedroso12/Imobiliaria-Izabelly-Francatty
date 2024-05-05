@@ -3,11 +3,15 @@
     <h3>De acordo com sua nescessidade</h3>
     <p>Encontre o imóvel perfeito para você:</p>
     <div class="categorias__wrapper">
-      <a class="categorias__item" v-for="(count, category) in categoryCounts" :key="category">
-        <Icon :icon="getCategoryIcon(category)" width="2em" height="2em" />
-        <span class="title">{{ category }}s</span>
-        <span class="subtitle">{{ count }} Propriedades</span>
-      </a>
+      <Carousel v-bind="settings" :breakpoints="breakpoints">
+        <Slide v-for="(count, category) in categoryCounts" :key="category">
+          <a class="categorias__item">
+            <Icon :icon="getCategoryIcon(category)" width="2em" height="2em" />
+            <span class="title">{{ category }}s</span>
+            <span class="subtitle">{{ count }} Propriedades</span>
+          </a>
+        </Slide>
+      </Carousel>
     </div>
   </div>
 </template>
@@ -15,7 +19,9 @@
 <script setup lang="ts">
 import type { ImovelType } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
-import { computed, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
+import { Carousel, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
 
 const props = defineProps<{
   categorias: ImovelType[]
@@ -52,9 +58,34 @@ function getCategoryIcon(category: string) {
       return 'ph:warehouse'
 
     default:
-      break
+      return ''
   }
 }
+
+const settings = ref({
+  itemsToShow: 1,
+  snapAlign: 'center',
+  autoplay: '2000'
+})
+
+const breakpoints = ref({
+  700: {
+    itemsToShow: 2,
+    snapAlign: 'center'
+  },
+  1024: {
+    itemsToShow: 6,
+    snapAlign: 'start'
+  }
+})
+
+defineComponent({
+  name: 'CategoriasSldie',
+  components: {
+    Carousel,
+    Slide
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -67,23 +98,35 @@ function getCategoryIcon(category: string) {
   padding: 7rem 6rem;
   margin-bottom: 7rem;
 
+  @media (max-width: 768px) {
+    width: 95%;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+  }
+
   h3 {
     color: #ffffff;
     font-size: 40px;
     line-height: 1.3em;
     font-weight: 500;
+    @media (max-width: 768px) {
+      padding: 0 2rem;
+    }
   }
 
   p {
     margin-bottom: 1rem;
+    @media (max-width: 768px) {
+      padding: 0 2rem;
+    }
   }
 
   &__wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+    // flex-wrap: nowrap;
+    // flex-direction: row;
   }
 
   &__item {
@@ -97,7 +140,7 @@ function getCategoryIcon(category: string) {
     align-content: center;
     text-align: center;
     align-items: center;
-    flex: 1;
+    width: 90%;
 
     .title {
       font-size: 19px;

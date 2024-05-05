@@ -51,6 +51,13 @@ import { Icon } from '@iconify/vue'
   margin: -3rem 8rem;
   position: relative;
 
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: -3rem auto;
+  }
+
   &__select {
     display: flex;
     flex-direction: column;
@@ -58,6 +65,11 @@ import { Icon } from '@iconify/vue'
     padding: 0 30px;
     flex: 0 0 auto;
     border-left: 1px solid #ffffff12;
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 0;
+      border: 0;
+    }
     &:first-of-type {
       border: none;
       padding-left: 0;
@@ -95,6 +107,19 @@ import { Icon } from '@iconify/vue'
     border-color: #ffffff1a;
     border-radius: 12px;
     padding: 12px 1.875rem;
+    @media (max-width: 768px) {
+      width: 100%;
+      margin: 1rem auto;
+      text-align: center;
+    }
+  }
+
+  button {
+    @media (max-width: 768px) {
+      width: 100%;
+
+      text-align: center;
+    }
   }
 }
 </style>

@@ -12,7 +12,14 @@
       </ul>
     </div>
     <div class="mais_buscados__wrapper">
-      <CardMaisBuscados v-for="card in cards" :key="card.id" :card-infos="card" />
+      <Carousel v-bind="settings" :breakpoints="breakpoints">
+        <Slide v-for="(chunk, index) in chunkedCards" :key="index">
+          <!-- Iterate over items in each chunk -->
+          <template v-for="card in chunk" :key="card.id">
+            <CardMaisBuscados :card-infos="card" />
+          </template>
+        </Slide>
+      </Carousel>
     </div>
 
     <button class="mais_buscados__button round">
@@ -25,13 +32,52 @@
 import { Icon } from '@iconify/vue'
 import CardMaisBuscados from './CardMaisBuscados.vue'
 import type { ImovelType } from '@/interfaces/interfaces'
-import { ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
+
+import 'vue3-carousel/dist/carousel.css'
+
+const settings = ref({
+  itemsToShow: 2,
+  snapAlign: 'start'
+})
+
+const breakpoints = ref({
+  700: {
+    itemsToShow: 2,
+    snapAlign: 'center'
+  },
+  1024: {
+    itemsToShow: 1,
+    snapAlign: 'start',
+    autoplay: '7000',
+    wrapAround: true
+  }
+})
+
+defineComponent({
+  name: 'SliderEmpreendimentos',
+  components: {
+    Carousel,
+    Slide,
+    Pagination
+  }
+})
 
 const props = defineProps<{
   maisBuscados: ImovelType[]
 }>()
 
 const cards = ref(props.maisBuscados)
+
+const chunkSize = 6
+const chunkedCards = computed(() => {
+  const chunks: ImovelType[][] = []
+  for (let i = 0; i < cards.value.length; i += chunkSize) {
+    chunks.push(cards.value.slice(i, i + chunkSize))
+  }
+  return chunks
+})
 </script>
 
 <style scoped lang="scss">
@@ -80,9 +126,17 @@ const cards = ref(props.maisBuscados)
   }
 
   &__wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    .carousel__slide {
+      display: flex;
+      flex-wrap: wrap;
+      @media (max-width: 768px) {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+        min-width: 100%;
+      }
+    }
   }
 
   &__button {
