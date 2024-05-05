@@ -33,3 +33,8 @@ export interface ImovelType {
   tags: string[]
   sellerName: string
 }
+
+export interface NuvemDeTags {
+  nome: string
+  link: string
+}

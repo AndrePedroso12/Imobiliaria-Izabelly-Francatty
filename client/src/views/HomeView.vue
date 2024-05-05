@@ -12,7 +12,6 @@ import NuvemDeTags from '@/components/Shared/NuvemDeTags.vue'
 
 import { ImoveisTeste } from '../components/Shared/dataTest.js'
 import { ref } from 'vue'
-import type { ImovelType } from '@/interfaces/interfaces'
 
 const ImoviesRef = ref(ImoveisTeste)
 
