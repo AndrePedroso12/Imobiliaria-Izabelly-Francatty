@@ -2,10 +2,13 @@
 import { RouterView } from 'vue-router'
 import Menu from './components/Shared/Menu.vue'
 import footerSite from './components/Shared/footerSite.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>
 
 <template>
-  <header>
+  <header :class="route.name">
     <Menu />
   </header>
 

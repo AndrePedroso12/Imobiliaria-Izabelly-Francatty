@@ -9,7 +9,9 @@
       <p>Copyright © 2024. Izabelly Francatti</p>
     </div>
     <div class="logo">
-      <img src="@/assets/logo-preto.svg" alt="Izabelly Francatti logo" srcset="" />
+      <RouterLink to="/">
+        <img src="@/assets/logo-preto.svg" alt="Izabelly Francatti logo" srcset="" />
+      </RouterLink>
     </div>
     <div class="midias_sociais">
       <span>Siga-nos nos:</span>

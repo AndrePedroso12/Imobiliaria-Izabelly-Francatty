@@ -61,12 +61,18 @@ function toggleMenu() {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: nowrap;
   flex-direction: row;
   color: white;
+  background: #0000007d;
+  backdrop-filter: blur(10px);
+
+  .home & {
+    background: transparent;
+  }
   @media (max-width: 768px) {
-    color: black;
+    color: var(--color-text);
     background-color: white;
     display: flex;
     justify-content: flex-start;

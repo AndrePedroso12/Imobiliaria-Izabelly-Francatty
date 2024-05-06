@@ -2,7 +2,9 @@
   <div class="searchbar">
     <div class="searchbar__select">
       <label for="Cidade">Cidade</label>
-      <select name="Cidade" id="cidade">
+      <select name="Cidade" id="cidade" v-model="cidade">
+        <option disabled value="">Selecione uma cidade</option>
+
         <option value="Jaguariuna">Jaguariuna</option>
         <option value="Pedreira">Pedreira</option>
         <option value="Amparo">Amparo</option>
@@ -10,14 +12,18 @@
     </div>
     <div class="searchbar__select">
       <label for="Modelo">Modelo</label>
-      <select name="Modelo" id="modelo">
-        <option value="Jaguariuna">Comprar</option>
-        <option value="Pedreira">Alugar</option>
+      <select name="Modelo" id="modelo" v-model="modelo">
+        <option disabled value="">Comprar ou Alugar</option>
+
+        <option value="Compra">Comprar</option>
+        <option value="Alugar">Alugar</option>
       </select>
     </div>
     <div class="searchbar__select">
       <label for="Tipo">Tipo</label>
-      <select name="Tipo" id="Tipo">
+      <select name="Tipo" id="Tipo" v-model="categoria">
+        <option disabled value="">Selecione um tipo de imóvel</option>
+
         <option value="Apartamento">Apartamento</option>
         <option value="Casa">Casa</option>
         <option value="Terreno">Terreno</option>
@@ -27,12 +33,24 @@
     <div class="searchbar__checkbox">
       <checkbox><Icon icon="mage:filter" width="1.2em" height="1.2em" /> Filtros</checkbox>
     </div>
-    <button>Procurar</button>
+    <button @click="goToResults()">Procurar</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import router from '@/router'
 import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+const categoria = ref('')
+const cidade = ref('')
+const modelo = ref('')
+
+function goToResults() {
+  router.push({
+    name: 'pesquisa',
+    params: { categoria: categoria.value, cidade: cidade.value, modelo: modelo.value }
+  })
+}
 </script>
 
 <style scoped lang="scss">
