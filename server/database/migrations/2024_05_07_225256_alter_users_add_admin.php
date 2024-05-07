@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             if (!Schema::hasColumn('users', 'admin')) {
-                $table->boolean('admin');
+                $table->boolean('admin')->nullable();
             }
             if (!Schema::hasColumn('users', 'deleted_at')) {
                 $table->softDeletes();

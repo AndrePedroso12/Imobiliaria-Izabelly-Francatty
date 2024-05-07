@@ -32,7 +32,6 @@ class CheckAdmin
             $decodedToken = $this->tokenHelper->validateToken($token);
             if ($decodedToken) {
                 if (!$decodedToken->user->admin) {
-                    dd($decodedToken);
                     return response(["error" => "Usuario sem acesso"], 402);
                 }
             }
