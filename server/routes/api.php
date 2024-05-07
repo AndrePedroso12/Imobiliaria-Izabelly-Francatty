@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/teste', [UserController::class, 'createUser']);
-
 Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware(CheckToken::class, CheckAdmin::class)->group(function () {
