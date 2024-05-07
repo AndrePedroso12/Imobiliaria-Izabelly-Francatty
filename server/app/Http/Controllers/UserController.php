@@ -44,6 +44,7 @@ class UserController extends Controller
         if (count($users) > 0) {
             return response(["error" => 'Email já cadastrado'], 400);
         }
+
         return response(User::create($request->all()), 201);
     }
 
