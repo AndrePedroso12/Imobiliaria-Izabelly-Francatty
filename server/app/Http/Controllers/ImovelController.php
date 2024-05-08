@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImovelRequest;
 use App\Models\Imovel;
-use Illuminate\Http\Request;
 
 class ImovelController extends Controller
 {
@@ -30,7 +30,7 @@ class ImovelController extends Controller
         $imovel->caracteristics = explode("|", $imovel->caracteristics);
         return response($imovel);
     }
-    public function createImovel(Request $request)
+    public function createImovel(ImovelRequest $request)
     {
         $dados = $request->all();
         $dados['caracteristics'] = implode("|", $dados['caracteristics']);
@@ -38,7 +38,7 @@ class ImovelController extends Controller
         $imovel->caracteristics = explode("|", $imovel->caracteristics);
         return response($imovel, 201);
     }
-    public function updateImovel(Request $request, $id)
+    public function updateImovel(ImovelRequest $request, $id)
     {
         if (!is_numeric($id)) {
             return response(["errors" => "Id Invalido"], 400);
