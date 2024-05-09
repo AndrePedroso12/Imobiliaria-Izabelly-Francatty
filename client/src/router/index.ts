@@ -19,7 +19,7 @@ const router = createRouter({
       component: ImovelView
     },
     {
-      path: '/results/:categoria?/:cidade?/:modelo?',
+      path: '/pesquisa/:categoria?/:cidade?/:modelo?',
       name: 'pesquisa',
       component: PesquisaView
     },

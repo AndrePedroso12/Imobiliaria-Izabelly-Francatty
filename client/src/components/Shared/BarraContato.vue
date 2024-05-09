@@ -6,7 +6,7 @@
     </div>
     <div class="button">
       <button>
-        <a href=""
+        <a href="https://api.whatsapp.com/send/?phone=5519974148500&type=phone_number&app_absent=0"
           >Entre em contato <Icon icon="mingcute:arrow-right-line" width="1.2em" height="1.2em"
         /></a>
       </button>
