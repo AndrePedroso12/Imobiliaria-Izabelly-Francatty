@@ -23,7 +23,9 @@
     </div>
 
     <button class="mais_buscados__button round">
-      Ver Todos <Icon icon="lets-icons:arrow-right" width="1.5em" height="1.5em" />
+      <RouterLink :to="{ name: 'pesquisa' }"
+        >Ver Todos <Icon icon="lets-icons:arrow-right" width="1.5em" height="1.5em"
+      /></RouterLink>
     </button>
   </div>
 </template>
@@ -141,6 +143,13 @@ const chunkedCards = computed(() => {
 
   &__button {
     margin: 1rem auto;
+    a {
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>

@@ -5,11 +5,14 @@
     <div class="categorias__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="(count, category) in categoryCounts" :key="category">
-          <a class="categorias__item">
+          <RouterLink
+            :to="{ name: 'pesquisa', params: { categoria: category } }"
+            class="categorias__item"
+          >
             <Icon :icon="getCategoryIcon(category)" width="2em" height="2em" />
             <span class="title">{{ category }}s</span>
             <span class="subtitle">{{ count }} Propriedades</span>
-          </a>
+          </RouterLink>
         </Slide>
       </Carousel>
     </div>
