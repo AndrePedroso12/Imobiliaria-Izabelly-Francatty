@@ -40,6 +40,7 @@ import { Icon } from '@iconify/vue'
   align-items: center;
   position: relative;
   padding: 1rem 0;
+  width: 100%;
   @media (max-width: 768px) {
     align-items: flex-start;
     flex-direction: column-reverse;
