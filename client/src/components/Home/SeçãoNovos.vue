@@ -20,8 +20,10 @@
     </div>
 
     <button class="novos__button">
-      Ver todo nosso catálogo
-      <Icon icon="eva:diagonal-arrow-right-up-outline" width="1.2em" height="1.2em" />
+      <RouterLink :to="{ name: 'pesquisa' }">
+        Ver todo nosso catálogo
+        <Icon icon="eva:diagonal-arrow-right-up-outline" width="1.2em" height="1.2em" />
+      </RouterLink>
     </button>
   </div>
 </template>
@@ -129,6 +131,13 @@ defineComponent({
 
   &__button {
     margin: 1rem auto;
+    a {
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      display: flex;
+      align-items: center;
+    }
   }
 
   .carousel__next,

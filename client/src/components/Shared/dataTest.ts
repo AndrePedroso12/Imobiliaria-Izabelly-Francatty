@@ -16,7 +16,7 @@ export const ImoveisTeste: ImovelType[] = [
     ],
     video: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
     location: {
-      city: 'Jaguariuna',
+      city: 'Jaguariúna',
       neighborhood: 'Nova Jaguariúna'
     },
     price: 1000,
@@ -124,7 +124,7 @@ export const ImoveisTeste: ImovelType[] = [
     images: ['image13.jpg', 'image14.jpg', 'image15.jpg'],
     video: 'video_url',
     location: {
-      city: 'Jaguariuna',
+      city: 'Jaguariúna',
       neighborhood: 'Neighborhood 5'
     },
     price: 50000,
@@ -235,7 +235,7 @@ export const ImoveisTeste: ImovelType[] = [
     images: ['image28.jpg', 'image29.jpg', 'image30.jpg'],
     video: 'video_url',
     location: {
-      city: 'Jaguariuna',
+      city: 'Jaguariúna',
       neighborhood: 'Neighborhood 10'
     },
     price: 1500,
@@ -329,7 +329,7 @@ export const ImoveisTeste: ImovelType[] = [
     images: ['image40.jpg', 'image41.jpg', 'image42.jpg'],
     video: 'video_url',
     location: {
-      city: 'Jaguariuna',
+      city: 'Jaguariúna',
       neighborhood: 'Neighborhood 14'
     },
     price: 500000,

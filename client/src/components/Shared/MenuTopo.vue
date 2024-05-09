@@ -20,26 +20,48 @@
 
     <nav class="desktop">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">Sobre nós</RouterLink>
-      <RouterLink to="/about">Alugar</RouterLink>
-      <RouterLink to="/about">Comprar</RouterLink>
-      <RouterLink to="/about">Fale conosco</RouterLink>
+      <a href="/#sobre">Sobre nós</a>
+      <RouterLink :to="{ name: 'pesquisa', params: { modelo: 'Alugar' } }">Alugar</RouterLink>
+      <RouterLink :to="{ name: 'pesquisa', params: { modelo: 'Compra' } }">Comprar</RouterLink>
+      <a
+        href="https://api.whatsapp.com/send/?phone=5519974148500&type=phone_number&app_absent=0"
+        target="_blank"
+        >Fale conosco</a
+      >
     </nav>
     <nav class="mobile" :class="{ active: isMenuOpen }">
       <button class="close" @click="toggleMenu">X</button>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">Sobre nós</RouterLink>
-      <RouterLink to="/about">Alugar</RouterLink>
-      <RouterLink to="/about">Comprar</RouterLink>
-      <RouterLink to="/about">Fale conosco</RouterLink>
-      <a href="http://" target="_blank" rel="noopener noreferrer" class="whatsapp">
-        <Icon icon="fa-brands:whatsapp" width="1.7em" height="1.7em" /> (19) 99999-9999
+      <RouterLink to="/" @click="toggleMenu">Home</RouterLink>
+      <a href="/#sobre" @click="toggleMenu">Sobre nós</a>
+      <RouterLink :to="{ name: 'pesquisa', params: { modelo: 'Alugar' } }" @click="toggleMenu"
+        >Alugar</RouterLink
+      >
+      <RouterLink :to="{ name: 'pesquisa', params: { modelo: 'Comprar' } }" @click="toggleMenu"
+        >Comprar</RouterLink
+      >
+      <a
+        href="https://api.whatsapp.com/send/?phone=5519974148500&type=phone_number&app_absent=0"
+        target="_blank"
+        >Fale conosco</a
+      >
+      <a
+        href="https://api.whatsapp.com/send/?phone=5519974148500&type=phone_number&app_absent=0"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp"
+      >
+        <Icon icon="fa-brands:whatsapp" width="1.7em" height="1.7em" /> (19) 97414-8500
       </a>
     </nav>
     <div class="overlay" v-if="isMenuOpen" :class="{ active: isMenuOpen }"></div>
 
-    <a href="http://" target="_blank" rel="noopener noreferrer" class="whatsapp desktop">
-      <Icon icon="fa-brands:whatsapp" width="1.7em" height="1.7em" /> (19) 99999-9999</a
+    <a
+      href="https://api.whatsapp.com/send/?phone=5519974148500&type=phone_number&app_absent=0"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="whatsapp desktop"
+    >
+      <Icon icon="fa-brands:whatsapp" width="1.7em" height="1.7em" /> (19) 97414-8500</a
     >
   </div>
 </template>
