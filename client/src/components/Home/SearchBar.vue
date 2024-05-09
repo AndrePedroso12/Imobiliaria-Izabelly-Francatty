@@ -99,17 +99,53 @@ function goToResults() {
       color: #969696;
     }
     select {
-      border: 0;
-      height: auto;
-      padding: 0 !important;
+      appearance: none;
+      outline: 0;
+      font: inherit;
+      background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23ffffff%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23ffffff%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E);
+      background-size: 0.6em;
+      background-position: calc(100% - 1.3em) center;
+      background-repeat: no-repeat;
       color: white;
-      background: none;
-      line-height: 28px;
       cursor: pointer;
-      font-size: 15px;
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1.29rem;
+      font-size: 0.9375rem;
       font-weight: 400;
-      outline: none;
-      margin-top: 10px;
+      line-height: 1.9;
+      background-color: var(--color-text);
+      background-clip: padding-box;
+      border: 1px solid var(--color-text);
+      appearance: none;
+      border-radius: 12px;
+      transition:
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
+      /* Remove IE arrow */
+      &::-ms-expand {
+        display: none;
+      }
+      /* Remove focus outline */
+      &:focus {
+        outline: none;
+      }
+      /* <option> colors */
+      option {
+        background-color: white;
+      }
+
+      /* Arrow */
+      &::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 1em;
+        background-color: #34495e;
+        transition: 0.25s all ease;
+        pointer-events: none;
+      }
     }
     option {
       color: black;
