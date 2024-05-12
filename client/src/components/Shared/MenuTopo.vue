@@ -3,20 +3,15 @@
     <button class="hamburger" @click="toggleMenu">
       <Icon icon="fa-solid:bars" width="1.7em" height="1.7em" />
     </button>
-    <img
-      alt="Izabelly Francati Logo"
-      class="logo desktop"
-      src="@/assets/logo-branco.svg"
-      width="250"
-      height="80"
-    />
-    <img
-      alt="Izabelly Francati Logo"
-      class="logo mobile"
-      src="@/assets/logo-preto.svg"
-      width="250"
-      height="80"
-    />
+    <RouterLink to="/">
+      <img
+        alt="Izabelly Francati Logo"
+        class="logo"
+        src="@/assets/logo-branco.svg"
+        width="250"
+        height="80"
+      />
+    </RouterLink>
 
     <nav class="desktop">
       <RouterLink to="/">Home</RouterLink>

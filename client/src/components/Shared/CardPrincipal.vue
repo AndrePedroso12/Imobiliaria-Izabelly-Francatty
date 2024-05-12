@@ -85,7 +85,6 @@ function isArea(value: string) {
   padding: 10px;
   background: #fff;
   margin: 0 15px;
-  width: 22rem;
   color: var(--color-text);
   align-self: stretch;
   .image-wrapper {
@@ -112,6 +111,11 @@ function isArea(value: string) {
 
   &__location {
     color: grey;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
   }
 
   &__icons {

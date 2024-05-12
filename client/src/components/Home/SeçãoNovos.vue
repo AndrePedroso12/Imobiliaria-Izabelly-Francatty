@@ -7,13 +7,18 @@
       </div>
 
       <div class="novos__buttons">
-        <button class="active">Comprar</button>
-        <button>Alugar</button>
+        <button :class="{ active: filterType === 'todos' }" @click="filter('todos')">Todos</button>
+        <button :class="{ active: filterType === 'comprar' }" @click="filter('comprar')">
+          Comprar
+        </button>
+        <button :class="{ active: filterType === 'alugar' }" @click="filter('alugar')">
+          Alugar
+        </button>
       </div>
     </div>
     <div class="novos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="card in cards" :key="card.id">
+        <Slide v-for="card in filteredCards" :key="card.id">
           <CardPrincipal :infos="card" />
         </Slide>
       </Carousel>
@@ -32,7 +37,7 @@
 import { Icon } from '@iconify/vue'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
 import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
@@ -42,6 +47,22 @@ const props = defineProps<{
 }>()
 
 const cards = ref(props.novosCadastros)
+
+const filterType = ref<'comprar' | 'alugar' | 'todos'>('todos')
+
+const filteredCards = computed(() => {
+  if (filterType.value === 'comprar') {
+    return cards.value.filter((card) => card.model === 'Compra')
+  } else if (filterType.value === 'alugar') {
+    return cards.value.filter((card) => card.model === 'Alugar')
+  } else {
+    return cards.value
+  }
+})
+
+const filter = (type: 'comprar' | 'alugar' | 'todos') => {
+  filterType.value = type
+}
 
 const settings = ref({
   itemsToShow: 1.2,
@@ -139,8 +160,8 @@ defineComponent({
     }
   }
   .carousel {
-    .carousel__viewport {
-      overflow: visible;
+    :deep(.carousel__viewport) {
+      overflow: visible !important;
     }
 
     .carousel__next,
