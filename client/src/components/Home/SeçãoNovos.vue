@@ -34,6 +34,7 @@ import CardPrincipal from '../Shared/CardPrincipal.vue'
 import type { ImovelType } from '@/interfaces/interfaces'
 import { defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
+import type { SnapAlign } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
@@ -45,18 +46,17 @@ const cards = ref(props.novosCadastros)
 
 const settings = ref({
   itemsToShow: 1.2,
-  snapAlign: 'center',
-  autoplay: '2000'
+  snapAlign: 'center' as SnapAlign
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 1,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 4.5,
-    snapAlign: 'start'
+    snapAlign: 'start' as SnapAlign
   }
 })
 

@@ -35,24 +35,25 @@ import { Icon } from '@iconify/vue'
 import CardMaisBuscados from './CardMaisBuscados.vue'
 import type { ImovelType } from '@/interfaces/interfaces'
 import { computed, defineComponent, ref } from 'vue'
-import { Carousel, Pagination, Slide } from 'vue3-carousel'
+import { Carousel, Slide } from 'vue3-carousel'
+import type { SnapAlign } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
 const settings = ref({
   itemsToShow: 2,
-  snapAlign: 'start'
+  snapAlign: 'start' as SnapAlign
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 1,
-    snapAlign: 'start',
-    autoplay: '7000',
+    snapAlign: 'start' as SnapAlign,
+    autoplay: 7000,
     wrapAround: true
   }
 })
@@ -61,8 +62,7 @@ defineComponent({
   name: 'SliderEmpreendimentos',
   components: {
     Carousel,
-    Slide,
-    Pagination
+    Slide
   }
 })
 

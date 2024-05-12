@@ -24,6 +24,7 @@ import type { ImovelType } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
 import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
+import type { SnapAlign } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
 
 const props = defineProps<{
@@ -67,18 +68,18 @@ function getCategoryIcon(category: string) {
 
 const settings = ref({
   itemsToShow: 1,
-  snapAlign: 'center',
-  autoplay: '2000'
+  snapAlign: 'center' as SnapAlign,
+  autoplay: 2000
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 6,
-    snapAlign: 'start'
+    snapAlign: 'start' as SnapAlign
   }
 })
 
