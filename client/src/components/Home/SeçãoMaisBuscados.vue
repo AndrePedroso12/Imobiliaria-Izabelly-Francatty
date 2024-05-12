@@ -33,10 +33,9 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import CardMaisBuscados from './CardMaisBuscados.vue'
-import type { ImovelType } from '@/interfaces/interfaces'
+import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
-import type { SnapAlign } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 

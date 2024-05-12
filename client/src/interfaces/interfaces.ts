@@ -38,3 +38,5 @@ export interface NuvemDeTags {
   nome: string
   link: string
 }
+
+export type SnapAlign = 'start' | 'end' | 'center' | 'center-even' | 'center-odd'

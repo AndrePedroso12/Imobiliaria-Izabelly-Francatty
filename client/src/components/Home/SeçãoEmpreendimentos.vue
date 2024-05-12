@@ -31,7 +31,7 @@
 import CardEmpreendimentos from './CardEmpreendimentos.vue'
 import { defineComponent, ref } from 'vue'
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
-import type { SnapAlign } from 'vue3-carousel'
+import type { SnapAlign } from '@/interfaces/interfaces'
 
 import 'vue3-carousel/dist/carousel.css'
 

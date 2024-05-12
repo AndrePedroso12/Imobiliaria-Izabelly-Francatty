@@ -20,11 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ImovelType } from '@/interfaces/interfaces'
+import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
 import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
-import type { SnapAlign } from 'vue3-carousel'
+
 import 'vue3-carousel/dist/carousel.css'
 
 const props = defineProps<{
