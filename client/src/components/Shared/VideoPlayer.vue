@@ -1,17 +1,20 @@
 <template>
   <div class="video-thumbnail" :class="{ open: showModal }">
-    <button v-if="showModal" class="close-button" @click="closeModal()">X</button>
-    <video
-      loop
-      :class="{ opened: showModal }"
-      :controls="showModal || playVideo"
-      :autoplay="showModal || playVideo"
-      muted
-      @click="openModal"
-    >
-      <source :src="videoUrl + '#t=1.5'" type="video/mp4" />
-      Seu navegador não suporta vídeos HTML5.
-    </video>
+    <div class="video-box" :class="{ opened: showModal }">
+      <button v-if="showModal" class="close-button" @click="closeModal()">X</button>
+
+      <video
+        loop
+        :class="{ opened: showModal }"
+        :controls="showModal || playVideo"
+        :autoplay="showModal || playVideo"
+        muted
+        @click="openModal"
+      >
+        <source :src="videoUrl + '#t=1.5'" type="video/mp4" />
+        Seu navegador não suporta vídeos HTML5.
+      </video>
+    </div>
     <div class="play-icon" @click="openModal" v-if="!playVideo">
       <Icon icon="solar:play-linear" width="1rem" height="1rem" />
     </div>
@@ -68,6 +71,18 @@ video {
 }
 
 video.opened {
+  position: relative;
+  border-radius: 16px;
+}
+
+.video-box {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.2s;
+}
+
+.video-box.opened {
   position: fixed;
   z-index: 10;
   width: 50%;
@@ -126,8 +141,8 @@ iframe {
 
 .close-button {
   position: absolute;
-  top: -91px;
-  right: -53px;
+  top: 0;
+  right: 0;
   cursor: pointer;
   background-color: white;
   font-size: 20px;
