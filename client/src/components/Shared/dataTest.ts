@@ -27,7 +27,28 @@ export const ImoveisTeste: ImovelType[] = [
       garage: 1,
       suites: 1,
       area: 100,
-      tags: ['tag1', 'tag2']
+      tags: [
+        'Água Incluso',
+        'Ar condicionado',
+        'Armário banheiro',
+        'Armário quarto',
+        'Churrasqueira',
+        'Em condomínio fechado',
+        'Esgoto',
+        'Lavabo',
+        'Pavimentação',
+        'Piso laminado',
+        'Aquecimento solar',
+        'Armário área de Serviço',
+        'Armário cozinha',
+        'Campo de futebol',
+        'Cozinha',
+        'Energia elétrica',
+        'Interfone',
+        'Lavanderia',
+        'Piscina',
+        'Porcelanato'
+      ]
     },
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lectus elit, tristique eget nisi nec, volutpat porttitor enim. Phasellus vehicula, erat ac placerat tincidunt, purus magna ultrices mauris, sed interdum sem turpis facilisis diam. Quisque consectetur cursus est, ut interdum dolor vestibulum ut. In id lacus vitae eros tempus lobortis. Nullam quis nulla ac purus lacinia ultrices. Donec ullamcorper nisi non massa auctor sodales. Aenean blandit elit ex, non porta massa aliquet vitae. Duis egestas magna sit amet dignissim ultricies. Nulla nec pellentesque odio, eu ultricies nunc. Proin tincidunt libero arcu, eu lacinia purus iaculis a. Cras fringilla ac leo id semper. Ut pharetra mauris tortor, vel interdum velit tincidunt non. Phasellus ac tortor auctor, euismod dui eget, faucibus risus. Proin quis commodo risus, suscipit consequat purus.',

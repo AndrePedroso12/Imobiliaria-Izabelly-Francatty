@@ -24,7 +24,7 @@
             {{ card.details.suites }}
           </span>
           <span v-if="card.details.garage"
-            ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+            ><Icon icon="cil:garage" width="1.2em" height="1.2em" />
             {{ card.details.garage }}
           </span>
 

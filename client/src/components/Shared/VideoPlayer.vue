@@ -4,14 +4,15 @@
     <video
       loop
       :class="{ opened: showModal }"
-      :controls="showModal"
-      :autoplay="showModal"
+      :controls="showModal || playVideo"
+      :autoplay="showModal || playVideo"
+      muted
       @click="openModal"
     >
       <source :src="videoUrl + '#t=1.5'" type="video/mp4" />
       Seu navegador não suporta vídeos HTML5.
     </video>
-    <div class="play-icon" @click="openModal">
+    <div class="play-icon" @click="openModal" v-if="!playVideo">
       <Icon icon="solar:play-linear" width="1rem" height="1rem" />
     </div>
     <div v-if="showModal" class="modal-overlay" @click="closeModal()"></div>
@@ -22,21 +23,28 @@
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
+const props = defineProps<{
+  videoUrl: string
+  blockModal?: boolean
+}>()
+
+const { videoUrl } = props
+
 const showModal = ref(false)
+const playVideo = ref(false)
+const blockModal = ref(props.blockModal || false)
 
 const openModal = () => {
+  if (blockModal.value) {
+    playVideo.value = true
+    return
+  }
   showModal.value = true
 }
 
 const closeModal = () => {
   showModal.value = false
 }
-
-const props = defineProps<{
-  videoUrl: string
-}>()
-
-const { videoUrl } = props
 </script>
 
 <style scoped>
