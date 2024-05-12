@@ -18,9 +18,6 @@ import { useAuth, useImoveis } from '@/composables'
 const ImoviesRef = ref(ImoveisTeste)
 const ImoveisFunction = useImoveis()
 const loginFunction = useAuth()
-let token =
-  'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxLCJuYW1lIjoiQW5kcmVQZWRyb3NvIiwiZW1haWwiOiJBbmRyZVBlZHJvc28iLCJlbWFpbF92ZXJpZmllZF9hdCI6bnVsbCwiY3JlYXRlZF9hdCI6IjIwMjQtMDUtMDlUMjI6NTQ6MDcuMDAwMDAwWiIsInVwZGF0ZWRfYXQiOiIyMDI0LTA1LTA5VDIyOjU0OjA3LjAwMDAwMFoiLCJhZG1pbiI6MSwiZGVsZXRlZF9hdCI6bnVsbH0sImlwIjoiMTI3LjAuMC4xIn0.uymBUyICaZbJaw1uEX-flt-ePtBkiVKMZemL4O0t42I'
-// Função para carregar todos os imóveis
 
 async function carregarViaComposable() {
   try {
