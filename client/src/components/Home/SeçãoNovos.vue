@@ -138,18 +138,23 @@ defineComponent({
       align-items: center;
     }
   }
+  .carousel {
+    .carousel__viewport {
+      overflow: visible;
+    }
 
-  .carousel__next,
-  .carousel__prev {
-    border-color: transparent;
-    color: black;
-    font-weight: 300;
-    background: white;
-    backdrop-filter: blur(50px);
-    opacity: 0.8;
-    border-radius: 40px;
-    width: 60px;
-    height: 40px;
+    .carousel__next,
+    .carousel__prev {
+      border-color: transparent;
+      color: black;
+      font-weight: 300;
+      background: white;
+      backdrop-filter: blur(50px);
+      opacity: 0.8;
+      border-radius: 40px;
+      width: 60px;
+      height: 40px;
+    }
   }
 }
 </style>

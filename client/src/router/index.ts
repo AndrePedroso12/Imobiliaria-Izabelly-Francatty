@@ -14,7 +14,7 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/imovel',
+      path: '/imovel/:id',
       name: 'imovel',
       component: ImovelView
     },

@@ -19,7 +19,9 @@
             </div>
             <div class="text">{{ truncateText(destaque.description) }}</div>
             <div class="icon">
-              <Icon icon="mingcute:arrow-right-line" width="1.2em" height="1.2em" />
+              <RouterLink :to="{ name: 'imovel', params: { id: destaque.id } }">
+                <Icon icon="mingcute:arrow-right-line" width="1.2em" height="1.2em" />
+              </RouterLink>
             </div>
           </div>
         </div>
