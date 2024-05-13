@@ -11,27 +11,27 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/imovel/:id',
       name: 'imovel',
-      component: ImovelView
+      component: () => import('../views/ImovelView.vue')
     },
     {
       path: '/pesquisa/:categoria?/:cidade?/:modelo?',
       name: 'pesquisa',
-      component: PesquisaView
+      component: () => import('../views/PesquisaView.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: () => import('../views/LoginView.vue')
     },
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
+      component: () => import('../views/AdminView.vue')
     },
     {
       path: '/about',
