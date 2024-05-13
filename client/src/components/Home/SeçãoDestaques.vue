@@ -207,6 +207,11 @@ function truncateText(text: string) {
       justify-content: space-evenly;
       flex-wrap: nowrap;
 
+      &:hover .icon svg {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
       .area {
         font-size: 40px;
         font-weight: 500;
@@ -233,6 +238,9 @@ function truncateText(text: string) {
           font-size: 43px;
           position: unset;
           line-height: 0;
+          transform: translateX(-100%);
+          opacity: 0;
+          transition: 0.2s;
         }
       }
     }

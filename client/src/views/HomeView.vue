@@ -51,7 +51,7 @@ const destaque = ImoviesRef.value.filter((obj) => obj.isTop === true)[0]
 <template>
   <main>
     <SliderBanner :imoveis="banners" />
-    <SearchBar />
+    <SearchBar :imoveis="ImoviesRef" />
     <SeçãoMaisBuscados :maisBuscados="maisBuscados" />
     <SeçãoEmpreendimentos />
     <SeçãoNovos :novosCadastros="novosImoveis" />

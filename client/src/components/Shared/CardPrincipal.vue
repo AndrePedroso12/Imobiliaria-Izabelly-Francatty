@@ -73,6 +73,10 @@ function isArea(value: string) {
 </script>
 
 <style scoped lang="scss">
+a {
+  display: flex;
+  width: 100%;
+}
 .card {
   border-radius: 16px;
   margin-bottom: 1.875rem;
@@ -87,6 +91,7 @@ function isArea(value: string) {
   margin: 0 15px;
   color: var(--color-text);
   align-self: stretch;
+  width: 100%;
   .image-wrapper {
     width: calc(100% + 27px);
     height: 15rem;

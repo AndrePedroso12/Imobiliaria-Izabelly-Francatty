@@ -2,13 +2,13 @@
   <div class="cards_empreendimentos">
     <article>
       <div class="cards_empreendimentos__description">
-        <p class="cards_empreendimentos__title">Lago da Barra</p>
+        <p class="cards_empreendimentos__title">{{ card.location.neighborhood }}</p>
         <p class="cards_empreendimentos__location">
-          <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> Jaguariuna - SP
+          <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.location.city }}
         </p>
       </div>
       <div class="cards_empreendimentos__logo">
-        <img src="@/assets/logo.svg" alt="Nome do Empreendimento" />
+        <img :src="card.logo" :alt="card.location.neighborhood" />
       </div>
       <div class="image-wrapper">
         <img
@@ -16,7 +16,7 @@
           decoding="async"
           width="500"
           height="500"
-          src="https://demoapus1.com/justhome/wp-content/uploads/2024/03/h38.jpg"
+          :src="card.mainImage"
           class="attachment-justhome-property-grid-lg size-justhome-property-grid-lg"
           alt=""
         />
@@ -26,7 +26,15 @@
 </template>
 
 <script setup lang="ts">
+import type { EmpreendimentoType } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
+import { ref } from 'vue'
+
+const props = defineProps<{
+  card: EmpreendimentoType
+}>()
+
+const card = ref(props.card)
 </script>
 
 <style scoped lang="scss">
@@ -68,11 +76,11 @@ import { Icon } from '@iconify/vue'
     position: absolute;
     top: 50%;
     bottom: auto;
-    left: 40%;
+    left: 0;
     right: auto;
     z-index: 1;
     img {
-      width: 5rem;
+      width: 100%;
     }
   }
 

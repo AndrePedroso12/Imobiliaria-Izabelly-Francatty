@@ -4,7 +4,6 @@
 interface Location {
   city: string
   neighborhood: string
-  logo?: string // Making logo property optional
 }
 
 // Define the updated object type
@@ -32,6 +31,17 @@ export interface ImovelType {
   description: string
   tags: string[]
   sellerName: string
+}
+
+export interface EmpreendimentoType {
+  id: number
+  logo: string
+  mainImage: string
+  images: string[]
+  video: string
+  location: Location
+  description: string
+  tags: string[]
 }
 
 export interface NuvemDeTags {

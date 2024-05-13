@@ -8,8 +8,8 @@
 
     <div class="empreendimentos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="card in 15" :key="card">
-          <CardEmpreendimentos />
+        <Slide v-for="(card, index) in EmpreendimentosRef" :key="index">
+          <CardEmpreendimentos :card="card" />
         </Slide>
         <template #addons>
           <Navigation>
@@ -32,8 +32,11 @@ import CardEmpreendimentos from './CardEmpreendimentos.vue'
 import { defineComponent, ref } from 'vue'
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 import type { SnapAlign } from '@/interfaces/interfaces'
+import { EmpreendimentosTeste } from '@/components/Shared/dataEmpreendimentos.js'
 
 import 'vue3-carousel/dist/carousel.css'
+
+const EmpreendimentosRef = ref(EmpreendimentosTeste)
 
 const settings = ref({
   itemsToShow: 1.3,
