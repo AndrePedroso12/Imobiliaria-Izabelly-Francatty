@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ImovelController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckAdmin;
@@ -40,5 +41,10 @@ Route::middleware(CheckToken::class)->group(function () {
         Route::get('/getVideo/{id}', [ImovelController::class, 'getVideo']);
         Route::put('/{id}', [ImovelController::class, 'updateImovel']);
         Route::delete('/{id}', [ImovelController::class, 'deleteImovel']);
+    });
+    Route::prefix('imagem')->group(function () {
+        Route::get('/{id}', [ImagesController::class, 'getImage']);
+        Route::delete('/{id}', [ImagesController::class, 'deleteImagem']);
+        Route::post('/imovel/{id_imovel}', [ImagesController::class, 'addImagem']);
     });
 });
