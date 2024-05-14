@@ -40,6 +40,14 @@ class ImovelController extends Controller
         if (!$imovel) {
             return response(["error" => 'Imóvel não encontrado'], 404);
         }
+        if ($imovel->video) {
+
+            if (Storage::exists('public/' . $imovel->video)) {
+                // Se o arquivo existe, exclua-o
+                Storage::delete('public/' . $imovel->video);
+            }
+        }
+
         if ($request->hasFile('video') && $request->file('video')->isValid()) {
             $video = $request->file('video');
 
