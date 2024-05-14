@@ -9,6 +9,7 @@ class Imovel extends Model
 {
     use HasFactory;
     protected $table = 'imoveis';
+
     protected $fillable = [
         "tipo",
         "pretensao",
@@ -28,5 +29,17 @@ class Imovel extends Model
         "caracteristics",
         "vendedor",
         "contato_vendedor",
+        "tags",
+        'mainImage',
+        'isTop',
+        'isFavorite',
+        'isBanner',
+        'monthly',
+        'video',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Images::class);
+    }
 }

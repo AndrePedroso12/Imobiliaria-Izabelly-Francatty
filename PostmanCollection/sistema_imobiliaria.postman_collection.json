@@ -1,0 +1,697 @@
+{
+	"info": {
+		"_postman_id": "c30bd1e8-9df0-40c0-a396-7cb82ff2da55",
+		"name": "sistema_imobiliaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25009092"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\":\"bruno\",\r\n    \"password\":\"Foxcpc160580.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/login",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"bruno\",\r\n    \"email\":\"aaa@gmail.com\",\r\n    \"password\":\"Foxcpc160580.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/user",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/user/4",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/user",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/user/3",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"bruno\",\r\n    \"email\":\"brunao@gmail.com\",\r\n    \"password\":\"Foxcpc160580.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/user/4",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Imóveis",
+			"item": [
+				{
+					"name": "createImovel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isTop\": false,\r\n    \"isFavorite\": true,\r\n    \"isBanner\":false,\r\n    \"monthly\":100.20,\r\n    \"mainImage\":\"data:text/plain;base64,MSBCcmF6ZW4gQm9ycm93ZXINCjQgQ291bnRlcnNwZWxsDQo0IERyYWdvbidzIFJhZ2UgQ2hhbm5lbGVyDQoxIERyZXNzIERvd24NCjQgRXhwcmVzc2l2ZSBJdGVyYXRpb24NCjEgRmllcnkgSXNsZXQNCjIgRmxvb2RlZCBTdHJhbmQNCjQgTGlnaHRuaW5nIEJvbHQNCjQgTWlzaHJhJ3MgQmF1YmxlDQoyIE1pc3R5IFJhaW5mb3Jlc3QNCjQgTXVya3RpZGUgUmVnZW50DQoyIFBvbGx1dGVkIERlbHRhDQo0IFByZW9yZGFpbg0KNCBSYWdhdmFuLCBOaW1ibGUgUGlsZmVyZXINCjIgU2NhbGRpbmcgVGFybg0KMiBTbm93LUNvdmVyZWQgSXNsYW5kDQoyIFNwZWxsIFBpZXJjZQ0KMSBTcGVsbCBTbmFyZQ0KMyBTcGlyZWJsdWZmIENhbmFsDQozIFN0ZWFtIFZlbnRzDQoyIFN1YnRsZXR5DQoxIFRodW5kZXJpbmcgRmFsbHMNCjMgVW5ob2x5IEhlYXQNCg0KMiBBbm51bA0KMSBCbG9vZCBNb29uDQoyIEJyb3RoZXJob29kJ3MgRW5kDQoxIENhc3QgaW50byB0aGUgRmlyZQ0KMSBGYWJsZSBvZiB0aGUgTWlycm9yLUJyZWFrZXINCjEgRmx1c3RlcnN0b3JtDQoxIE1hZ3VzIG9mIHRoZSBNb29uDQoxIFNwZWxsIFNuYXJlDQoyIFN0ZXJuIFNjb2xkaW5nDQoyIFN1cmdpY2FsIEV4dHJhY3Rpb24NCjEgVW5saWNlbnNlZCBIZWFyc2UNCg==\",\r\n    \"tipo\": \"Casa\",\r\n    \"pretensao\": \"Venda\",\r\n    \"rua\": \"Rua1\",\r\n    \"bairro\": \"bairro1\",\r\n    \"numero\": \"123\",\r\n    \"cidade\": \"jag\",\r\n    \"complemento\": \"bloco 22\",\r\n    \"area_construida\": 44.3,\r\n    // \"area_terreno\": 55.4,\r\n    \"qtd_quartos\": \"3\",\r\n    \"qtd_Suites\": \"1\",\r\n    \"qtd_banheiros\": \"3\",\r\n    \"qtd_vagas_garagem\": \"2\",\r\n    \"preco\": 12222222.0,\r\n    \"descricao\": \"blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla\",\r\n    \"caracteristics\": [\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"tags\": [\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"vendedor\": \"Sebastiao\",\r\n    \"contato_vendedor\": \"21312312321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addVideo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/getVideo/5",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"getVideo",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addVideo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.mp4"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/addVideo/11",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"addVideo",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImovel",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/11",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImoveisAdmin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/admin",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImoveisHome",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/home",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImovel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/5",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateImovel",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\": \"Casaaaa\",\r\n    \"pretensao\": \"Vendaaaa\",\r\n    \"rua\": \"Rua1aaa\",\r\n    \"bairro\": \"bairro1aa\",\r\n    \"numero\": \"123aa\",\r\n        \"mainImage\":\"data:text/plain;base64,MSBCcmF6ZW4gQm9ycm93ZXINCjQgQ291bnRlcnNwZWxsDQo0IERyYWdvbidzIFJhZ2UgQ2hhbm5lbGVyDQoxIERyZXNzIERvd24NCjQgRXhwcmVzc2l2ZSBJdGVyYXRpb24NCjEgRmllcnkgSXNsZXQNCjIgRmxvb2RlZCBTdHJhbmQNCjQgTGlnaHRuaW5nIEJvbHQNCjQgTWlzaHJhJ3MgQmF1YmxlDQoyIE1pc3R5IFJhaW5mb3Jlc3QNCjQgTXVya3RpZGUgUmVnZW50DQoyIFBvbGx1dGVkIERlbHRhDQo0IFByZW9yZGFpbg0KNCBSYWdhdmFuLCBOaW1ibGUgUGlsZmVyZXINCjIgU2NhbGRpbmcgVGFybg0KMiBTbm93LUNvdmVyZWQgSXNsYW5kDQoyIFNwZWxsIFBpZXJjZQ0KMSBTcGVsbCBTbmFyZQ0KMyBTcGlyZWJsdWZmIENhbmFsDQozIFN0ZWFtIFZlbnRzDQoyIFN1YnRsZXR5DQoxIFRodW5kZXJpbmcgRmFsbHMNCjMgVW5ob2x5IEhlYXQNCg0KMiBBbm51bA0KMSBCbG9vZCBNb29uDQoyIEJyb3RoZXJob29kJ3MgRW5kDQoxIENhc3QgaW50byB0aGUgRmlyZQ0KMSBGYWJsZSBvZiB0aGUgTWlycm9yLUJyZWFrZXINCjEgRmx1c3RlcnN0b3JtDQoxIE1hZ3VzIG9mIHRoZSBNb29uDQoxIFNwZWxsIFNuYXJlDQoyIFN0ZXJuIFNjb2xkaW5nDQoyIFN1cmdpY2FsIEV4dHJhY3Rpb24NCjEgVW5saWNlbnNlZCBIZWFyc2UNCg==\",\r\n    \"cidade\": \"jagaaaa\",\r\n    \"complemento\": \"bloco 22aaaaa\",\r\n    \"area_construida\": 442.33,\r\n    \"area_terreno\": 553.4,\r\n    \"qtd_quartos\": \"5\",\r\n    \"qtd_Suites\": \"4\",\r\n    \"qtd_banheiros\": \"4\",\r\n    \"qtd_vagas_garagem\": \"4\",\r\n    \"preco\": 33333333.0,\r\n    \"descricao\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\r\n    \"caracteristics\": [\r\n        \"carac1\",\r\n        \"carac2\",\r\n        \"carac3\",\r\n        \"carac4\",\r\n        \"carac5\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"tags\":[\r\n        \"tag\",\r\n        \"tag\",\r\n        \"tag\"\r\n    ],\r\n    \"vendedor\": \"Sebastiaoaaaaaa\",\r\n    \"contato_vendedor\": \"2222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/2",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Imagens",
+			"item": [
+				{
+					"name": "getImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://server.test/api/imagem/3",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImagem",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://server.test/api/imagem/5",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addImagem",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagem",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811 - Copia.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://server.test/api/imagem/imovel/11",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								"imovel",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
