@@ -184,7 +184,7 @@ function slideTo(val: number) {
 }
 
 .pagetop {
-  padding: 10rem 0 30px;
+  padding: 4rem 0 30px;
   @media (max-width: 768px) {
     padding: 3rem 0 30px;
   }

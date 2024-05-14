@@ -14,7 +14,7 @@ export const ImoveisTeste: ImovelType[] = [
       'https://www.papoimobiliario.com/wp-content/uploads/2021/12/Apartamentos-alto-padrao-em-Sao-Paulo-750x410-1.jpg',
       'https://www.wkoerich.com.br/wp-content/uploads/2019/05/imagem393_1-960x581.jpg'
     ],
-    video: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    video: 'http://izabellyfrancatti.free.nf/assets/video-teste.mp4',
     location: {
       city: 'Jaguariúna',
       neighborhood: 'Nova Jaguariúna'
@@ -146,7 +146,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Neighborhood 5'
+      neighborhood: 'São José'
     },
     price: 50000,
     details: {
@@ -167,7 +167,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Pedreira',
-      neighborhood: 'Neighborhood 6'
+      neighborhood: 'Nassif'
     },
     price: 100000,
     details: {
@@ -188,7 +188,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Amparo',
-      neighborhood: 'Neighborhood 7'
+      neighborhood: 'Centro'
     },
     price: 300000,
     details: {
@@ -211,7 +211,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Neighborhood 8'
+      neighborhood: 'Centro'
     },
     price: 5000,
     details: {
@@ -232,7 +232,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Neighborhood 9'
+      neighborhood: 'Santo André'
     },
     price: 400000,
     details: {
@@ -257,7 +257,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Neighborhood 10'
+      neighborhood: 'Mauá 2'
     },
     price: 1500,
     monthly: 700,
@@ -283,7 +283,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Pedreira',
-      neighborhood: 'Neighborhood 11'
+      neighborhood: 'Parque do Jequitibá'
     },
     price: 2500,
     details: {
@@ -307,7 +307,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Amparo',
-      neighborhood: 'Neighborhood 12'
+      neighborhood: 'Chácara Vitória'
     },
     price: 80000,
     details: {
@@ -329,7 +329,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Neighborhood 13'
+      neighborhood: 'Taboão da Serra'
     },
     price: 200000,
     details: {
@@ -351,7 +351,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Neighborhood 14'
+      neighborhood: 'Bom Jardim'
     },
     price: 500000,
     details: {
@@ -375,7 +375,7 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Neighborhood 15'
+      neighborhood: 'Vila Mariana'
     },
     price: 6000,
     details: {

@@ -12,6 +12,7 @@
         @click="openModal"
       >
         <source :src="videoUrl + '#t=1.5'" type="video/mp4" />
+        <source :src="videoUrl" type="video/mp4" />
         Seu navegador não suporta vídeos HTML5.
       </video>
     </div>
@@ -73,6 +74,7 @@ video {
 video.opened {
   position: relative;
   border-radius: 16px;
+  width: auto;
 }
 
 .video-box {
@@ -80,6 +82,7 @@ video.opened {
   height: 100%;
   object-fit: cover;
   transition: 0.2s;
+  width: 100%;
 }
 
 .video-box.opened {
