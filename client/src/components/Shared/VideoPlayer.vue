@@ -67,6 +67,7 @@ const closeModal = () => {
 video {
   max-width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
   transition: 0.2s;
 }
@@ -75,6 +76,7 @@ video.opened {
   position: relative;
   border-radius: 16px;
   width: auto;
+  background: black;
 }
 
 .video-box {
@@ -94,6 +96,7 @@ video.opened {
   left: 27%;
   right: auto;
   border-radius: 16px;
+  background: black;
 }
 
 .play-icon {

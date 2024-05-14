@@ -14,7 +14,8 @@ export const ImoveisTeste: ImovelType[] = [
       'https://www.papoimobiliario.com/wp-content/uploads/2021/12/Apartamentos-alto-padrao-em-Sao-Paulo-750x410-1.jpg',
       'https://www.wkoerich.com.br/wp-content/uploads/2019/05/imagem393_1-960x581.jpg'
     ],
-    video: 'http://izabellyfrancatti.free.nf/assets/video-teste.mp4',
+    video:
+      'https://d2c5tif9s6pex6.cloudfront.net/o5pjkh%2Ffile%2Ff96dbd04426d25b9662333f47dcfa44d_0c85ecc0c89c512f1379f1f17915dfed.mp4?response-content-disposition=inline%3Bfilename%3D%22f96dbd04426d25b9662333f47dcfa44d_0c85ecc0c89c512f1379f1f17915dfed.mp4%22%3B&response-content-type=video%2Fmp4&Expires=1715729335&Signature=hADUwi8ClDSKujRMS~2ifuhwO5Y3sJ4t4epNoRD-a1fZMKOyRCvFJkSO6NdCYDwUijQUgxFpXmOIAIYN3EOoDBU4Y3F77f7LiyW2FhPzLefVWq1UDxSJ3MaN6FTF4cqKvZv72ftKSJY9xRAYEgOoRj-7HbQNMF6ovmE6grTW0ue3tjSfgN8wsiW3ROZ7Es~Tk24BVIh70zEbsA38-WEIoJJL3Ha79syLXHAWDz6KtP5kI73IoCDQOFGtb8YXqIOuRypUl92Nb~x3uFTB2NdtrpGG4n8PPsVSYBN7vJDCb7eUTdDS-bwJEG8ShxCUIQSq~Fdnjyoe8dMv98OKLNswCw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ',
     location: {
       city: 'Jaguariúna',
       neighborhood: 'Nova Jaguariúna'
