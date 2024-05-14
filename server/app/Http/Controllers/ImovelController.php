@@ -14,6 +14,7 @@ class ImovelController extends Controller
         foreach ($imoveis as $imovel) {
             $tmp = $imovel;
             $tmp['caracteristics'] = explode("|", $tmp['caracteristics']);
+            $tmp['tags'] = explode("|", $tmp['tags']);
             $res[] = $tmp;
         }
         return response($res);
@@ -28,14 +29,18 @@ class ImovelController extends Controller
             return response(["error" => 'Imóvel não encontrado'], 404);
         }
         $imovel->caracteristics = explode("|", $imovel->caracteristics);
+        $imovel->tags = explode("|", $imovel->tags);
+
         return response($imovel);
     }
     public function createImovel(ImovelRequest $request)
     {
         $dados = $request->all();
         $dados['caracteristics'] = implode("|", $dados['caracteristics']);
+        $dados['tags'] = implode("|", $dados['tags']);
         $imovel = Imovel::create($dados);
         $imovel->caracteristics = explode("|", $imovel->caracteristics);
+        $imovel->tags = explode("|", $imovel->tags);
         return response($imovel, 201);
     }
     public function updateImovel(ImovelRequest $request, $id)
@@ -51,6 +56,8 @@ class ImovelController extends Controller
 
         $dados = $request->all();
         $dados['caracteristics'] = implode("|", $dados['caracteristics']);
+        $dados['tags'] = implode("|", $dados['tags']);
+
 
         $imovel->update($dados);
         return response(Imovel::find($id));

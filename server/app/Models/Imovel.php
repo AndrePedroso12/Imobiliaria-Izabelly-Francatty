@@ -28,5 +28,6 @@ class Imovel extends Model
         "caracteristics",
         "vendedor",
         "contato_vendedor",
+        "tags",
     ];
 }

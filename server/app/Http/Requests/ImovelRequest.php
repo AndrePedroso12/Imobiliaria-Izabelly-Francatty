@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class ImovelRequest extends FormRequest
 {
@@ -31,17 +32,26 @@ class ImovelRequest extends FormRequest
             "numero" => ['required'],
             "cidade" => ['required'],
             "complemento" => ['required'],
-            "area_construida" => ['required'],
-            "area_terreno" => ['required'],
-            "qtd_quartos" => ['required'],
-            "qtd_Suites" => ['required'],
-            "qtd_banheiros" => ['required'],
-            "qtd_vagas_garagem" => ['required'],
+            "qtd_quartos" => ['numeric'],
+            "qtd_Suites" => ['numeric'],
+            "qtd_banheiros" => ['numeric'],
+            "qtd_vagas_garagem" => ['numeric'],
             "preco" => ['required'],
             "descricao" => ['required'],
-            "caracteristics" => ['required'],
+            "tags" => ['required', 'array'],
+            "caracteristics" => ['required', 'array'],
             "vendedor" => ['required'],
             "contato_vendedor" => ['required'],
+            "area_construida" => [
+                Rule::requiredIf(function () {
+                    return $this->area_terreno == null;
+                })
+            ],
+            "area_terreno"  => [
+                Rule::requiredIf(function () {
+                    return $this->area_construida == null;
+                })
+            ],
         ];
     }
     /**
