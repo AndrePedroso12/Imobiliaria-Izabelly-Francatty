@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImovelRequest;
 use App\Http\Resources\ImoveisAdminResource;
+use App\Http\Resources\ImoveisHomeResource;
+use App\Http\Resources\ImovelResource;
 use App\Models\Imovel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ImovelController extends Controller
 {
-    public function getImoveis()
+    public function getImoveisAdmin()
     {
         $imoveis = Imovel::all();
         $res = [];
@@ -19,6 +21,16 @@ class ImovelController extends Controller
         }
         return response($res);
     }
+    public function getImoveisHome()
+    {
+        $imoveis = Imovel::all();
+        $res = [];
+        foreach ($imoveis as $imovel) {
+            $res[] = new ImoveisHomeResource($imovel);
+        }
+        return response($res);
+    }
+
     public function getImovel($id)
     {
         if (!is_numeric($id)) {
@@ -28,7 +40,7 @@ class ImovelController extends Controller
         if (!$imovel) {
             return response(["error" => 'Imóvel não encontrado'], 404);
         }
-        return response(new ImoveisAdminResource($imovel));
+        return response(new ImovelResource($imovel));
     }
 
     public function addVideo(Request $request, $id)

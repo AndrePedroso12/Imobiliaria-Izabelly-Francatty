@@ -34,17 +34,24 @@ Route::middleware(CheckToken::class)->group(function () {
     });
     Route::prefix('imovel')->group(function () {
         // Define routes you want to group here
-        Route::get('/', [ImovelController::class, 'getImoveis']);
-        Route::get('/{id}', [ImovelController::class, 'getImovel']);
+
         Route::post('/', [ImovelController::class, 'createImovel']);
         Route::post('/addVideo/{id}', [ImovelController::class, 'addVideo']);
-        Route::get('/getVideo/{id}', [ImovelController::class, 'getVideo']);
         Route::put('/{id}', [ImovelController::class, 'updateImovel']);
         Route::delete('/{id}', [ImovelController::class, 'deleteImovel']);
     });
     Route::prefix('imagem')->group(function () {
-        Route::get('/{id}', [ImagesController::class, 'getImage']);
         Route::delete('/{id}', [ImagesController::class, 'deleteImagem']);
         Route::post('/imovel/{id_imovel}', [ImagesController::class, 'addImagem']);
     });
+});
+
+Route::prefix('imovel')->group(function () {
+    Route::get('/admin', [ImovelController::class, 'getImoveisAdmin']);
+    Route::get('/home', [ImovelController::class, 'getImoveisHome']);
+    Route::get('/{id}', [ImovelController::class, 'getImovel']);
+    Route::get('/getVideo/{id}', [ImovelController::class, 'getVideo']);
+});
+Route::prefix('imagem')->group(function () {
+    Route::get('/{id}', [ImagesController::class, 'getImage']);
 });
