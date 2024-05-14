@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImovelRequest;
+use App\Http\Resources\ImoveisAdminResource;
 use App\Models\Imovel;
 
 class ImovelController extends Controller
 {
     public function getImoveis()
     {
-        $imoveis = Imovel::all()->toArray();
+        $imoveis = Imovel::all();
         $res = [];
         foreach ($imoveis as $imovel) {
-            $tmp = $imovel;
-            $tmp['caracteristics'] = explode("|", $tmp['caracteristics']);
-            $tmp['tags'] = explode("|", $tmp['tags']);
-            $res[] = $tmp;
+            $res[] = new ImoveisAdminResource($imovel);
         }
         return response($res);
     }
@@ -28,10 +26,9 @@ class ImovelController extends Controller
         if (!$imovel) {
             return response(["error" => 'Imóvel não encontrado'], 404);
         }
-        $imovel->caracteristics = explode("|", $imovel->caracteristics);
-        $imovel->tags = explode("|", $imovel->tags);
 
-        return response($imovel);
+
+        return response(new ImoveisAdminResource($imovel));
     }
     public function createImovel(ImovelRequest $request)
     {

@@ -25,6 +25,10 @@ class ImovelRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'mainImage' => ['required'],
+            'isTop' => ['boolean'],
+            'isFavorite' => ['boolean'],
+            'isBanner' => ['boolean'],
             "tipo" => ['required'],
             "pretensao" => ['required'],
             "rua" => ['required'],

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertendo imagem para Base64</title>
+</head>
+
+<body>
+
+    <input type="file" id="inputFile">
+    <img id="imagem">
+
+    <script>
+        document.getElementById('inputFile').addEventListener('change', function () {
+            var file = this.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var base64 = e.target.result;
+                    document.getElementById('imagem').src = base64;
+                    console.log(base64); // Aqui está o base64 da imagem
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+</body>
+
+
+</html>

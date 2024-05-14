@@ -12,32 +12,43 @@ class ImoveisAdminResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    protected $imovel;
+
+    public function __construct($imovel)
+    {
+        // Store the model instance
+        $this->imovel = $imovel;
+    }
+
     public function toArray(Request $request): array
     {
         $data = [
-            'id' => $request->id,
-            'banner' => '',
-            'isfavourite' => 'Implementar',
-            'isTop' => 'Implementar',
-            'category' => $request->tipo,
-            'model' => $request->pretensao,
-            'mainImage' => 'Implementar',
+            'id' => $this->imovel->id,
+            'banner' => $this->imovel->isBanner,
+            'isfavourite' => $this->imovel->isFavorite,
+            'isTop' => $this->imovel->isTop,
+            'category' => $this->imovel->tipo,
+            'model' => $this->imovel->pretensao,
+            'mainImage' => $this->imovel->mainImage,
             'images' => 'Implementar',
             'video' => 'Implementar',
-            'location' => 'Implementar',
-            'price' => $request->preco,
-            'monthly' => 'Implementar',
-            'details' => [
-                'rooms' => $request->qtd_quartos,
-                'bathrooms' => $request->qtd_banheiros,
-                'garage' => $request->qtd_vagas_garagem,
-                'suites' => $request->qtd_Suites,
-                'area' => $request->area_construida ?? $request->area_terreno,
-                'tags' => $request->tags,
+            'location' => [
+                'city' => $this->imovel->cidade,
+                'neighborhood' => $this->imovel->bairro,
             ],
-            'description' => $request->descricao,
-            'tags' => $request->tags,
-            'sellerName' => $request->vendedor,
+            'price' => $this->imovel->preco,
+            'monthly' => $this->imovel->monthly,
+            'details' => [
+                'rooms' => $this->imovel->qtd_quartos,
+                'bathrooms' => $this->imovel->qtd_banheiros,
+                'garage' => $this->imovel->qtd_vagas_garagem,
+                'suites' => $this->imovel->qtd_Suites,
+                'area' => $this->imovel->area_construida ?? $this->imovel->area_terreno,
+                'tags' => explode("|", $this->imovel->caracteristics),
+            ],
+            'description' => $this->imovel->descricao,
+            'tags' =>  explode("|", $this->imovel->tags),
+            'sellerName' => $this->imovel->vendedor,
         ];
 
 

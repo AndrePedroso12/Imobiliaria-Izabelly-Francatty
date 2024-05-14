@@ -29,5 +29,10 @@ class Imovel extends Model
         "vendedor",
         "contato_vendedor",
         "tags",
+        'mainImage',
+        'isTop',
+        'isFavorite',
+        'isBanner',
+        'monthly',
     ];
 }
