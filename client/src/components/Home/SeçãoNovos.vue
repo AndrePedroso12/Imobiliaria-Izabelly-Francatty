@@ -7,21 +7,28 @@
       </div>
 
       <div class="novos__buttons">
-        <button class="active">Comprar</button>
-        <button>Alugar</button>
+        <button :class="{ active: filterType === 'todos' }" @click="filter('todos')">Todos</button>
+        <button :class="{ active: filterType === 'comprar' }" @click="filter('comprar')">
+          Comprar
+        </button>
+        <button :class="{ active: filterType === 'alugar' }" @click="filter('alugar')">
+          Alugar
+        </button>
       </div>
     </div>
     <div class="novos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="card in cards" :key="card.id">
+        <Slide v-for="card in filteredCards" :key="card.id">
           <CardPrincipal :infos="card" />
         </Slide>
       </Carousel>
     </div>
 
     <button class="novos__button">
-      Ver todo nosso catálogo
-      <Icon icon="eva:diagonal-arrow-right-up-outline" width="1.2em" height="1.2em" />
+      <RouterLink :to="{ name: 'pesquisa' }">
+        Ver todo nosso catálogo
+        <Icon icon="eva:diagonal-arrow-right-up-outline" width="1.2em" height="1.2em" />
+      </RouterLink>
     </button>
   </div>
 </template>
@@ -29,8 +36,8 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
-import type { ImovelType } from '@/interfaces/interfaces'
-import { defineComponent, ref } from 'vue'
+import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
+import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
@@ -41,20 +48,35 @@ const props = defineProps<{
 
 const cards = ref(props.novosCadastros)
 
+const filterType = ref<'comprar' | 'alugar' | 'todos'>('todos')
+
+const filteredCards = computed(() => {
+  if (filterType.value === 'comprar') {
+    return cards.value.filter((card) => card.model === 'Compra')
+  } else if (filterType.value === 'alugar') {
+    return cards.value.filter((card) => card.model === 'Alugar')
+  } else {
+    return cards.value
+  }
+})
+
+const filter = (type: 'comprar' | 'alugar' | 'todos') => {
+  filterType.value = type
+}
+
 const settings = ref({
   itemsToShow: 1.2,
-  snapAlign: 'center',
-  autoplay: '2000'
+  snapAlign: 'center' as SnapAlign
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 1,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 4.5,
-    snapAlign: 'start'
+    snapAlign: 'start' as SnapAlign
   }
 })
 
@@ -129,19 +151,31 @@ defineComponent({
 
   &__button {
     margin: 1rem auto;
+    a {
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      display: flex;
+      align-items: center;
+    }
   }
+  .carousel {
+    :deep(.carousel__viewport) {
+      overflow: visible !important;
+    }
 
-  .carousel__next,
-  .carousel__prev {
-    border-color: transparent;
-    color: black;
-    font-weight: 300;
-    background: white;
-    backdrop-filter: blur(50px);
-    opacity: 0.8;
-    border-radius: 40px;
-    width: 60px;
-    height: 40px;
+    .carousel__next,
+    .carousel__prev {
+      border-color: transparent;
+      color: black;
+      font-weight: 300;
+      background: white;
+      backdrop-filter: blur(50px);
+      opacity: 0.8;
+      border-radius: 40px;
+      width: 60px;
+      height: 40px;
+    }
   }
 }
 </style>

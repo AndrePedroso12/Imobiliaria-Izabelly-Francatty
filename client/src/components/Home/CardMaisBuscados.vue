@@ -1,43 +1,45 @@
 <template>
   <div class="cards_mais_buscados">
-    <article>
-      <div class="cards_mais_buscados__tags">
-        <span class="tag" :class="tags" v-for="tags in infos.tags" :key="tags">{{ tags }}</span>
-      </div>
-      <div class="cards_mais_buscados__description">
-        <p class="cards_mais_buscados__title">{{ infos.location.neighborhood }}</p>
-        <p class="cards_mais_buscados__location">
-          <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ infos.location.city }}
-        </p>
-        <div class="cards_mais_buscados__bottom">
-          <div class="cards_mais_buscados__icons">
-            <span v-if="infos.details.rooms"
-              ><Icon icon="iconoir:bathroom" width="1.2em" height="1.2em" />
-              {{ infos.details.rooms }}
-            </span>
-            <span v-if="infos.details.bathrooms"
-              ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
-              {{ infos.details.bathrooms }}
-            </span>
-            <span v-if="isArea(infos.category)"> {{ infos.category }}</span>
-            <span v-if="infos.details.area"
-              ><Icon icon="mdi:surface-area" width="1.2em" height="1.2em" />
-              {{ infos.details.area }}m²</span
-            >
-          </div>
-          <span class="cards_mais_buscados__price">R$ {{ infos.price }}</span>
+    <RouterLink :to="{ name: 'imovel', params: { id: infos.id } }">
+      <article>
+        <div class="cards_mais_buscados__tags">
+          <span class="tag" :class="tags" v-for="tags in infos.tags" :key="tags">{{ tags }}</span>
         </div>
-      </div>
-      <div class="image-wrapper">
-        <img
-          loading="lazy"
-          decoding="async"
-          :src="infos.mainImage"
-          class="attachment-justhome-property-grid-lg size-justhome-property-grid-lg"
-          alt=""
-        />
-      </div>
-    </article>
+        <div class="cards_mais_buscados__description">
+          <p class="cards_mais_buscados__title">{{ infos.location.neighborhood }}</p>
+          <p class="cards_mais_buscados__location">
+            <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ infos.location.city }}
+          </p>
+          <div class="cards_mais_buscados__bottom">
+            <div class="cards_mais_buscados__icons">
+              <span v-if="infos.details.rooms"
+                ><Icon icon="iconoir:bathroom" width="1.2em" height="1.2em" />
+                {{ infos.details.rooms }}
+              </span>
+              <span v-if="infos.details.bathrooms"
+                ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+                {{ infos.details.bathrooms }}
+              </span>
+              <span v-if="isArea(infos.category)"> {{ infos.category }}</span>
+              <span v-if="infos.details.area"
+                ><Icon icon="mdi:surface-area" width="1.2em" height="1.2em" />
+                {{ infos.details.area }}m²</span
+              >
+            </div>
+            <span class="cards_mais_buscados__price">R$ {{ infos.price }}</span>
+          </div>
+        </div>
+        <div class="image-wrapper">
+          <img
+            loading="lazy"
+            decoding="async"
+            :src="infos.mainImage"
+            class="attachment-justhome-property-grid-lg size-justhome-property-grid-lg"
+            alt=""
+          />
+        </div>
+      </article>
+    </RouterLink>
   </div>
 </template>
 

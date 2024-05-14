@@ -5,11 +5,14 @@
     <div class="categorias__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="(count, category) in categoryCounts" :key="category">
-          <a class="categorias__item">
+          <RouterLink
+            :to="{ name: 'pesquisa', params: { categoria: category } }"
+            class="categorias__item"
+          >
             <Icon :icon="getCategoryIcon(category)" width="2em" height="2em" />
             <span class="title">{{ category }}s</span>
             <span class="subtitle">{{ count }} Propriedades</span>
-          </a>
+          </RouterLink>
         </Slide>
       </Carousel>
     </div>
@@ -17,10 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ImovelType } from '@/interfaces/interfaces'
+import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
 import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
+
 import 'vue3-carousel/dist/carousel.css'
 
 const props = defineProps<{
@@ -64,18 +68,18 @@ function getCategoryIcon(category: string) {
 
 const settings = ref({
   itemsToShow: 1,
-  snapAlign: 'center',
-  autoplay: '2000'
+  snapAlign: 'center' as SnapAlign,
+  autoplay: 2000
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 6,
-    snapAlign: 'start'
+    snapAlign: 'start' as SnapAlign
   }
 })
 

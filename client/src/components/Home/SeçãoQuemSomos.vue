@@ -1,5 +1,5 @@
 <template>
-  <div class="quem_somos">
+  <div class="quem_somos" id="sobre">
     <div class="quem_somos__image">
       <img src="@/assets/h21.jpg" alt="" srcset="" />
     </div>

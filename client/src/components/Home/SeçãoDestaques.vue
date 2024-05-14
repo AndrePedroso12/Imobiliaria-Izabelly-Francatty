@@ -19,7 +19,9 @@
             </div>
             <div class="text">{{ truncateText(destaque.description) }}</div>
             <div class="icon">
-              <Icon icon="mingcute:arrow-right-line" width="1.2em" height="1.2em" />
+              <RouterLink :to="{ name: 'imovel', params: { id: destaque.id } }">
+                <Icon icon="mingcute:arrow-right-line" width="1.2em" height="1.2em" />
+              </RouterLink>
             </div>
           </div>
         </div>
@@ -205,6 +207,11 @@ function truncateText(text: string) {
       justify-content: space-evenly;
       flex-wrap: nowrap;
 
+      &:hover .icon svg {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
       .area {
         font-size: 40px;
         font-weight: 500;
@@ -231,6 +238,9 @@ function truncateText(text: string) {
           font-size: 43px;
           position: unset;
           line-height: 0;
+          transform: translateX(-100%);
+          opacity: 0;
+          transition: 0.2s;
         }
       }
     }

@@ -15,13 +15,25 @@
     </div>
     <div class="midias_sociais">
       <span>Siga-nos nos:</span>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.facebook.com/izabelly.francatti/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon icon="ri:facebook-fill" width="1.5em" height="1.5em" />
       </a>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.instagram.com/izabelly_francatti/?hl=en"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon icon="ri:instagram-line" width="1.5em" height="1.5em" />
       </a>
-      <a href="http://" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://api.whatsapp.com/send/?phone=5519974148500&type=phone_number&app_absent=0"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon icon="ri:whatsapp-line" width="1.5em" height="1.5em" />
       </a>
     </div>
@@ -40,6 +52,7 @@ import { Icon } from '@iconify/vue'
   align-items: center;
   position: relative;
   padding: 1rem 0;
+  width: 100%;
   @media (max-width: 768px) {
     align-items: flex-start;
     flex-direction: column-reverse;

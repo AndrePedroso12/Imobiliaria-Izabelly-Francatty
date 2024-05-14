@@ -4,7 +4,6 @@
 interface Location {
   city: string
   neighborhood: string
-  logo?: string // Making logo property optional
 }
 
 // Define the updated object type
@@ -34,7 +33,20 @@ export interface ImovelType {
   sellerName: string
 }
 
+export interface EmpreendimentoType {
+  id: number
+  logo: string
+  mainImage: string
+  images: string[]
+  video: string
+  location: Location
+  description: string
+  tags: string[]
+}
+
 export interface NuvemDeTags {
   nome: string
   link: string
 }
+
+export type SnapAlign = 'start' | 'end' | 'center' | 'center-even' | 'center-odd'
