@@ -30,7 +30,7 @@ class ImoveisAdminResource extends JsonResource
             'category' => $this->imovel->tipo,
             'model' => $this->imovel->pretensao,
             'mainImage' => $this->imovel->mainImage,
-            'images' => $this->imovel->images,
+            'images' => ImagesResource::collection($this->imovel->images),
             'video' => '/api/imovel/getVideo/' . $this->imovel->id,
             'location' => [
                 'city' => $this->imovel->cidade,
