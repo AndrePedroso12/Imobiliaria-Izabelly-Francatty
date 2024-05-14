@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImovelRequest;
 use App\Http\Resources\ImoveisAdminResource;
 use App\Models\Imovel;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImovelController extends Controller
 {
@@ -26,20 +28,52 @@ class ImovelController extends Controller
         if (!$imovel) {
             return response(["error" => 'Imóvel não encontrado'], 404);
         }
-
-
         return response(new ImoveisAdminResource($imovel));
     }
+
+    public function addVideo(Request $request, $id)
+    {
+        if (!is_numeric($id)) {
+            return response(["errors" => "Id Invalido"], 400);
+        }
+        $imovel = Imovel::find($id);
+        if (!$imovel) {
+            return response(["error" => 'Imóvel não encontrado'], 404);
+        }
+        if ($request->hasFile('video') && $request->file('video')->isValid()) {
+            $video = $request->file('video');
+
+            $path = $video->store('public');
+            $path = str_replace('public/', '', $path);
+            $imovel->update(['video' => $path]);
+            $imovel = Imovel::find($id);
+
+            return response(new ImoveisAdminResource($imovel));
+        }
+    }
+
+    public function getVideo($id)
+    {
+        if (!is_numeric($id)) {
+            return response(["errors" => "Id Invalido"], 400);
+        }
+        $imovel = Imovel::find($id);
+        if (!$imovel) {
+            return response(["error" => 'Imóvel não encontrado'], 404);
+        }
+        return Storage::download('public/' . $imovel->video);
+    }
+
+
     public function createImovel(ImovelRequest $request)
     {
         $dados = $request->all();
         $dados['caracteristics'] = implode("|", $dados['caracteristics']);
         $dados['tags'] = implode("|", $dados['tags']);
         $imovel = Imovel::create($dados);
-        $imovel->caracteristics = explode("|", $imovel->caracteristics);
-        $imovel->tags = explode("|", $imovel->tags);
-        return response($imovel, 201);
+        return response(new ImoveisAdminResource($imovel), 201);
     }
+
     public function updateImovel(ImovelRequest $request, $id)
     {
         if (!is_numeric($id)) {
@@ -55,10 +89,10 @@ class ImovelController extends Controller
         $dados['caracteristics'] = implode("|", $dados['caracteristics']);
         $dados['tags'] = implode("|", $dados['tags']);
 
-
         $imovel->update($dados);
-        return response(Imovel::find($id));
+        return response(new ImoveisAdminResource(Imovel::find($id)));
     }
+
     public function deleteImovel($id)
     {
         if (!is_numeric($id)) {

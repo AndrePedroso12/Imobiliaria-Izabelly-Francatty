@@ -34,5 +34,6 @@ class Imovel extends Model
         'isFavorite',
         'isBanner',
         'monthly',
+        'video',
     ];
 }

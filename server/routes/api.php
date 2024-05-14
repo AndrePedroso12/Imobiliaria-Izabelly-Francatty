@@ -36,6 +36,8 @@ Route::middleware(CheckToken::class)->group(function () {
         Route::get('/', [ImovelController::class, 'getImoveis']);
         Route::get('/{id}', [ImovelController::class, 'getImovel']);
         Route::post('/', [ImovelController::class, 'createImovel']);
+        Route::post('/addVideo/{id}', [ImovelController::class, 'addVideo']);
+        Route::get('/getVideo/{id}', [ImovelController::class, 'getVideo']);
         Route::put('/{id}', [ImovelController::class, 'updateImovel']);
         Route::delete('/{id}', [ImovelController::class, 'deleteImovel']);
     });
