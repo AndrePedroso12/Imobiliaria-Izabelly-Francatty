@@ -1,5 +1,5 @@
 <template>
-  <div class="searchbar animated up">
+  <div class="searchbar">
     <div class="searchbar__select">
       <label for="Cidade">Cidade</label>
 
