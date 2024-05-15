@@ -74,7 +74,9 @@ const filteredCards = computed(() => {
 
 const settings = ref({
   itemsToShow: 2,
-  snapAlign: 'start' as SnapAlign
+  snapAlign: 'start' as SnapAlign,
+  touchDrag: false,
+  transition: 2500
 })
 
 const breakpoints = ref({

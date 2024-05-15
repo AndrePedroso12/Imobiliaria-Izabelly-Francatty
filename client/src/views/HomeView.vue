@@ -19,27 +19,27 @@ const ImoviesRef = ref(ImoveisTeste)
 const ImoveisFunction = useImoveis()
 const loginFunction = useAuth()
 
-async function carregarViaComposable() {
-  try {
-    const data = await ImoveisFunction.carregarImoveis()
-    console.log('Imóveis carregados:', data)
-  } catch (error) {
-    console.error('Erro ao carregar imóveis:', error)
-  }
-}
-async function LoginTeste() {
-  try {
-    const data = await loginFunction.login('AndrePedroso', 'Canola12')
-    console.log('Imóveis carregados:', data)
-  } catch (error) {
-    console.error('Erro ao carregar imóveis:', error)
-  }
-}
+// async function carregarViaComposable() {
+//   try {
+//     const data = await ImoveisFunction.carregarImoveis()
+//     console.log('Imóveis carregados:', data)
+//   } catch (error) {
+//     console.error('Erro ao carregar imóveis:', error)
+//   }
+// }
+// async function LoginTeste() {
+//   try {
+//     const data = await loginFunction.login('AndrePedroso', 'Canola12')
+//     console.log('Imóveis carregados:', data)
+//   } catch (error) {
+//     console.error('Erro ao carregar imóveis:', error)
+//   }
+// }
 
-onMounted(async () => {
-  await LoginTeste()
-  carregarViaComposable()
-})
+// onMounted(async () => {
+//   await LoginTeste()
+//   carregarViaComposable()
+// })
 const banners = ImoviesRef.value.filter((obj) => obj.banner === true)
 const maisBuscados = ImoviesRef.value.filter((obj) => obj.isfavourite === true)
 const novosImoveis = ImoviesRef.value.filter(

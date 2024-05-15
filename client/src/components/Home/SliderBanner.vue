@@ -1,5 +1,5 @@
 <template>
-  <Carousel :autoplay="5000" :wrap-around="true">
+  <Carousel :autoplay="5000" :wrap-around="true" :transition="2500">
     <Slide v-for="slide in banners" :key="slide.id">
       <div class="carousel__overlay"></div>
       <div class="carousel__item" :style="{ backgroundImage: `url(${slide.mainImage})` }">

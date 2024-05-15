@@ -69,17 +69,23 @@ function getCategoryIcon(category: string) {
 const settings = ref({
   itemsToShow: 1,
   snapAlign: 'center' as SnapAlign,
-  autoplay: 2000
+  autoplay: 2000,
+  wrapAround: true,
+  mouseDrag: false
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center' as SnapAlign
+    snapAlign: 'center' as SnapAlign,
+    wrapAround: false,
+    mouseDrag: false
   },
   1024: {
     itemsToShow: 6,
-    snapAlign: 'start' as SnapAlign
+    snapAlign: 'start' as SnapAlign,
+    wrapAround: false,
+    mouseDrag: false
   }
 })
 
