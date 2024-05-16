@@ -94,7 +94,7 @@ class UserController extends Controller
         return response(["message" => "Senha alterada com sucesso",], 200);
     }
 
-    public function deleteUser(Request $request, $id)
+    public function deleteUser($id)
     {
         if (!is_numeric($id)) {
             return response(["errors" => "Id Invalido"], 400);
@@ -122,7 +122,7 @@ class UserController extends Controller
         return response(new UserResource($user));
     }
 
-    public function getUsers(Request $request)
+    public function getUsers()
     {
         $users = User::all();
         $res = [];
