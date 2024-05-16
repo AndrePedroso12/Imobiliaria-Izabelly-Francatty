@@ -13,7 +13,8 @@ const getEndpoints = () => {
     IMOVEIS: {
       CREATE: `${localUrl}/api/imovel`,
       GET: `${localUrl}/api/imovel`,
-      GET_ALL: `${localUrl}/api/imovel`
+      GET_ALL: `${localUrl}/api/imovel/home`,
+      GET_ALL_ADMIN: `${localUrl}/api/imovel/admin`
     }
   }
 }

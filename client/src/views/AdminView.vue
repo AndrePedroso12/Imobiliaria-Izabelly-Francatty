@@ -2,26 +2,33 @@
   <div class="container">
     <!-- Menu lateral -->
     <div class="sidebar">
+      <img
+        alt="Izabelly Francati Logo"
+        class="logo"
+        src="@/assets/logo-branco.svg"
+        width="250"
+        height="80"
+      />
       <div class="menu-icon" @click="currentComponent = HomePage">
-        <Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+        <Icon icon="bx:home" width="1.2em" height="1.2em" />
         <p>Home</p>
       </div>
       <div class="menu-icon" @click="currentComponent = CreatePosts">
-        <Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+        <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
         <p>Cadastrar Imóveis</p>
       </div>
       <div class="menu-icon" @click="currentComponent = ManagePosts">
-        <Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+        <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
         <p>Gerencia Imóveis</p>
-      </div>
-      <div class="menu-icon" @click="currentComponent = ManagePosts">
-        <Icon icon="lucide:bed" width="1.2em" height="1.2em" />
-        <p>Gerenciar Informações</p>
       </div>
 
       <hr />
+      <div class="menu-icon" @click="currentComponent = ManagePosts">
+        <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
+        <p>Gerenciar conta</p>
+      </div>
       <div class="menu-icon" @click="logOut()">
-        <Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+        <Icon icon="ic:round-logout" width="1.2em" height="1.2em" />
         <p>Logout</p>
       </div>
     </div>
@@ -71,7 +78,7 @@ function logOut() {
 }
 
 .sidebar {
-  width: 57px;
+  width: 95px;
   height: 100vh;
   background-color: #282828;
   color: #fff;
@@ -107,6 +114,17 @@ function logOut() {
   &:hover .menu-icon p {
     font-size: 16px;
     opacity: 1;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  hr {
+    width: 71%;
+    margin: 0 auto;
+    border-radius: 50px;
+    opacity: 0.5;
   }
 }
 

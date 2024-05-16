@@ -24,10 +24,24 @@ export const useImoveis = () => {
     }
   }
 
-  // Função para carregar todos os imóveis
+  // Função para carregar todos os imóveis para Home
   async function carregarImoveis() {
     try {
       const response = await fetch(endpoints.IMOVEIS.GET_ALL, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error('Erro ao carregar imóveis:', error)
+    }
+  }
+  // Função para carregar todos os imóveis
+  async function carregarImoveisAdmin() {
+    try {
+      const response = await fetch(endpoints.IMOVEIS.GET_ALL_ADMIN, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -85,6 +99,7 @@ export const useImoveis = () => {
     atualizarImovel,
     deletarImovelPorId,
     carregarImovelPorId,
-    carregarImoveis
+    carregarImoveis,
+    carregarImoveisAdmin
   }
 }
