@@ -659,6 +659,27 @@
 					"response": []
 				},
 				{
+					"name": "getAllImages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://server.test/api/imagem/",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "deleteImagem",
 					"request": {
 						"auth": {

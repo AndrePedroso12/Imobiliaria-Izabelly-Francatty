@@ -22,19 +22,20 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::prefix('user')->group(function () {
     Route::middleware(CheckToken::class)->group(function () {
+        Route::get('/', [UserController::class, 'getUsers']);
+        Route::get('/{id}', [UserController::class, 'getUser']);
         Route::put('/changePassword', [UserController::class, 'changePassword']);
+
         Route::middleware(CheckAdmin::class)->group(function () {
-            // Define routes you want to group here
-            Route::get('/', [UserController::class, 'getUsers']);
-            Route::get('/{id}', [UserController::class, 'getUser']);
             Route::post('/', [UserController::class, 'createUser']);
             Route::put('/{id}', [UserController::class, 'updateUser']);
             Route::delete('/{id}', [UserController::class, 'deleteUser']);
         });
     });
-    Route::prefix('imovel')->group(function () {
-        // Define routes you want to group here
+});
 
+Route::middleware(CheckToken::class)->group(function () {
+    Route::prefix('imovel')->group(function () {
         Route::post('/', [ImovelController::class, 'createImovel']);
         Route::post('/addVideo/{id}', [ImovelController::class, 'addVideo']);
         Route::put('/{id}', [ImovelController::class, 'updateImovel']);
@@ -54,4 +55,5 @@ Route::prefix('imovel')->group(function () {
 });
 Route::prefix('imagem')->group(function () {
     Route::get('/{id}', [ImagesController::class, 'getImage']);
+    Route::get('/', [ImagesController::class, 'getAllImages']);
 });
