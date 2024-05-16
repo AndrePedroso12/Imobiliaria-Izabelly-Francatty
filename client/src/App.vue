@@ -3,18 +3,22 @@ import { RouterView } from 'vue-router'
 import Menu from './components/Shared/MenuTopo.vue'
 import footerSite from './components/Shared/footerSite.vue'
 import { useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue'
 
 const route = useRoute()
+
+function shouldShowMenu() {
+  if (route.name == 'login' || route.name == 'admin') return false
+  else return true
+}
 </script>
 
 <template>
   <header :class="route.name">
-    <Menu />
+    <Menu v-if="shouldShowMenu()" />
   </header>
 
   <RouterView />
-  <footerSite />
+  <footerSite v-if="shouldShowMenu()" />
 </template>
 
 <style scoped>

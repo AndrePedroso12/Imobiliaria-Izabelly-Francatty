@@ -24,7 +24,7 @@ export const useAuth = () => {
         return true
       } else {
         console.error('Login error:', data.error)
-        return false
+        throw data.error
       }
     } catch (error) {
       console.error('Login error:', error)
@@ -55,6 +55,8 @@ export const useAuth = () => {
         }
       })
       const data = await response.json()
+      console.log('✌️data --->', data)
+
       return data
     } catch (error) {
       console.error('Erro ao obter usuário por ID:', error)
@@ -111,7 +113,7 @@ export const useAuth = () => {
   function logout() {
     deleteToken()
     clearAuthInfo()
-    router.push({ name: 'home' })
+    router.push({ name: 'login' })
   }
 
   function clearAuthInfo() {
@@ -128,12 +130,18 @@ export const useAuth = () => {
     storageComposable.remove('token')
   }
 
+  function checkLogin() {
+    const data = storageComposable.get('token')
+    return data
+  }
+
   return {
     login,
     logout,
     getUsers,
     getUserById,
     deleteUserById,
-    updateUser
+    updateUser,
+    checkLogin
   }
 }
