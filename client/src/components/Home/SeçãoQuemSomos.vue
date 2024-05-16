@@ -47,10 +47,14 @@ import { Icon } from '@iconify/vue'
   display: flex;
   justify-content: space-between;
   padding: 7rem 3rem;
+  max-width: 80%;
+  margin: 0 auto;
+
   @media (max-width: 768px) {
     padding: 3rem 1rem;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
 
   &__image {
