@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\":\"bruno\",\r\n    \"password\":\"Foxcpc160580.\"\r\n}",
+							"raw": "{\r\n    \"login\":\"bruno@gmail.com.br\",\r\n    \"password\":\"Foxcpc160580.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,6 +78,46 @@
 					"response": []
 				},
 				{
+					"name": "changePassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"Foxcpc160580..\",\r\n    \"newPassword\":\"Foxcpc160580.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/user/changePassword",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"user",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getUser",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -105,7 +145,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user/4",
+							"raw": "http://server.test/api/user/2",
 							"protocol": "http",
 							"host": [
 								"server",
@@ -114,7 +154,7 @@
 							"path": [
 								"api",
 								"user",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -613,6 +653,27 @@
 								"api",
 								"imagem",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllImages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://server.test/api/imagem/",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								""
 							]
 						}
 					},

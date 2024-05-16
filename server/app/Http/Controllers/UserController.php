@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helper\TokenHelper;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,28 +29,29 @@ class UserController extends Controller
         }
 
         if (Hash::check($request->password, $user->password)) {
-            $user = [
+            $token = $this->tokenHelper->createToken([
                 "user" => $user,
                 "ip" => $request->ip()
-            ];
-            $token = $this->tokenHelper->createToken($user);
+            ]);
             return response([
                 "message" => "Logado com sucesso",
-                "token" => "Bearer " . $token
+                "token" => "Bearer " . $token,
+                "id" => $user->id,
             ], 200);
         }
         return response(["error" => 'Usuário ou senha incorretos'], 400);
     }
-    public function createUser(UserRequest $request)
+
+    public function createUser(CreateUserRequest $request)
     {
         $users = User::where('email', $request->email)->get();
         if (count($users) > 0) {
             return response(["error" => 'Email já cadastrado'], 400);
         }
-        return response(User::create($request->all()), 201);
+        return response(["message" => "Usuário criado com sucesso",], 201);
     }
 
-    public function updateUser(UserRequest $request, $id)
+    public function updateUser(UpdateUserRequest $request, $id)
     {
         if (!is_numeric($id)) {
             return response(["errors" => "Id Invalido"], 400);
@@ -61,11 +66,35 @@ class UserController extends Controller
             return response(["error" => 'Usuario não encontrado'], 404);
         }
 
-        $user->update($request->all());
-        return response(User::find($id));
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+        return response(["message" => "Usuário atualizado com sucesso",], 200);
     }
 
-    public function deleteUser(Request $request, $id)
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $token = $request->bearerToken();
+        $decodedToken = $this->tokenHelper->validateToken($token);
+        $id = $decodedToken->user->id;
+
+        $user = User::find($id);
+        if (!$user) {
+            return response(["error" => 'Usuario não encontrado'], 404);
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return response(["message" => "Senha incorreta",], 401);
+        }
+        $user->update([
+            'password' => $request->newPassword,
+        ]);
+
+        return response(["message" => "Senha alterada com sucesso",], 200);
+    }
+
+    public function deleteUser($id)
     {
         if (!is_numeric($id)) {
             return response(["errors" => "Id Invalido"], 400);
@@ -76,11 +105,11 @@ class UserController extends Controller
         }
 
         $user->delete();
-        return response(["message" => "usuario deletado com sucesso!"]);
+        return response(["message" => "Usuario deletado com sucesso!"]);
     }
 
 
-    public function getUser(Request $request, $id)
+    public function getUser($id)
     {
         if (!is_numeric($id)) {
             return response(["errors" => "Id Invalido"], 400);
@@ -90,12 +119,17 @@ class UserController extends Controller
             return response(["error" => 'Usuario não encontrado'], 404);
         }
 
-        return response($user);
+        return response(new UserResource($user));
     }
 
-    public function getUsers(Request $request)
+    public function getUsers()
     {
         $users = User::all();
-        return response($users);
+        $res = [];
+
+        foreach ($users as $user) {
+            $res[] = new UserResource($user);
+        }
+        return response($res);
     }
 }

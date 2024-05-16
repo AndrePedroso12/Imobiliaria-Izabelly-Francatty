@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ImagesResource;
 use App\Http\Resources\ImoveisAdminResource;
 use App\Models\Images;
 use App\Models\Imovel;
@@ -21,6 +22,7 @@ class ImagesController extends Controller
         }
         return Storage::download('public/' . $imagem->imagem);
     }
+
     public function deleteImagem($id)
     {
         if (!is_numeric($id)) {
@@ -67,5 +69,16 @@ class ImagesController extends Controller
 
             return response(new ImoveisAdminResource($imovel));
         }
+    }
+
+    public function getAllImages()
+    {
+        $images = Images::all();
+
+        $res = [];
+        foreach ($images as $image) {
+            $res[] = new ImagesResource($image);
+        }
+        return response($res);
     }
 }
