@@ -4,6 +4,20 @@
       <p class="title">Lista de usuários</p>
       <div class="inner" v-for="card in 5" :key="card">nome</div>
     </div>
+
+    <v-card title="Lista de usuários" variant="tonal">
+      <v-card-text>
+        <v-list lines="three">
+          <v-list-item
+            v-for="n in 3"
+            :key="n"
+            :title="'Item ' + n"
+            subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit"
+            prepend-avatar="https://randomuser.me/api/portraits/women/8.jpg"
+          ></v-list-item>
+        </v-list>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
