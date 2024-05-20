@@ -68,7 +68,7 @@ button {
   padding: 10px 20px;
   font-size: 0.9375rem;
   font-weight: 500;
-  background-color: var(--color-background);
+  background-color: var(--color-background) !important;
   border-radius: 12px;
   font-family: Roboto, sans-serif;
 
@@ -93,41 +93,6 @@ button.round {
   border-radius: 60px;
   padding: 0px 30px;
   height: 3rem;
-}
-
-.scrollbar {
-  padding-bottom: 2rem;
-  position: relative;
-}
-
-.scrollbar:before {
-  content: '';
-  width: 100%;
-  height: 1px;
-  border: 1px solid white;
-  position: absolute;
-  bottom: -8px;
-  z-index: 7;
-}
-
-.scrollbar::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  height: 20px;
-  background-color: transparent;
-}
-
-.scrollbar::-webkit-scrollbar {
-  border-radius: 10px;
-  padding: 20px;
-  background-color: transparent;
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  height: 20px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #555;
 }
 
 .animated {

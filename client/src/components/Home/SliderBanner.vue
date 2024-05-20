@@ -141,5 +141,9 @@ defineComponent({
     width: 60px;
     height: 40px;
   }
+
+  a {
+    color: var(--color-text);
+  }
 }
 </style>

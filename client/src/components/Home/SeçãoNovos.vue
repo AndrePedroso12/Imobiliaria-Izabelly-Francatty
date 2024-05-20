@@ -177,5 +177,8 @@ defineComponent({
       height: 40px;
     }
   }
+  a {
+    color: var(--color-text);
+  }
 }
 </style>
