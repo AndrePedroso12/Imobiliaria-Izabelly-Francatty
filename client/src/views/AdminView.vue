@@ -114,4 +114,20 @@ h1 {
   font-size: 52px;
   font-weight: 900;
 }
+
+.v-card {
+  background-color: #282828;
+  border-radius: 13px;
+  padding: 1.5rem;
+}
+
+.v-card-title {
+  font-weight: 600;
+  font-size: 30px;
+}
+.inner {
+  background: #1c1c1c;
+  padding: 1.5rem;
+  border-radius: 13px;
+}
 </style>
