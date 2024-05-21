@@ -1,58 +1,56 @@
 <template>
-  <RouterLink :to="{ name: 'imovel', params: { id: card.id } }">
-    <article class="card">
-      <div class="image-wrapper">
-        <img loading="lazy" decoding="async" :src="card.mainImage" alt="" />
-      </div>
+  <article class="card">
+    <div class="image-wrapper">
+      <img loading="lazy" decoding="async" :src="card.mainImage" alt="" />
+    </div>
 
-      <div class="card__description">
-        <p class="card__title">{{ card.location.neighborhood }}</p>
-        <p class="card__location">
-          <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.location.city }}
-        </p>
-        <div class="card__bottom">
-          <div class="card__icons" :class="{ HouseCategory: !isArea(infos.category) }">
-            <span v-if="card.details.rooms"
-              ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
-              {{ card.details.rooms }}
-            </span>
-            <span v-if="card.details.bathrooms"
-              ><Icon icon="fluent-emoji-high-contrast:toilet" width="1.2em" height="1.2em" />
-              {{ card.details.bathrooms }}
-            </span>
-            <span v-if="card.details.suites"
-              ><Icon icon="solar:bath-linear" width="1.2em" height="1.2em" />
-              {{ card.details.suites }}
-            </span>
-            <span v-if="card.details.garage"
-              ><Icon icon="cil:garage" width="1.2em" height="1.2em" />
-              {{ card.details.garage }}
-            </span>
+    <div class="card__description">
+      <p class="card__title">{{ card.location.neighborhood }}</p>
+      <p class="card__location">
+        <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.location.city }}
+      </p>
+      <div class="card__bottom">
+        <div class="card__icons" :class="{ HouseCategory: !isArea(infos.category) }">
+          <span v-if="card.details.rooms"
+            ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+            {{ card.details.rooms }}
+          </span>
+          <span v-if="card.details.bathrooms"
+            ><Icon icon="fluent-emoji-high-contrast:toilet" width="1.2em" height="1.2em" />
+            {{ card.details.bathrooms }}
+          </span>
+          <span v-if="card.details.suites"
+            ><Icon icon="solar:bath-linear" width="1.2em" height="1.2em" />
+            {{ card.details.suites }}
+          </span>
+          <span v-if="card.details.garage"
+            ><Icon icon="cil:garage" width="1.2em" height="1.2em" />
+            {{ card.details.garage }}
+          </span>
 
-            <span v-if="card.details.area"
-              ><Icon icon="mdi:surface-area" width="1.2em" height="1.2em" />
-              {{ card.details.area }}m²</span
-            >
-            <span v-if="isArea(infos.category)"> {{ infos.category }}</span>
+          <span v-if="card.details.area"
+            ><Icon icon="mdi:surface-area" width="1.2em" height="1.2em" />
+            {{ card.details.area }}m²</span
+          >
+          <span v-if="isArea(infos.category)"> {{ infos.category }}</span>
+        </div>
+        <div class="card__price">
+          <div class="sell" v-if="card.model == 'Compra'">
+            <span>Venda</span>
+            R$ {{ card.price }}
           </div>
-          <div class="card__price">
-            <div class="sell" v-if="card.model == 'Compra'">
-              <span>Venda</span>
-              R$ {{ card.price }}
-            </div>
-            <div class="rent" v-if="card.model == 'Alugar'">
-              <span>Aluguel</span>
-              R$ {{ card.price }}/mês
-            </div>
-            <div class="condominio" v-if="card.monthly">
-              <span>Condominio</span>
-              R$ {{ card.monthly }}/mês
-            </div>
+          <div class="rent" v-if="card.model == 'Alugar'">
+            <span>Aluguel</span>
+            R$ {{ card.price }}/mês
+          </div>
+          <div class="condominio" v-if="card.monthly">
+            <span>Condominio</span>
+            R$ {{ card.monthly }}/mês
           </div>
         </div>
       </div>
-    </article>
-  </RouterLink>
+    </div>
+  </article>
 </template>
 
 <script setup lang="ts">

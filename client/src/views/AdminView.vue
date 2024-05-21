@@ -2,51 +2,38 @@
   <div class="container">
     <LoaderSpinner v-if="loading" />
     <!-- Menu lateral -->
-    <v-card v-if="!loading">
-      <v-layout>
-        <v-navigation-drawer expand-on-hover rail color="grey-darken-4">
-          <v-list>
-            <v-list-item
-              prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-              :subtitle="userInfos.email"
-              :title="userInfos.name"
-            ></v-list-item>
-          </v-list>
+    <!-- Menu lateral -->
+    <div class="sidebar">
+      <img
+        alt="Izabelly Francati Logo"
+        class="logo"
+        src="@/assets/logo-branco.svg"
+        width="250"
+        height="80"
+      />
+      <div class="menu-icon" @click="currentComponent = HomePage">
+        <Icon icon="bx:home" width="1.2em" height="1.2em" />
+        <p>Home</p>
+      </div>
+      <div class="menu-icon" @click="currentComponent = CreatePosts">
+        <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
+        <p>Cadastrar Imóveis</p>
+      </div>
+      <div class="menu-icon" @click="currentComponent = ManagePosts">
+        <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
+        <p>Gerencia Imóveis</p>
+      </div>
 
-          <v-divider></v-divider>
-
-          <v-list density="compact" nav>
-            <v-list-item
-              prepend-icon="mdi-folder"
-              title="Home"
-              @click="currentComponent = HomePage"
-            ></v-list-item>
-            <v-list-item
-              prepend-icon="mdi-account-multiple"
-              title="Cadastrar Imóveis"
-              @click="currentComponent = CreatePosts"
-            ></v-list-item>
-            <v-list-item
-              prepend-icon="mdi-account-multiple"
-              title="Gerencia Imóveis"
-              @click="currentComponent = ManagePosts"
-            ></v-list-item>
-
-            <v-list-item
-              prepend-icon="mdi-star"
-              title="Gerenciar conta"
-              @click="currentComponent = ManagePosts"
-            ></v-list-item>
-          </v-list>
-          <v-divider></v-divider>
-          <v-list>
-            <v-list-item prepend-icon="mdi-star" title="Logout" @click="logOut()"></v-list-item>
-          </v-list>
-        </v-navigation-drawer>
-
-        <v-main style="height: 250px"></v-main>
-      </v-layout>
-    </v-card>
+      <hr />
+      <div class="menu-icon" @click="currentComponent = ManagePosts">
+        <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
+        <p>Gerenciar conta</p>
+      </div>
+      <div class="menu-icon" @click="logOut()">
+        <Icon icon="ic:round-logout" width="1.2em" height="1.2em" />
+        <p>Logout</p>
+      </div>
+    </div>
 
     <!-- Conteúdo dinâmico -->
     <div class="content" v-if="!loading">
@@ -115,15 +102,55 @@ h1 {
   font-weight: 900;
 }
 
-.v-card {
+.sidebar {
+  width: 95px;
+  height: 100vh;
   background-color: #282828;
-  border-radius: 13px;
-  padding: 1.5rem;
-}
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.6s;
+  overflow: hidden;
+  &:hover {
+    width: 200px;
+  }
 
-.v-card-title {
-  font-weight: 600;
-  font-size: 30px;
+  .menu-icon {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+    cursor: pointer;
+    svg {
+      font-size: 3rem;
+      border: 5px solid white;
+      border-radius: 50px;
+      padding: 0.5rem;
+    }
+    p {
+      font-size: 0;
+      opacity: 0;
+      transition: 0.6s;
+    }
+  }
+
+  &:hover .menu-icon p {
+    font-size: 16px;
+    opacity: 1;
+  }
+
+  .logo {
+    width: 100%;
+  }
+
+  hr {
+    width: 71%;
+    margin: 0 auto;
+    border-radius: 50px;
+    opacity: 0.5;
+  }
 }
 .inner {
   background: #1c1c1c;

@@ -101,7 +101,9 @@
           </select>
         </div>
         <div class="slide" v-for="card in paginatedImovies" :key="card.id">
-          <CardPrincipal :infos="card" />
+          <RouterLink :to="{ name: 'imovel', params: { id: card.id } }">
+            <CardPrincipal :infos="card" />
+          </RouterLink>
         </div>
         <!-- Paginação -->
         <div class="pagination" v-if="totalPages >= 2">

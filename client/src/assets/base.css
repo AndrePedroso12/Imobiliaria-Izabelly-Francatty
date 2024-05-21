@@ -68,7 +68,7 @@ button {
   padding: 10px 20px;
   font-size: 0.9375rem;
   font-weight: 500;
-  background-color: var(--color-background) !important;
+  background-color: var(--color-background);
   border-radius: 12px;
   font-family: Roboto, sans-serif;
 

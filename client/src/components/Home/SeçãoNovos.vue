@@ -19,7 +19,9 @@
     <div class="novos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="card in filteredCards" :key="card.id">
-          <CardPrincipal :infos="card" />
+          <RouterLink :to="{ name: 'imovel', params: { id: card.id } }">
+            <CardPrincipal :infos="card" />
+          </RouterLink>
         </Slide>
       </Carousel>
     </div>

@@ -34,137 +34,15 @@
         </select>
       </div>
 
-      <v-expansion-panels>
-        <v-expansion-panel v-for="card in filteredCards" :key="card.id" variant="tonal">
-          <v-expansion-panel-title>
-            <v-row no-gutters>
-              <v-col class="d-flex justify-start" cols="1">
-                <p class="favorite" :class="card.isfavourite">
-                  <Icon icon="ic:baseline-star" width="1.2em" height="1.2em" />
-                </p>
-              </v-col>
-              <v-col class="d-flex justify-start" cols="6">
-                <div class="location_title">
-                  <p>{{ card.location.neighborhood }}</p>
-                  <p class="city">{{ card.location.city }}</p>
-                </div>
-              </v-col>
-              <v-col class="d-flex justify-start" cols="2"> R$ {{ card.price }} </v-col>
-              <v-col class="d-flex justify-end" cols="3">
-                <strong>{{ card.category }}</strong>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-title>
-
-          <v-expansion-panel-text>
-            <v-row justify="space-around" no-gutters>
-              <v-col cols="1">
-                <p class="id">{{ card.id }}</p>
-              </v-col>
-              <v-col cols="3">
-                <div class="selectable">
-                  <p class="favorite" :class="card.isfavourite">
-                    Mais procurado
-                    <Icon icon="ic:baseline-star" width="1.2em" height="1.2em" />
-                  </p>
-                </div>
-                <div class="selectable">
-                  <p class="favorite" :class="card.banner">
-                    Banner
-                    <Icon icon="ic:baseline-star" width="1.2em" height="1.2em" />
-                  </p>
-                </div>
-                <div class="selectable">
-                  <p class="favorite" :class="card.isTop">
-                    Destaque
-                    <Icon icon="ic:baseline-star" width="1.2em" height="1.2em" />
-                  </p>
-                </div>
-              </v-col>
-
-              <v-col cols="3">
-                {{ card.model }}
-              </v-col>
-              <v-col cols="3">
-                <label>
-                  Preço:
-                  <input type="number" v-model="card.price" />
-                </label>
-              </v-col>
-              <v-col cols="3">
-                <label>
-                  Cidade:
-                  <input class="city" v-model="card.location.city" />
-                </label>
-                <label>
-                  Bairro:
-                  <input v-model="card.location.neighborhood" />
-                </label>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="3">
-                {{ card.mainImage }}
-                {{ card.images }}
-              </v-col>
-              <v-col cols="3">
-                {{ card.video }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="2">
-                Terreno
-                {{ card.details.area }}m²
-              </v-col>
-              <v-col cols="2">
-                Quartos
-                {{ card.details.rooms }}
-              </v-col>
-              <v-col cols="2">
-                Banheiros
-                {{ card.details.bathrooms }}
-              </v-col>
-              <v-col cols="2">
-                Suites
-                {{ card.details.suites }}
-              </v-col>
-              <v-col cols="2">
-                Vagas na garagem
-                {{ card.details.garage }}
-              </v-col>
-              <v-col cols="2">
-                Aluguel/Condominio
-                {{ card.monthly }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                {{ card.description }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                {{ card.details.tags }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                {{ card.tags }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="12">
-                {{ card.sellerName }}
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="3">
-                <button>Salvar mudanças</button>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-      </v-expansion-panels>
+      <div class="manage__cards">
+        <CardPrincipal
+          :infos="card"
+          v-for="card in filteredCards"
+          :key="card.id"
+          @click="setSelectedCard(card)"
+        />
+      </div>
+      <CardEdit @close="closeModal()" :modalActive="modalActive" :cardInfos="selectedCard" />
     </div>
   </div>
 </template>
@@ -175,6 +53,8 @@ import { computed, onMounted, ref } from 'vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import { useImoveis } from '@/composables'
 import type { ImovelType } from '@/interfaces/interfaces'
+import CardPrincipal from '../Shared/CardPrincipal.vue'
+import CardEdit from '@/components/Admin/CardEdit.vue'
 
 const loading = ref(false)
 const imoveisFunctions = useImoveis()
@@ -185,6 +65,8 @@ const hasError = ref(false)
 const selectedCity = ref('')
 const selectedModel = ref('')
 const selectedCategory = ref('')
+const selectedCard = ref<ImovelType | undefined>()
+const modalActive = ref(false)
 
 // Lista única de cidades para o filtro
 const uniqueCities = computed(() => {
@@ -232,6 +114,14 @@ const filteredCards = computed(() => {
 
 const filter = (type: 'comprar' | 'alugar' | 'todos') => {
   filterType.value = type
+}
+
+function setSelectedCard(card: ImovelType) {
+  selectedCard.value = card
+  modalActive.value = true
+}
+function closeModal() {
+  modalActive.value = false
 }
 </script>
 
@@ -319,6 +209,7 @@ select {
     background: black;
     margin-right: 40px;
     padding: 5px 40px;
+    color: white;
     &.active {
       background: white;
       color: black;
@@ -327,8 +218,8 @@ select {
   }
 }
 
-.location_title p:first-of-type {
-  font-size: 20px;
-  font-weight: bold;
+.manage__cards {
+  display: flex;
+  flex-wrap: nowrap;
 }
 </style>

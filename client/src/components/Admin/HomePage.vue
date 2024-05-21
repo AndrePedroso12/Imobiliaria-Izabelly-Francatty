@@ -20,19 +20,6 @@
         </Carousel>
       </v-card-text>
     </v-card>
-    <v-card title="Lista de usuários" variant="tonal" class="usuarios">
-      <v-card-text class="inner">
-        <v-list lines="three">
-          <v-list-item
-            v-for="n in 3"
-            :key="n"
-            :title="'Item ' + n"
-            subtitle="Lorem ipsum dolor sit amet consectetur adipisicing elit"
-            prepend-avatar="https://randomuser.me/api/portraits/women/8.jpg"
-          ></v-list-item>
-        </v-list>
-      </v-card-text>
-    </v-card>
   </div>
 </template>
 
