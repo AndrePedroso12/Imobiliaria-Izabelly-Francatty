@@ -2,45 +2,55 @@
   <div class="container">
     <LoaderSpinner v-if="loading" />
     <!-- Menu lateral -->
-    <!-- Menu lateral -->
-    <div class="sidebar">
-      <img
-        alt="Izabelly Francati Logo"
-        class="logo"
-        src="@/assets/logo-branco.svg"
-        width="250"
-        height="80"
-      />
-      <div class="menu-icon" @click="currentComponent = HomePage">
-        <Icon icon="bx:home" width="1.2em" height="1.2em" />
-        <p>Home</p>
+    <div class="sidebar" v-if="!loading && userInfos">
+      <div class="user-info">
+        <div class="user-picture">
+          <img alt="Izabelly Francati Logo" src="@/assets/logo-preto-top.svg" />
+        </div>
+        <div class="user-name">{{ userInfos.name }}</div>
+        <div class="user-email">{{ userInfos.email }}</div>
       </div>
-      <div class="menu-icon" @click="currentComponent = CreatePosts">
+
+      <div
+        class="menu-icon"
+        :class="{ active: currentComponent == HomePage }"
+        @click="currentComponent = HomePage"
+      >
+        <Icon icon="bx:home" width="1.2em" height="1.2em" />
+        <p>Dashboard</p>
+      </div>
+      <div
+        class="menu-icon"
+        :class="{ active: currentComponent == CreatePosts }"
+        @click="currentComponent = CreatePosts"
+      >
         <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
-        <p>Cadastrar Imóveis</p>
+        <p>Cadastrar</p>
       </div>
       <div class="menu-icon" @click="currentComponent = ManagePosts">
         <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
-        <p>Gerencia Imóveis</p>
+        <p>Gerenciar</p>
       </div>
 
-      <hr />
       <div class="menu-icon" @click="currentComponent = ManagePosts">
         <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
-        <p>Gerenciar conta</p>
+        <p>Minha Conta</p>
       </div>
       <div class="menu-icon" @click="logOut()">
         <Icon icon="ic:round-logout" width="1.2em" height="1.2em" />
         <p>Logout</p>
       </div>
+
+      <div class="divider"></div>
+      <img alt="Izabelly Francati Logo" class="logo" src="@/assets/logo-branco2.svg" />
     </div>
 
     <!-- Conteúdo dinâmico -->
     <div class="content" v-if="!loading">
       <div class="header" v-if="userInfos">
-        <h1>Olá, {{ userInfos.name }}</h1>
+        <p>Dashboard</p>
       </div>
-      <component :is="currentComponent"></component>
+      <component :is="currentComponent" :user="userInfos"></component>
     </div>
   </div>
 </template>
@@ -79,9 +89,10 @@ function logOut() {
 <style lang="scss" scoped>
 .container {
   display: flex;
-  background: #212121;
-  color: white;
+  color: black;
   height: 100vh;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 .loader {
   top: 50%;
@@ -92,18 +103,20 @@ function logOut() {
   padding: 20px;
   height: 100vh;
   overflow-y: scroll;
-  border: 7px solid #212121;
-  border-radius: 18px;
-  background: #1c1c1c;
 }
 
-h1 {
-  font-size: 52px;
-  font-weight: 900;
+.header p {
+  font-size: 26px;
+  text-transform: capitalize;
+  margin: 0 0 8px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .sidebar {
-  width: 95px;
+  width: 19rem;
   height: 100vh;
   background-color: #282828;
   color: #fff;
@@ -112,37 +125,40 @@ h1 {
   justify-content: space-between;
   transition: 0.6s;
   overflow: hidden;
-  &:hover {
-    width: 200px;
-  }
+  align-items: flex-start;
+  border-radius: 24px;
+  margin-right: 60px;
 
   .menu-icon {
     display: flex;
     align-content: center;
     align-items: center;
-    width: 100%;
-    justify-content: space-evenly;
+    text-align: left;
+    justify-content: flex-start;
     cursor: pointer;
+    border-radius: 12px;
+    padding: 14px 20px;
+    margin: 0 auto;
+    width: 75%;
+
     svg {
-      font-size: 3rem;
-      border: 5px solid white;
-      border-radius: 50px;
-      padding: 0.5rem;
+      font-size: 1.5rem;
     }
     p {
-      font-size: 0;
-      opacity: 0;
+      font-size: 1rem;
+      padding: 0 20px;
+
       transition: 0.6s;
     }
-  }
-
-  &:hover .menu-icon p {
-    font-size: 16px;
-    opacity: 1;
+    &:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
   }
 
   .logo {
-    width: 100%;
+    width: 80%;
+    margin: 4rem auto;
   }
 
   hr {
@@ -156,5 +172,30 @@ h1 {
   background: #1c1c1c;
   padding: 1.5rem;
   border-radius: 13px;
+}
+
+.user-info {
+  margin: 0 auto;
+  background: #242424;
+  width: 100%;
+  padding: 2rem 0;
+  text-align: center;
+  .user-picture {
+    background: orange;
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+
+  .user-name {
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .user-email {
+    font-size: 15px;
+  }
 }
 </style>

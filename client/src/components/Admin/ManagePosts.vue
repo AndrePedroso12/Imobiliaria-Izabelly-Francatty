@@ -1,41 +1,52 @@
 <template>
   <div class="manage">
-    <p class="title">Gerenciar Imóveis</p>
     <LoaderSpinner v-if="loading" />
 
     <div class="error" v-if="hasError">{{ errorText }}</div>
 
     <div class="card all-imoveis" v-if="!loading && allImoveis">
-      <div class="manage__buttons">
-        <button :class="{ active: filterType === 'todos' }" @click="filter('todos')">Todos</button>
-        <button :class="{ active: filterType === 'comprar' }" @click="filter('comprar')">
-          Comprar
-        </button>
-        <button :class="{ active: filterType === 'alugar' }" @click="filter('alugar')">
-          Alugar
-        </button>
-      </div>
+      <div class="manage_filters">
+        <div class="manage__buttons">
+          <button :class="{ active: filterType === 'todos' }" @click="filter('todos')">
+            Todos
+          </button>
+          <button :class="{ active: filterType === 'comprar' }" @click="filter('comprar')">
+            Comprar
+          </button>
+          <button :class="{ active: filterType === 'alugar' }" @click="filter('alugar')">
+            Alugar
+          </button>
+        </div>
 
-      <div class="manage__selects">
-        <!-- Filtro por cidade -->
-        <select v-model="selectedCity" @change="applyFilters">
-          <option value="" selected>Todas as cidades</option>
-          <option v-for="city in uniqueCities" :key="city">{{ city }}</option>
-        </select>
-        <!-- Filtro por modelo -->
-        <select v-model="selectedModel" @change="applyFilters">
-          <option value="" selected>Todos os modelos</option>
-          <option v-for="model in uniqueModels" :key="model">{{ model }}</option>
-        </select>
-        <!-- Filtro por categoria -->
-        <select v-model="selectedCategory" @change="applyFilters">
-          <option value="" selected>Todas as categorias</option>
-          <option v-for="category in uniqueCategories" :key="category">{{ category }}</option>
-        </select>
+        <div class="manage__selects">
+          <!-- Filtro por cidade -->
+          <select v-model="selectedCity" @change="applyFilters">
+            <option value="" selected>Todas as cidades</option>
+            <option v-for="city in uniqueCities" :key="city">{{ city }}</option>
+          </select>
+          <!-- Filtro por modelo -->
+          <select v-model="selectedModel" @change="applyFilters">
+            <option value="" selected>Todos os modelos</option>
+            <option v-for="model in uniqueModels" :key="model">{{ model }}</option>
+          </select>
+          <!-- Filtro por categoria -->
+          <select v-model="selectedCategory" @change="applyFilters">
+            <option value="" selected>Todas as categorias</option>
+            <option v-for="category in uniqueCategories" :key="category">{{ category }}</option>
+          </select>
+        </div>
       </div>
 
       <div class="manage__cards">
-        <CardPrincipal
+        <div class="manage__cards__header">
+          <p class="Imagem">Imagem</p>
+          <p class="Endereço">Endereço</p>
+          <p class="Preço">Preço</p>
+          <p class="Informações">Informações</p>
+          <p class="Modelo">Modelo</p>
+          <p class="Gerenciar">Gerenciar</p>
+        </div>
+        <CardAdmin
           :infos="card"
           v-for="card in filteredCards"
           :key="card.id"
@@ -48,13 +59,12 @@
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import { computed, onMounted, ref } from 'vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import { useImoveis } from '@/composables'
 import type { ImovelType } from '@/interfaces/interfaces'
-import CardPrincipal from '../Shared/CardPrincipal.vue'
 import CardEdit from '@/components/Admin/CardEdit.vue'
+import CardAdmin from './CardAdmin.vue'
 
 const loading = ref(false)
 const imoveisFunctions = useImoveis()
@@ -127,8 +137,11 @@ function closeModal() {
 
 <style lang="scss" scoped>
 .card {
-  border: 3px solid #282828;
-  border-radius: 13px;
+  padding: 35px 40px 40px;
+  border-radius: 24px;
+  background: #fff;
+  margin-bottom: 20px;
+  border: 1px solid #e9e9e9;
 }
 
 .title {
@@ -146,7 +159,7 @@ select {
   appearance: none;
   outline: 0;
   font: inherit;
-  background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23ffffff%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23ffffff%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E);
+  background-image: url(data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E);
   background-size: 0.6em;
   background-position: calc(100% - 1.3em) center;
   background-repeat: no-repeat;
@@ -157,9 +170,9 @@ select {
   font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.9;
-  background-color: #1c1c1c;
+  background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #333333;
+  border: 1px solid #e9e9e9;
   appearance: none;
   border-radius: 9px;
   transition:
@@ -193,33 +206,71 @@ select {
   }
 }
 
-.manage__selects {
-  display: flex;
-  justify-content: flex-start;
-  padding: 1.5rem;
-  border: 2px solid #282828;
-}
+.manage {
+  &_filters {
+    display: flex;
+    padding: 0rem 0 2rem;
+  }
 
-.manage__buttons {
-  display: flex;
-  justify-content: flex-start;
-  border: 2px solid #282828;
-  padding: 1.5rem;
-  button {
-    background: black;
-    margin-right: 40px;
-    padding: 5px 40px;
-    color: white;
-    &.active {
-      background: white;
-      color: black;
-      font-weight: 600;
+  &__selects {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-start;
+
+    button {
+      background: black;
+      margin-right: 40px;
+      padding: 5px 40px;
+      color: white;
+      &.active {
+        background: var(--color-background);
+        color: black;
+        font-weight: 600;
+      }
     }
   }
-}
 
-.manage__cards {
-  display: flex;
-  flex-wrap: nowrap;
+  &__cards {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    &__header {
+      padding: 10px 1.875rem;
+      margin-bottom: 1.875rem;
+      border-radius: 16px;
+      width: 100%;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: space-between;
+      p {
+        font-size: 0.9375rem;
+        font-weight: 500;
+      }
+      .Endereço {
+        flex: 0.5;
+      }
+
+      .Imagem {
+        flex: 0.3;
+      }
+
+      .Preço {
+        flex: 0.2;
+      }
+      .Informações {
+        flex: 0.5;
+      }
+      .Modelo {
+        flex: 0.2;
+      }
+      .Gerenciar {
+        flex: 0.1;
+      }
+    }
+  }
 }
 </style>

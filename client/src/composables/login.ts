@@ -110,6 +110,21 @@ export const useAuth = () => {
     }
   }
 
+  async function getFrases() {
+    try {
+      const response = await fetch('https://frases.docapi.dev/frase/obter', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error('Erro resgatar frase', error)
+    }
+  }
+
   function logout() {
     deleteToken()
     clearAuthInfo()
@@ -142,6 +157,7 @@ export const useAuth = () => {
     getUserById,
     deleteUserById,
     updateUser,
-    checkLogin
+    checkLogin,
+    getFrases
   }
 }
