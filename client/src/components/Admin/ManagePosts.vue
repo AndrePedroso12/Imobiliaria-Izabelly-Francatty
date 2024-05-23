@@ -50,7 +50,8 @@
           :infos="card"
           v-for="card in filteredCards"
           :key="card.id"
-          @click="setSelectedCard(card)"
+          @edit="setSelectedCard(card)"
+          @delete="setSelectedCard(card)"
         />
       </div>
       <CardEdit @close="closeModal()" :modalActive="modalActive" :cardInfos="selectedCard" />
@@ -77,6 +78,8 @@ const selectedModel = ref('')
 const selectedCategory = ref('')
 const selectedCard = ref<ImovelType | undefined>()
 const modalActive = ref(false)
+
+const emit = defineEmits(['edit'])
 
 // Lista única de cidades para o filtro
 const uniqueCities = computed(() => {
@@ -126,9 +129,9 @@ const filter = (type: 'comprar' | 'alugar' | 'todos') => {
   filterType.value = type
 }
 
-function setSelectedCard(card: ImovelType) {
+async function setSelectedCard(card: ImovelType) {
   selectedCard.value = card
-  modalActive.value = true
+  await emit('edit', selectedCard.value)
 }
 function closeModal() {
   modalActive.value = false
@@ -251,22 +254,25 @@ select {
         font-weight: 500;
       }
       .Endereço {
-        flex: 0.5;
+        flex: 0.47;
       }
 
       .Imagem {
-        flex: 0.3;
+        flex: 0.25;
       }
 
       .Preço {
-        flex: 0.2;
+        flex: 0.25;
       }
+
       .Informações {
-        flex: 0.5;
+        flex: 0.6;
       }
+
       .Modelo {
         flex: 0.2;
       }
+
       .Gerenciar {
         flex: 0.1;
       }

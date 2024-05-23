@@ -5,9 +5,10 @@
     </div>
 
     <div class="card__description">
-      <p class="card__title">{{ card.location.neighborhood }}</p>
+      <p class="card__title">{{ card.location.street }}, nº{{ card.location.number }}</p>
       <p class="card__location">
-        <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.location.city }}
+        <Icon icon="mynaui:location" width="1.2em" height="1.2em" />
+        {{ card.location.neighborhood }} - {{ card.location.city }}
       </p>
     </div>
     <div class="card__price">
@@ -17,11 +18,11 @@
       </div>
       <div class="rent" v-if="card.model == 'Alugar'">
         <span>Aluguel</span>
-        R$ {{ card.price }}/mês
+        R$ {{ card.price }}
       </div>
       <div class="condominio" v-if="card.monthly">
         <span>Condominio</span>
-        R$ {{ card.monthly }}/mês
+        R$ {{ card.monthly }}
       </div>
     </div>
 
@@ -48,17 +49,18 @@
           ><Icon icon="mdi:surface-area" width="1.2em" height="1.2em" />
           {{ card.details.area }}m²</span
         >
-        <span v-if="isArea(card.category)"> {{ card.category }}</span>
       </div>
     </div>
 
-    <div class="card__model">
+    <div class="card__model" :class="card.model">
       <p>{{ card.model }}</p>
     </div>
 
     <div class="card__edit">
-      <span><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em" /></span>
-      <span><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em" /></span>
+      <span @click="edit()"><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em" /></span>
+      <span @click="deleteButton()"
+        ><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em"
+      /></span>
     </div>
   </article>
 </template>
@@ -73,6 +75,15 @@ const props = defineProps<{
 }>()
 
 const card = ref(props.infos)
+const emit = defineEmits(['edit', 'delete'])
+
+function edit() {
+  emit('edit')
+}
+
+function deleteButton() {
+  emit('delete')
+}
 
 function isArea(value: string) {
   if (value == 'Casa' || value == 'Condominio' || value == 'Apartamento') return false
@@ -160,8 +171,6 @@ a {
   }
 
   &__model {
-    color: #3554d1;
-    background: #e5f0fd;
     display: inline-block;
     padding: 4px 15px;
     border-radius: 30px;
@@ -170,6 +179,14 @@ a {
     text-align: center;
     justify-content: flex-start;
     flex: 0.2;
+    &.Alugar {
+      color: #d1b735;
+      background: #fdf9e5;
+    }
+    &.Compra {
+      color: #3554d1;
+      background: #e5f0fd;
+    }
   }
 
   &__edit {
@@ -178,6 +195,7 @@ a {
     justify-content: flex-end;
 
     span {
+      cursor: pointer;
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -193,6 +211,9 @@ a {
       -webkit-transition: all 0.2s ease-in-out 0s;
       -o-transition: all 0.2s ease-in-out 0s;
       transition: all 0.2s ease-in-out 0s;
+      &:first-of-type {
+        margin-right: 10px;
+      }
     }
   }
   .sell,
@@ -201,9 +222,13 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    font-size: 19px;
+    font-weight: 500;
+    color: #eb664e;
+    line-height: 1.5;
 
     & span {
-      font-size: 14px;
+      font-size: 15px;
       color: grey;
       line-height: 1;
     }

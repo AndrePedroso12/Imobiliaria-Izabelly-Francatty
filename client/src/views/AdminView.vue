@@ -14,7 +14,7 @@
       <div
         class="menu-icon"
         :class="{ active: currentComponent == HomePage }"
-        @click="currentComponent = HomePage"
+        @click="changePage(HomePage)"
       >
         <Icon icon="bx:home" width="1.2em" height="1.2em" />
         <p>Dashboard</p>
@@ -32,7 +32,7 @@
         <p>Gerenciar</p>
       </div>
 
-      <div class="menu-icon" @click="currentComponent = ManagePosts">
+      <div class="menu-icon" @click="currentComponent = AccountPage">
         <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
         <p>Minha Conta</p>
       </div>
@@ -50,7 +50,12 @@
       <div class="header" v-if="userInfos">
         <p>Dashboard</p>
       </div>
-      <component :is="currentComponent" :user="userInfos"></component>
+      <component
+        :is="currentComponent"
+        :user="userInfos"
+        :selectedCard="selectedCard"
+        @edit="editImovel"
+      ></component>
     </div>
   </div>
 </template>
@@ -64,12 +69,15 @@ import HomePage from '@/components/Admin/HomePage.vue'
 import CreatePosts from '@/components/Admin/CreatePosts.vue'
 import ManagePosts from '@/components/Admin/ManagePosts.vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
+import type { ImovelType } from '@/interfaces/interfaces'
+import AccountPage from '@/components/Admin/AccountPage.vue'
 
 const currentComponent = ref<Component>(HomePage)
 const authFunction = useAuth()
 const token = ref('')
 const userInfos = ref()
 const loading = ref(false)
+const selectedCard = ref<ImovelType>()
 
 onMounted(async () => {
   loading.value = true
@@ -83,6 +91,35 @@ onMounted(async () => {
 
 function logOut() {
   authFunction.logout()
+}
+
+function editImovel(card: ImovelType) {
+  selectedCard.value = card
+  currentComponent.value = CreatePosts
+}
+
+function changePage(component: Component) {
+  selectedCard.value = {
+    id: 0,
+    category: 'Apartamento',
+    model: 'Compra',
+    mainImage: '',
+    images: [],
+    video: '',
+    location: {
+      city: '',
+      neighborhood: ''
+    },
+    price: 0,
+    details: {
+      area: 0,
+      tags: []
+    },
+    description: '',
+    tags: [],
+    sellerName: ''
+  }
+  currentComponent.value = component
 }
 </script>
 

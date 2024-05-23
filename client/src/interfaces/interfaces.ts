@@ -4,6 +4,9 @@
 interface Location {
   city: string
   neighborhood: string
+  street?: string
+  number?: string
+  complemento?: string
 }
 
 // Define the updated object type
