@@ -49,6 +49,7 @@ Route::middleware(CheckToken::class)->group(function () {
 
 Route::prefix('imovel')->group(function () {
     Route::get('/admin', [ImovelController::class, 'getImoveisAdmin']);
+    Route::get('/admin/{id}', [ImovelController::class, 'getImovelAdminById']);
     Route::get('/home', [ImovelController::class, 'getImoveisHome']);
     Route::get('/{id}', [ImovelController::class, 'getImovel']);
     Route::get('/getVideo/{id}', [ImovelController::class, 'getVideo']);

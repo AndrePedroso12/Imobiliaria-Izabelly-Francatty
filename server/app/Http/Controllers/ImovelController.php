@@ -43,6 +43,19 @@ class ImovelController extends Controller
         return response(new ImovelResource($imovel));
     }
 
+    public function getImovelAdminById($id)
+    {
+        if (!is_numeric($id)) {
+            return response(["errors" => "Id Invalido"], 400);
+        }
+        $imovel = Imovel::find($id);
+        if (!$imovel) {
+            return response(["error" => 'Imóvel não encontrado'], 404);
+        }
+        return response(new ImoveisAdminResource($imovel));
+    }
+
+
     public function addVideo(Request $request, $id)
     {
         if (!is_numeric($id)) {
