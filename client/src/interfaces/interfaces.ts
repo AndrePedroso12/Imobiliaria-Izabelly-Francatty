@@ -4,8 +4,8 @@
 interface Location {
   city: string
   neighborhood: string
-  street?: string
-  number?: string
+  street: string
+  number: string
   complemento?: string
 }
 
@@ -36,6 +36,34 @@ export interface ImovelType {
   sellerName: string
 }
 
+export interface RawImovelData {
+  banner?: boolean
+  isfavourite?: boolean
+  isTop?: boolean
+  tipo: 'Terreno' | 'Casa' | 'Apartamento' | 'Condomínio' | 'Galpão' | 'Area'
+  pretensao: 'Compra' | 'Alugar'
+  rua: string
+  bairro: string
+  numero: string
+  mainImage: string
+  images: string[]
+  cidade: string
+  complemento?: string
+  area_construida: number
+  area_terreno: number
+  qtd_quartos: string
+  qtd_Suites: string
+  qtd_banheiros: string
+  qtd_vagas_garagem: string
+  preco: number
+  monthly: number | null
+  descricao: string
+  caracteristics: string[]
+  tags: string[]
+  vendedor: string
+  contato_vendedor: string
+}
+
 export interface EmpreendimentoType {
   id: number
   logo: string
@@ -50,6 +78,12 @@ export interface EmpreendimentoType {
 export interface NuvemDeTags {
   nome: string
   link: string
+}
+export interface User {
+  id: number
+  admin?: boolean
+  name: string
+  email: string
 }
 
 export type SnapAlign = 'start' | 'end' | 'center' | 'center-even' | 'center-odd'

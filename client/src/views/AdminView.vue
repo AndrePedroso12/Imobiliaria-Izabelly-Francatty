@@ -22,17 +22,17 @@
       <div
         class="menu-icon"
         :class="{ active: currentComponent == CreatePosts }"
-        @click="currentComponent = CreatePosts"
+        @click="changePage(CreatePosts)"
       >
         <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
         <p>Cadastrar</p>
       </div>
-      <div class="menu-icon" @click="currentComponent = ManagePosts">
+      <div class="menu-icon" @click="changePage(ManagePosts)">
         <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
         <p>Gerenciar</p>
       </div>
 
-      <div class="menu-icon" @click="currentComponent = AccountPage">
+      <div class="menu-icon" @click="changePage(AccountPage)">
         <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
         <p>Minha Conta</p>
       </div>
@@ -69,23 +69,25 @@ import HomePage from '@/components/Admin/HomePage.vue'
 import CreatePosts from '@/components/Admin/CreatePosts.vue'
 import ManagePosts from '@/components/Admin/ManagePosts.vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
-import type { ImovelType } from '@/interfaces/interfaces'
 import AccountPage from '@/components/Admin/AccountPage.vue'
 
 const currentComponent = ref<Component>(HomePage)
+const currentPage = ref()
 const authFunction = useAuth()
 const token = ref('')
+const userId = ref('')
 const userInfos = ref()
 const loading = ref(false)
-const selectedCard = ref<ImovelType>()
+const selectedCard = ref()
 
 onMounted(async () => {
   loading.value = true
   token.value = authFunction.checkLogin()
+  userId.value = authFunction.loggedUserId()
   if (!token.value) {
     router.push({ name: 'login' })
   }
-  userInfos.value = await authFunction.getUserById('1', token.value)
+  userInfos.value = await authFunction.getUserById(userId.value, token.value)
   loading.value = false
 })
 
@@ -93,33 +95,16 @@ function logOut() {
   authFunction.logout()
 }
 
-function editImovel(card: ImovelType) {
+function editImovel(card: number) {
   selectedCard.value = card
   currentComponent.value = CreatePosts
 }
 
 function changePage(component: Component) {
-  selectedCard.value = {
-    id: 0,
-    category: 'Apartamento',
-    model: 'Compra',
-    mainImage: '',
-    images: [],
-    video: '',
-    location: {
-      city: '',
-      neighborhood: ''
-    },
-    price: 0,
-    details: {
-      area: 0,
-      tags: []
-    },
-    description: '',
-    tags: [],
-    sellerName: ''
-  }
+  selectedCard.value = undefined
+
   currentComponent.value = component
+  currentPage.value = currentComponent.value
 }
 </script>
 

@@ -50,11 +50,10 @@
           :infos="card"
           v-for="card in filteredCards"
           :key="card.id"
-          @edit="setSelectedCard(card)"
-          @delete="setSelectedCard(card)"
+          @edit="setSelectedCard(card.id)"
+          @delete="deleteCard(card.id)"
         />
       </div>
-      <CardEdit @close="closeModal()" :modalActive="modalActive" :cardInfos="selectedCard" />
     </div>
   </div>
 </template>
@@ -64,7 +63,6 @@ import { computed, onMounted, ref } from 'vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import { useImoveis } from '@/composables'
 import type { ImovelType } from '@/interfaces/interfaces'
-import CardEdit from '@/components/Admin/CardEdit.vue'
 import CardAdmin from './CardAdmin.vue'
 
 const loading = ref(false)
@@ -76,8 +74,7 @@ const hasError = ref(false)
 const selectedCity = ref('')
 const selectedModel = ref('')
 const selectedCategory = ref('')
-const selectedCard = ref<ImovelType | undefined>()
-const modalActive = ref(false)
+const selectedCard = ref()
 
 const emit = defineEmits(['edit'])
 
@@ -129,12 +126,28 @@ const filter = (type: 'comprar' | 'alugar' | 'todos') => {
   filterType.value = type
 }
 
-async function setSelectedCard(card: ImovelType) {
+async function setSelectedCard(card: number) {
   selectedCard.value = card
   await emit('edit', selectedCard.value)
 }
-function closeModal() {
-  modalActive.value = false
+
+async function deleteCard(card: number) {
+  const shouldDelete = await confirmDeleteImovel()
+  if (shouldDelete) {
+    loading.value = true
+    await imoveisFunctions.deletarImovelPorId(card)
+    allImoveis.value = await imoveisFunctions.carregarImoveisAdmin()
+    loading.value = false
+  } else {
+    return
+  }
+}
+
+function confirmDeleteImovel() {
+  return new Promise<boolean>((resolve) => {
+    const confirmation = confirm('Tem certeza que deseja deletar este imóvel?')
+    resolve(confirmation)
+  })
 }
 </script>
 

@@ -4,8 +4,8 @@ import { getEndpoints } from './endpoints'
 
 export const useAuth = () => {
   const endpoints = getEndpoints()
-
   const storageComposable = useStorage()
+  const token = storageComposable.get('token')
   const router = useRouter()
 
   async function login(login: string, password: string): Promise<boolean> {
@@ -20,7 +20,7 @@ export const useAuth = () => {
       const data = await response.json()
       if (response.ok) {
         console.info('Login sucedido')
-        setToken(data.token)
+        setToken(data.token, data.id)
         return true
       } else {
         console.error('Login error:', data.error)
@@ -55,7 +55,6 @@ export const useAuth = () => {
         }
       })
       const data = await response.json()
-      console.log('✌️data --->', data)
 
       return data
     } catch (error) {
@@ -80,30 +79,36 @@ export const useAuth = () => {
     }
   }
 
-  async function updateUser(
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-    token: string
-  ): Promise<boolean> {
+  async function updateUser(id: string, name: string, email: string): Promise<any> {
     try {
-      const response = await fetch(`${endpoints.AUTH.LOGIN}`, {
+      const response = await fetch(`${endpoints.AUTH.UPDATE_USER}/${id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id, name, email, password })
+        body: JSON.stringify({ name, email })
       })
       const data = await response.json()
-      if (response.ok) {
-        setToken(data.token)
-        return true
-      } else {
-        console.error('Update user error:', data.error)
-        return false
-      }
+      if (data) return data
+    } catch (error) {
+      console.error('Update user error:', error)
+      throw error
+    }
+  }
+
+  async function updatePassword(id: string, password: string, newPassword: string): Promise<any> {
+    try {
+      const response = await fetch(`${endpoints.AUTH.UPDATE_PASSWORD}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password, newPassword })
+      })
+      const data = await response.json()
+      if (data) return data
     } catch (error) {
       console.error('Update user error:', error)
       throw error
@@ -137,8 +142,9 @@ export const useAuth = () => {
     storageComposable.remove('client-access')
   }
 
-  function setToken(token: string) {
+  function setToken(token: string, id: number) {
     storageComposable.set('token', token)
+    storageComposable.set('userId', id)
   }
 
   function deleteToken() {
@@ -150,6 +156,11 @@ export const useAuth = () => {
     return data
   }
 
+  function loggedUserId() {
+    const data = storageComposable.get('userId')
+    return data
+  }
+
   return {
     login,
     logout,
@@ -158,6 +169,8 @@ export const useAuth = () => {
     deleteUserById,
     updateUser,
     checkLogin,
-    getFrases
+    getFrases,
+    loggedUserId,
+    updatePassword
   }
 }
