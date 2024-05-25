@@ -85,7 +85,7 @@ class UserController extends Controller
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            return response(["message" => "Senha incorreta",], 401);
+            return response(["error" => "Senha incorreta",], 401);
         }
         $user->update([
             'password' => $request->newPassword,
