@@ -40,11 +40,12 @@
       <div class="manage__cards">
         <div class="manage__cards__header">
           <p class="Imagem">Imagem</p>
-          <p class="Endereço">Endereço</p>
-          <p class="Preço">Preço</p>
-          <p class="Informações">Informações</p>
-          <p class="Modelo">Modelo</p>
-          <p class="Gerenciar">Gerenciar</p>
+          <p class="Endereço desktop">Endereço</p>
+          <p class="Endereço mobile">Infos</p>
+          <p class="Preço desktop">Preço</p>
+          <p class="Informações desktop">Informações</p>
+          <p class="Modelo desktop">Modelo</p>
+          <p class="Gerenciar desktop">Gerenciar</p>
         </div>
         <CardAdmin
           :infos="card"
@@ -158,6 +159,9 @@ function confirmDeleteImovel() {
   background: #fff;
   margin-bottom: 20px;
   border: 1px solid #e9e9e9;
+  @media (max-width: 786px) {
+    padding: 35px 15px 40px;
+  }
 }
 
 .title {
@@ -195,6 +199,10 @@ select {
     border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
   margin-right: 40px;
+  @media (max-width: 786px) {
+    width: 100%;
+    margin: 0;
+  }
   /* Remove IE arrow */
   &::-ms-expand {
     display: none;
@@ -226,22 +234,40 @@ select {
   &_filters {
     display: flex;
     padding: 0rem 0 2rem;
+    @media (max-width: 786px) {
+      gap: 10px;
+      flex-direction: column;
+    }
   }
 
   &__selects {
     display: flex;
     justify-content: flex-start;
+    @media (max-width: 786px) {
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 12px;
+    }
   }
 
   &__buttons {
     display: flex;
     justify-content: flex-start;
+    @media (max-width: 786px) {
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 12px;
+    }
 
     button {
       background: black;
       margin-right: 40px;
       padding: 5px 40px;
       color: white;
+      @media (max-width: 786px) {
+        margin-right: 0;
+        width: 100%;
+      }
       &.active {
         background: var(--color-background);
         color: black;

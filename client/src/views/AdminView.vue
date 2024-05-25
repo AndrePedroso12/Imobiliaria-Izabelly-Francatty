@@ -1,8 +1,13 @@
 <template>
   <div class="container">
     <LoaderSpinner v-if="loading" />
+
+    <button class="hamburger mobile" @click="toggleMenu">
+      <Icon icon="fa-solid:bars" width="1.7em" height="1.7em" />
+    </button>
+
     <!-- Menu lateral -->
-    <div class="sidebar" v-if="!loading && userInfos">
+    <div class="sidebar" :class="{ active: isMenuOpen }" v-if="!loading && userInfos">
       <div class="user-info">
         <div class="user-picture">
           <img alt="Izabelly Francati Logo" src="@/assets/logo-preto-top.svg" />
@@ -44,11 +49,16 @@
       <div class="divider"></div>
       <img alt="Izabelly Francati Logo" class="logo" src="@/assets/logo-branco2.svg" />
     </div>
-
+    <div
+      class="overlay mobile"
+      v-if="isMenuOpen"
+      :class="{ active: isMenuOpen }"
+      @click="toggleMenu"
+    ></div>
     <!-- Conteúdo dinâmico -->
     <div class="content" v-if="!loading">
-      <div class="header" v-if="userInfos">
-        <p>Dashboard</p>
+      <div class="header" v-if="userInfos && currentComponent.__name">
+        <p>{{ getPageName(currentComponent.__name) }}</p>
       </div>
       <component
         :is="currentComponent"
@@ -80,6 +90,7 @@ const userId = ref('')
 const userInfos = ref()
 const loading = ref(false)
 const selectedCard = ref()
+const isMenuOpen = ref(false)
 
 onMounted(async () => {
   loading.value = true
@@ -96,6 +107,10 @@ function logOut() {
   authFunction.logout()
 }
 
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
 function editImovel(card: number) {
   selectedCard.value = card
   currentComponent.value = CreatePosts
@@ -108,13 +123,29 @@ function savedSucces() {
 
 function changePage(component: Component) {
   selectedCard.value = undefined
-
+  toggleMenu()
   currentComponent.value = component
   if (component.name) currentPageName.value = component.name
 }
 
 function isCurrentPage(component: Component) {
-  return currentPageName.value === component.name
+  return currentComponent.value.__name === component.__name
+}
+
+function getPageName(value: string) {
+  switch (value) {
+    case 'HomePage':
+      return 'Dashboard'
+    case 'CreatePosts':
+      return 'Cadastrar / Editar um imóvel'
+    case 'ManagePosts':
+      return 'Gerenciar Imóveis'
+    case 'AccountPage':
+      return 'Gerenciar sua conta'
+
+    default:
+      return 'Pagina invalida'
+  }
 }
 </script>
 
@@ -147,6 +178,28 @@ function isCurrentPage(component: Component) {
   line-height: 1.2;
 }
 
+.overlay {
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.6901960784);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+.overlay.active {
+  opacity: 1;
+}
+
+.hamburger {
+  position: fixed;
+  bottom: 0;
+  left: 40%;
+  z-index: 9;
+}
+
 .sidebar {
   width: 19rem;
   height: 100vh;
@@ -160,6 +213,20 @@ function isCurrentPage(component: Component) {
   align-items: flex-start;
   border-radius: 24px;
   margin-right: 60px;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    transform: translateX(-135%);
+    margin: 0;
+    left: 0;
+    top: 0;
+    border-radius: 0 25px 25px 0;
+    z-index: 99;
+
+    &.active {
+      transform: translateX(0) !important;
+    }
+  }
 
   .menu-icon {
     display: flex;
@@ -213,22 +280,44 @@ function isCurrentPage(component: Component) {
   width: 100%;
   padding: 2rem 0;
   text-align: center;
+  @media screen {
+    margin: 0 auto;
+    background: #242424;
+    width: 100%;
+    padding: 1rem 0;
+    text-align: center;
+  }
   .user-picture {
-    background: orange;
+    background: var(--color-background);
     height: 7rem;
     width: 7rem;
     border-radius: 50px;
     overflow: hidden;
     margin: 0 auto;
+    @media screen {
+      height: 3rem;
+      width: 3rem;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   .user-name {
     font-size: 36px;
     font-weight: bold;
+    @media screen {
+      font-size: 21px;
+    }
   }
 
   .user-email {
     font-size: 15px;
+    @media screen {
+      font-size: 11px;
+    }
   }
 }
 </style>

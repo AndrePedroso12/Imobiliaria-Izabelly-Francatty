@@ -415,7 +415,6 @@ async function saveChanges() {
     try {
       loading.value = true
       const data = await ImoveisFunction.atualizarImovel(cardInfos.value)
-      console.log('✌️data --->', data)
 
       if (!data.errors) {
         cardInfos.value = data
@@ -501,6 +500,12 @@ onMounted(async () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      .w-50 {
+        width: 100%;
+      }
+    }
   }
 
   h5 {
@@ -598,7 +603,14 @@ onMounted(async () => {
     &.w-25 {
       max-width: 15%;
     }
-
+    @media (max-width: 768px) {
+      &.w-50 {
+        width: 100%;
+      }
+      &.w-25 {
+        max-width: 100%;
+      }
+    }
     img {
       height: 100%;
       width: 100%;
@@ -617,6 +629,9 @@ onMounted(async () => {
       width: 190px;
       margin-bottom: 20px;
       height: 6.7rem;
+      @media (max-width: 768px) {
+        min-width: 153px;
+      }
     }
 
     svg {

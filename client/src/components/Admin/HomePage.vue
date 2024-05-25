@@ -25,7 +25,7 @@
       <div class="card">
         <div class="infos">
           <div class="number">{{ imoveisList.length }}</div>
-          <div class="text">Imóveis cadastrados</div>
+          <div class="text">Imóveis á venda</div>
         </div>
 
         <div class="icon">
@@ -35,7 +35,7 @@
       <div class="card">
         <div class="infos">
           <div class="number">{{ imoveisList.length }}</div>
-          <div class="text">Imóveis cadastrados</div>
+          <div class="text">Imóveis para alugar</div>
         </div>
 
         <div class="icon">
@@ -182,6 +182,10 @@ const breakpoints = ref({
   display: flex;
   gap: 0 20px;
   padding-bottom: 20px;
+  @media screen {
+    gap: 5px;
+    flex-wrap: wrap;
+  }
 
   .card {
     padding: 45px 40px;
@@ -191,12 +195,19 @@ const breakpoints = ref({
     display: flex;
     align-items: center;
     width: 50%;
+    @media screen {
+      padding: 45px 17px;
+      width: 48%;
+    }
 
     .number {
       font-size: 40px;
       font-weight: 500;
       margin: 0;
       line-height: 1.6;
+      @media screen {
+        font-size: 35px;
+      }
     }
     .text {
       font-size: 16px;
@@ -225,6 +236,15 @@ const breakpoints = ref({
         left: -15px;
         bottom: 20px;
         z-index: -1;
+      }
+      @media screen {
+        font-size: 43px;
+        &:before {
+          width: 39px;
+          height: 39px;
+          left: -15px;
+          bottom: 15px;
+        }
       }
     }
   }
