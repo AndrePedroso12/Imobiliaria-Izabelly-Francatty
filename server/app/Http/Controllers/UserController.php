@@ -81,11 +81,11 @@ class UserController extends Controller
 
         $user = User::find($id);
         if (!$user) {
-            return response(["error" => 'Usuario não encontrado'], 404);
+            return response(["errors" => 'Usuario não encontrado'], 404);
         }
 
         if (!Hash::check($request->password, $user->password)) {
-            return response(["error" => "Senha incorreta",], 401);
+            return response(["errors" => "Senha incorreta",], 401);
         }
         $user->update([
             'password' => $request->newPassword,
