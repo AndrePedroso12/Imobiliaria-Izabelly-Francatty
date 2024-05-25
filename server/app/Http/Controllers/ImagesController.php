@@ -64,7 +64,6 @@ class ImagesController extends Controller
 
 
             if ($isMain) {
-                return $isMain;
                 $main = Images::where("imovel_id", $id_imovel)->get();
                 foreach ($main as $i) {
                     $i->update(["isMain" => false]);
