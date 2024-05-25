@@ -19,6 +19,12 @@ const getEndpoints = () => {
       GET_ALL: `${localUrl}/api/imovel/home`,
       GET_ALL_ADMIN: `${localUrl}/api/imovel/admin`,
       GET_VIDEO: `${localUrl}/api/imovel/getVideo`
+    },
+    IMAGENS: {
+      CREATE: `${localUrl}/api/imagem/imovel`,
+      GET: `${localUrl}/api/imagem/imovel`,
+      DELETE: `${localUrl}/api/imagem/imovel`,
+      VIDEO: `${localUrl}/api/imovel/addVideo`
     }
   }
 }

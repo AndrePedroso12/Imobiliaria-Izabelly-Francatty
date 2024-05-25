@@ -70,6 +70,7 @@ import { ref } from 'vue'
 import { useAuth, useImoveis } from '@/composables'
 import { onMounted } from 'vue'
 import LoaderDots from '../Shared/LoaderDots.vue'
+import LoaderSpinner from '../Shared/LoaderSpinner.vue'
 
 const ImoveisFunction = useImoveis()
 const authFunction = useAuth()

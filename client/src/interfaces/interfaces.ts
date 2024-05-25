@@ -45,16 +45,16 @@ export interface RawImovelData {
   rua: string
   bairro: string
   numero: string
-  mainImage: string
-  images: string[]
+  // mainImage: string
+  // images: string[]
   cidade: string
   complemento?: string
   area_construida: number
   area_terreno: number
-  qtd_quartos: string
-  qtd_Suites: string
-  qtd_banheiros: string
-  qtd_vagas_garagem: string
+  qtd_quartos: number
+  qtd_Suites: number
+  qtd_banheiros: number
+  qtd_vagas_garagem: number
   preco: number
   monthly: number | null
   descricao: string
@@ -87,3 +87,8 @@ export interface User {
 }
 
 export type SnapAlign = 'start' | 'end' | 'center' | 'center-even' | 'center-odd'
+
+export interface ImageResponse {
+  imagem: string
+  isMain: boolean
+}

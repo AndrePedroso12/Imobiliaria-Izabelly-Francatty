@@ -13,7 +13,7 @@
 
       <div
         class="menu-icon"
-        :class="{ active: currentComponent == HomePage }"
+        :class="{ active: isCurrentPage(HomePage) }"
         @click="changePage(HomePage)"
       >
         <Icon icon="bx:home" width="1.2em" height="1.2em" />
@@ -21,7 +21,7 @@
       </div>
       <div
         class="menu-icon"
-        :class="{ active: currentComponent == CreatePosts }"
+        :class="{ active: isCurrentPage(CreatePosts) }"
         @click="changePage(CreatePosts)"
       >
         <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
@@ -55,6 +55,7 @@
         :user="userInfos"
         :selectedCard="selectedCard"
         @edit="editImovel"
+        @saved="savedSucces"
       ></component>
     </div>
   </div>
@@ -72,7 +73,7 @@ import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import AccountPage from '@/components/Admin/AccountPage.vue'
 
 const currentComponent = ref<Component>(HomePage)
-const currentPage = ref()
+const currentPageName = ref('HomePage')
 const authFunction = useAuth()
 const token = ref('')
 const userId = ref('')
@@ -100,11 +101,20 @@ function editImovel(card: number) {
   currentComponent.value = CreatePosts
 }
 
+function savedSucces() {
+  selectedCard.value = undefined
+  currentComponent.value = ManagePosts
+}
+
 function changePage(component: Component) {
   selectedCard.value = undefined
 
   currentComponent.value = component
-  currentPage.value = currentComponent.value
+  if (component.name) currentPageName.value = component.name
+}
+
+function isCurrentPage(component: Component) {
+  return currentPageName.value === component.name
 }
 </script>
 
@@ -172,7 +182,8 @@ function changePage(component: Component) {
 
       transition: 0.6s;
     }
-    &:hover {
+    &:hover,
+    &.active {
       color: #fff;
       background: rgba(255, 255, 255, 0.05);
     }

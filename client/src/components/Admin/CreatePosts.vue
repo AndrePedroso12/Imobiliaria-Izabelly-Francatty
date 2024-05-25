@@ -149,7 +149,7 @@
 
     <div class="basic-info" v-if="cardInfos">
       <h5>Informações para o site</h5>
-      <div class="box-info w-25">
+      <div class="box-info w-50">
         <label for="">Deve aparecer no Banner do site?</label>
 
         <div class="checkbox-wrapper-22">
@@ -159,7 +159,7 @@
           </label>
         </div>
       </div>
-      <div class="box-info w-25">
+      <div class="box-info w-50">
         <label for="">É um destaque?</label>
         <div class="checkbox-wrapper-22">
           <label class="switch" for="favorite">
@@ -168,7 +168,7 @@
           </label>
         </div>
       </div>
-      <div class="box-info w-25">
+      <div class="box-info w-50">
         <label for="">Deve aparecer na seçãod e mais buscados?</label>
         <div class="checkbox-wrapper-22">
           <label class="switch" for="isTop">
@@ -177,7 +177,7 @@
           </label>
         </div>
       </div>
-      <div class="box-info w-25">
+      <div class="box-info w-50">
         <label for="">Nome do Vendedor</label>
         <input type="text" v-model="cardInfos.sellerName" />
       </div>
@@ -259,7 +259,7 @@
 import type { ImovelType } from '@/interfaces/interfaces'
 import { onMounted, ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import { useImoveis } from '@/composables'
+import { useImoveis, useImagens } from '@/composables'
 import LoaderDots from '../Shared/LoaderDots.vue'
 
 const cardInfos = ref<ImovelType>({
@@ -286,10 +286,13 @@ const cardInfos = ref<ImovelType>({
   sellerName: ''
 })
 const ImoveisFunction = useImoveis()
+const ImagemFunction = useImagens()
 const tipoCondominio = ref<boolean>(false)
 const mainImagePreview = ref()
+const mainImageFile = ref<File>()
 const galleryPreviews = ref<(string | ArrayBuffer)[]>([])
 const videoPreview = ref()
+const videoFile = ref<File>()
 const loading = ref(false)
 const errorText = ref()
 const successText = ref()
@@ -300,6 +303,12 @@ const tags = ref<string[]>([])
 const props = defineProps<{
   selectedCard?: number
 }>()
+
+const emit = defineEmits(['saved'])
+
+function emitSaved() {
+  emit('saved')
+}
 
 function addTag() {
   if (newTag.value.trim() !== '') {
@@ -322,6 +331,7 @@ function removeLastTag(event: KeyboardEvent) {
 
 function previewMainImage(event: any) {
   const file = event.target.files[0]
+  mainImageFile.value = file
   if (file) {
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -351,6 +361,7 @@ function previewGalleryImage(event: Event) {
 
 function addVideo(event: any) {
   const file = event.target.files[0]
+  videoFile.value = file
   if (file) {
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -385,7 +396,6 @@ function removeGalleryImage(index: number) {
 async function saveChanges() {
   successText.value = ''
   errorText.value = ''
-  cardInfos.value.mainImage = mainImagePreview.value
 
   // Atualiza as imagens da galeria, se houver
   if (galleryPreviews.value.length > 0) {
@@ -401,11 +411,12 @@ async function saveChanges() {
     cardInfos.value.images = [] // Se não houver imagens na galeria, limpe o array
   }
 
-  cardInfos.value.video = videoPreview.value
-
   if (props.selectedCard) {
     try {
+      loading.value = true
       const data = await ImoveisFunction.atualizarImovel(cardInfos.value)
+      console.log('✌️data --->', data)
+
       if (!data.errors) {
         cardInfos.value = data
         successText.value = 'Imóvel atualizado com sucesso'
@@ -415,7 +426,6 @@ async function saveChanges() {
         errorText.value =
           'Houve um erro ao tentar atualizar esse Imóvel, por favor tente novamente mais tarde'
       }
-      loading.value = false
     } catch (error) {
       console.error('Erro ao salvar:', error)
     }
@@ -437,6 +447,22 @@ async function saveChanges() {
       console.error('Erro ao salvar:', error)
     }
   }
+
+  if (cardInfos.value.id) {
+    if (mainImageFile.value) {
+      await ImagemFunction.salvarImagem(cardInfos.value.id, mainImageFile.value)
+    }
+
+    if (videoFile.value) {
+      await ImagemFunction.carregarVideo(cardInfos.value.id, videoFile.value)
+    }
+  }
+  loading.value = false
+  if (successText.value) {
+    setTimeout(() => {
+      emitSaved()
+    }, 2000)
+  }
 }
 
 async function getImovel() {
@@ -446,9 +472,9 @@ async function getImovel() {
     const data = await ImoveisFunction.carregarImovelPorIdAdmin(props.selectedCard)
     if (data) cardInfos.value = data
     mainImagePreview.value = data.mainImage
+    galleryPreviews.value = data.images
+    videoPreview.value = data.video
     tags.value = cardInfos.value.details.tags
-    const video = await ImoveisFunction.carregarVideo(cardInfos.value.id)
-    if (video) cardInfos.value = video
   } catch (error) {
     console.error('Erro ao carregar imóveil:', error)
   }
@@ -617,8 +643,7 @@ onMounted(async () => {
       border: 0;
       color: transparent;
       padding: 0;
-      &::before {
-        content: 'Escolher arquivos';
+      &::file-selector-button {
         padding: 15px 40px;
         display: inline-block;
         margin: 0;
@@ -632,6 +657,10 @@ onMounted(async () => {
         -o-transition: all 0.3s ease-in-out 0s;
         transition: all 0.3s ease-in-out 0s;
         cursor: pointer;
+        &:hover {
+          background-color: #e7c873;
+          border: 1px solid #e7c873;
+        }
       }
     }
   }

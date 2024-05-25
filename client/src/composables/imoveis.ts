@@ -1,5 +1,5 @@
 import { getEndpoints } from './endpoints'
-import type { ImovelType, RawImovelData } from '@/interfaces/interfaces'
+import type { ImovelType, RawImovelData, ImageResponse } from '@/interfaces/interfaces'
 import { useStorage } from './storage'
 
 export const useImoveis = () => {
@@ -20,7 +20,11 @@ export const useImoveis = () => {
         body: JSON.stringify(sendData)
       })
       const data = await response.json()
-      return data
+      let formatedResponse
+      if (data.id) {
+        formatedResponse = convertImages(data)
+        return formatedResponse
+      } else return data
     } catch (error) {
       console.error('Erro ao criar novo imóvel:', error)
       throw error
@@ -36,28 +40,16 @@ export const useImoveis = () => {
         }
       })
       const data = await response.json()
-      return data
+
+      const formatedResponse = convertMultipleImages(data)
+
+      return formatedResponse
     } catch (error) {
       console.error('Erro ao carregar imóveis:', error)
       throw error
     }
   }
 
-  // Função para carregar todos os imóveis para Home
-  async function carregarVideo(id: number) {
-    try {
-      const response = await fetch(`${endpoints.IMOVEIS.GET_VIDEO}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
-      return data
-    } catch (error) {
-      console.error('Erro ao carregar video:', error)
-      throw error
-    }
-  }
   // Função para carregar todos os imóveis
   async function carregarImoveisAdmin() {
     try {
@@ -67,7 +59,10 @@ export const useImoveis = () => {
         }
       })
       const data = await response.json()
-      return data
+
+      const formatedResponse = convertMultipleImages(data)
+
+      return formatedResponse
     } catch (error) {
       console.error('Erro ao carregar imóveis:', error)
       throw error
@@ -79,7 +74,9 @@ export const useImoveis = () => {
     try {
       const response = await fetch(`${endpoints.IMOVEIS.GET}/${id}`)
       const data = await response.json()
-      return data
+      const formatedResponse = convertImages(data)
+
+      return formatedResponse
     } catch (error) {
       console.error('Erro ao carregar imóvel por ID:', error)
       throw error
@@ -91,7 +88,10 @@ export const useImoveis = () => {
     try {
       const response = await fetch(`${endpoints.IMOVEIS.GET_ADMIN}/${id}`)
       const data = await response.json()
-      return data
+
+      const formatedResponse = convertImages(data)
+
+      return formatedResponse
     } catch (error) {
       console.error('Erro ao carregar imóvel por ID:', error)
       throw error
@@ -129,11 +129,14 @@ export const useImoveis = () => {
         body: JSON.stringify(sendData)
       })
       const data = await response.json()
-      console.log('Imóvel atualizado:', data)
-      return data
+      let formatedResponse
+      if (data.id) {
+        formatedResponse = convertImages(data)
+        return formatedResponse
+      } else return data
     } catch (error) {
       console.error('Erro ao atualizar imóvel:', error)
-      throw error
+      return false
     }
   }
 
@@ -147,16 +150,16 @@ export const useImoveis = () => {
       rua: imovel.location.street,
       bairro: imovel.location.neighborhood,
       numero: imovel.location.number,
-      mainImage: imovel.mainImage,
-      images: imovel.images,
+      // mainImage: imovel.mainImage,
+      // images: imovel.images,
       cidade: imovel.location.city,
       complemento: imovel.location.complemento,
       area_construida: imovel.details.area,
       area_terreno: imovel.details.area, // Supondo que a área do terreno seja a mesma da área construída
-      qtd_quartos: imovel.details.rooms ? imovel.details.rooms.toString() : '',
-      qtd_Suites: imovel.details.suites ? imovel.details.suites.toString() : '',
-      qtd_banheiros: imovel.details.bathrooms ? imovel.details.bathrooms.toString() : '',
-      qtd_vagas_garagem: imovel.details.garage ? imovel.details.garage.toString() : '',
+      qtd_quartos: imovel.details.rooms ? imovel.details.rooms : 0,
+      qtd_Suites: imovel.details.suites ? imovel.details.suites : 0,
+      qtd_banheiros: imovel.details.bathrooms ? imovel.details.bathrooms : 0,
+      qtd_vagas_garagem: imovel.details.garage ? imovel.details.garage : 0,
       preco: imovel.price,
       monthly: imovel.monthly !== undefined ? imovel.monthly : null,
       descricao: imovel.description,
@@ -167,6 +170,24 @@ export const useImoveis = () => {
     }
   }
 
+  function convertImages(data: any) {
+    const prefix = 'http://server.test'
+    // Processamento das imagens
+    const images = data.images.map((image: ImageResponse) => prefix + image.imagem)
+    const mainImage = data.images.find((image: ImageResponse) => image.isMain)
+
+    // Atualizando data com as imagens processadas
+    data.images = images
+    data.mainImage = mainImage ? prefix + mainImage.imagem : null
+    data.video = data.video ? prefix + data.video : null
+
+    return data
+  }
+
+  function convertMultipleImages(dataArray: any) {
+    return dataArray.map((data: any) => convertImages(data))
+  }
+
   return {
     criarNovoImovel,
     atualizarImovel,
@@ -175,7 +196,6 @@ export const useImoveis = () => {
     carregarImoveis,
     carregarImoveisAdmin,
     carregarImovelPorIdAdmin,
-    convertImovelTypeToRaw,
-    carregarVideo
+    convertImovelTypeToRaw
   }
 }

@@ -25,6 +25,7 @@ class ImoveisHomeResource extends JsonResource
             'category' => $this->imovel->tipo,
             'model' => $this->imovel->pretensao,
             'mainImage' => $this->imovel->mainImage,
+            'images' => ImagesResource::collection($this->imovel->images),
             'location' => [
                 'city' => $this->imovel->cidade,
                 'neighborhood' => $this->imovel->bairro,
