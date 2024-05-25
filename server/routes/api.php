@@ -44,6 +44,7 @@ Route::middleware(CheckToken::class)->group(function () {
     Route::prefix('imagem')->group(function () {
         Route::delete('/{id}', [ImagesController::class, 'deleteImagem']);
         Route::post('/imovel/{id_imovel}', [ImagesController::class, 'addImagem']);
+        Route::post('/newMainImage/{id}', [ImagesController::class, 'changeMainImage']);
     });
 });
 

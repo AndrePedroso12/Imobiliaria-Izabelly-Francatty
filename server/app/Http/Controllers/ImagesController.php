@@ -60,13 +60,23 @@ class ImagesController extends Controller
 
             $path = $imagem->store('public');
             $path = str_replace('public/', '', $path);
+            $isMain = strtoupper($request->isMain) == "TRUE" ? true : false;
+
+
+            if ($isMain) {
+                return $isMain;
+                $main = Images::where("imovel_id", $id_imovel)->get();
+                foreach ($main as $i) {
+                    $i->update(["isMain" => false]);
+                }
+            }
 
             Images::create([
                 'imagem' => $path,
-                'imovel_id' => $id_imovel
+                'imovel_id' => $id_imovel,
+                "isMain" => $isMain
             ]);
             $imovel = Imovel::find($id_imovel);
-
             return response(new ImoveisAdminResource($imovel));
         }
     }
@@ -80,5 +90,26 @@ class ImagesController extends Controller
             $res[] = new ImagesResource($image);
         }
         return response($res);
+    }
+
+    public function changeMainImage($id)
+    {
+        if (!is_numeric($id)) {
+            return response(["errors" => "Id Invalido"], 400);
+        }
+
+        $newMain = Images::find($id);
+        if (!$newMain) {
+            return response(["error" => 'Imagem não encontrado'], 404);
+        }
+        $main = Images::where("imovel_id", $newMain->imovel_id)->get();
+        foreach ($main as $i) {
+            $i->update(["isMain" => false]);
+        }
+
+        $newMain->update([["isMain" => false]]);
+
+        $imovel = Imovel::find($newMain->imovel_id);
+        return response(new ImoveisAdminResource($imovel));
     }
 }
