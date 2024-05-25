@@ -304,7 +304,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"isTop\": false,\r\n    \"isFavorite\": true,\r\n    \"isBanner\":false,\r\n    \"monthly\":100.20,\r\n    \"mainImage\":\"data:text/plain;base64,MSBCcmF6ZW4gQm9ycm93ZXINCjQgQ291bnRlcnNwZWxsDQo0IERyYWdvbidzIFJhZ2UgQ2hhbm5lbGVyDQoxIERyZXNzIERvd24NCjQgRXhwcmVzc2l2ZSBJdGVyYXRpb24NCjEgRmllcnkgSXNsZXQNCjIgRmxvb2RlZCBTdHJhbmQNCjQgTGlnaHRuaW5nIEJvbHQNCjQgTWlzaHJhJ3MgQmF1YmxlDQoyIE1pc3R5IFJhaW5mb3Jlc3QNCjQgTXVya3RpZGUgUmVnZW50DQoyIFBvbGx1dGVkIERlbHRhDQo0IFByZW9yZGFpbg0KNCBSYWdhdmFuLCBOaW1ibGUgUGlsZmVyZXINCjIgU2NhbGRpbmcgVGFybg0KMiBTbm93LUNvdmVyZWQgSXNsYW5kDQoyIFNwZWxsIFBpZXJjZQ0KMSBTcGVsbCBTbmFyZQ0KMyBTcGlyZWJsdWZmIENhbmFsDQozIFN0ZWFtIFZlbnRzDQoyIFN1YnRsZXR5DQoxIFRodW5kZXJpbmcgRmFsbHMNCjMgVW5ob2x5IEhlYXQNCg0KMiBBbm51bA0KMSBCbG9vZCBNb29uDQoyIEJyb3RoZXJob29kJ3MgRW5kDQoxIENhc3QgaW50byB0aGUgRmlyZQ0KMSBGYWJsZSBvZiB0aGUgTWlycm9yLUJyZWFrZXINCjEgRmx1c3RlcnN0b3JtDQoxIE1hZ3VzIG9mIHRoZSBNb29uDQoxIFNwZWxsIFNuYXJlDQoyIFN0ZXJuIFNjb2xkaW5nDQoyIFN1cmdpY2FsIEV4dHJhY3Rpb24NCjEgVW5saWNlbnNlZCBIZWFyc2UNCg==\",\r\n    \"tipo\": \"Casa\",\r\n    \"pretensao\": \"Venda\",\r\n    \"rua\": \"Rua1\",\r\n    \"bairro\": \"bairro1\",\r\n    \"numero\": \"123\",\r\n    \"cidade\": \"jag\",\r\n    \"complemento\": \"bloco 22\",\r\n    \"area_construida\": 44.3,\r\n    // \"area_terreno\": 55.4,\r\n    \"qtd_quartos\": \"3\",\r\n    \"qtd_Suites\": \"1\",\r\n    \"qtd_banheiros\": \"3\",\r\n    \"qtd_vagas_garagem\": \"2\",\r\n    \"preco\": 12222222.0,\r\n    \"descricao\": \"blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla\",\r\n    \"caracteristics\": [\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"tags\": [\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"vendedor\": \"Sebastiao\",\r\n    \"contato_vendedor\": \"21312312321\"\r\n}",
+							"raw": "{\r\n    \"isTop\": false,\r\n    \"isFavorite\": true,\r\n    \"isBanner\":false,\r\n    \"monthly\":100.20,\r\n    \"tipo\": \"Casa\",\r\n    \"pretensao\": \"Venda\",\r\n    \"rua\": \"Rua1\",\r\n    \"bairro\": \"bairro1\",\r\n    \"numero\": \"123\",\r\n    \"cidade\": \"jag\",\r\n    \"complemento\": \"bloco 22\",\r\n    \"area_construida\": 44.3,\r\n    // \"area_terreno\": 55.4,\r\n    \"qtd_quartos\": \"3\",\r\n    \"qtd_Suites\": \"1\",\r\n    \"qtd_banheiros\": \"3\",\r\n    \"qtd_vagas_garagem\": \"2\",\r\n    \"preco\": 12222222.0,\r\n    \"descricao\": \"blablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla\",\r\n    \"caracteristics\": [\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"tags\": [\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\",\r\n        \"carac\"\r\n    ],\r\n    \"vendedor\": \"Sebastiao\",\r\n    \"contato_vendedor\": \"21312312321\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -415,6 +415,49 @@
 				},
 				{
 					"name": "getImovel",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/imovel/11",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImovelAdmin",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -731,12 +774,17 @@
 								{
 									"key": "imagem",
 									"type": "file",
-									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811 - Copia.jpg"
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.jpg"
+								},
+								{
+									"key": "isMain",
+									"value": "false",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://server.test/api/imagem/imovel/11",
+							"raw": "http://server.test/api/imagem/imovel/1",
 							"protocol": "http",
 							"host": [
 								"server",
@@ -746,7 +794,54 @@
 								"api",
 								"imagem",
 								"imovel",
-								"11"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newMainImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagem",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.jpg"
+								},
+								{
+									"key": "isMain",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://server.test/api/imagem/newMainImage/1",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								"newMainImage",
+								"1"
 							]
 						}
 					},

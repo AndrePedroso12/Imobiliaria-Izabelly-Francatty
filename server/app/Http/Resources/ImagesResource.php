@@ -19,6 +19,7 @@ class ImagesResource extends JsonResource
         $data = [
             // 'id' => $this->imagem->id,
             'imagem' => '/api/imagem/' . $this->imagem->id,
+            'isMain' => $this->imagem->isMain ? true : false
         ];
         return $data;
     }

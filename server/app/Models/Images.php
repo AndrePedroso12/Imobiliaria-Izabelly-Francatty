@@ -13,5 +13,6 @@ class Images extends Model
     protected $fillable = [
         'imovel_id',
         'imagem',
+        'isMain',
     ];
 }
