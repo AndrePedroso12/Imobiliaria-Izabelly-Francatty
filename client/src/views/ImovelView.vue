@@ -182,16 +182,7 @@ function slideTo(val: number) {
 
 function copiarURL() {
   const url = window.location.href
-  navigator.clipboard
-    .writeText(url)
-    .then(() => {
-      // Mostra uma mensagem de sucesso
-      document.getElementById('mensagem').innerText = 'URL copiada com sucesso!'
-    })
-    .catch((err) => {
-      // Mostra uma mensagem de erro, se ocorrer
-      document.getElementById('mensagem').innerText = 'Erro ao copiar a URL: ' + err
-    })
+  navigator.clipboard.writeText(url)
 }
 
 async function shareSite() {

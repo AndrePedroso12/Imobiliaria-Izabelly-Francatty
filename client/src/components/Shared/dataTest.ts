@@ -18,7 +18,9 @@ export const ImoveisTeste: ImovelType[] = [
       'https://d2c5tif9s6pex6.cloudfront.net/o5pjkh%2Ffile%2Ff96dbd04426d25b9662333f47dcfa44d_0c85ecc0c89c512f1379f1f17915dfed.mp4?response-content-disposition=inline%3Bfilename%3D%22f96dbd04426d25b9662333f47dcfa44d_0c85ecc0c89c512f1379f1f17915dfed.mp4%22%3B&response-content-type=video%2Fmp4&Expires=1715729335&Signature=hADUwi8ClDSKujRMS~2ifuhwO5Y3sJ4t4epNoRD-a1fZMKOyRCvFJkSO6NdCYDwUijQUgxFpXmOIAIYN3EOoDBU4Y3F77f7LiyW2FhPzLefVWq1UDxSJ3MaN6FTF4cqKvZv72ftKSJY9xRAYEgOoRj-7HbQNMF6ovmE6grTW0ue3tjSfgN8wsiW3ROZ7Es~Tk24BVIh70zEbsA38-WEIoJJL3Ha79syLXHAWDz6KtP5kI73IoCDQOFGtb8YXqIOuRypUl92Nb~x3uFTB2NdtrpGG4n8PPsVSYBN7vJDCb7eUTdDS-bwJEG8ShxCUIQSq~Fdnjyoe8dMv98OKLNswCw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Nova Jaguariúna'
+      neighborhood: 'Nova Jaguariúna',
+      street: '',
+      number: ''
     },
     price: 1000,
     monthly: 500,
@@ -67,7 +69,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Lago da Barra'
+      neighborhood: 'Lago da Barra',
+      street: '',
+      number: ''
     },
     price: 2000,
     details: {
@@ -93,7 +97,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Amparo',
-      neighborhood: 'Tamboré'
+      neighborhood: 'Tamboré',
+      street: '',
+      number: ''
     },
     price: 1500,
     monthly: 600,
@@ -121,7 +127,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Alphaville'
+      neighborhood: 'Alphaville',
+      street: '',
+      number: ''
     },
     price: 2500,
     details: {
@@ -147,7 +155,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'São José'
+      neighborhood: 'São José',
+      street: '',
+      number: ''
     },
     price: 50000,
     details: {
@@ -168,7 +178,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Pedreira',
-      neighborhood: 'Nassif'
+      neighborhood: 'Nassif',
+      street: '',
+      number: ''
     },
     price: 100000,
     details: {
@@ -189,7 +201,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Amparo',
-      neighborhood: 'Centro'
+      neighborhood: 'Centro',
+      street: '',
+      number: ''
     },
     price: 300000,
     details: {
@@ -212,7 +226,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Centro'
+      neighborhood: 'Centro',
+      street: '',
+      number: ''
     },
     price: 5000,
     details: {
@@ -233,7 +249,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Santo André'
+      neighborhood: 'Santo André',
+      street: '',
+      number: ''
     },
     price: 400000,
     details: {
@@ -258,7 +276,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Mauá 2'
+      neighborhood: 'Mauá 2',
+      street: '',
+      number: ''
     },
     price: 1500,
     monthly: 700,
@@ -284,7 +304,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Pedreira',
-      neighborhood: 'Parque do Jequitibá'
+      neighborhood: 'Parque do Jequitibá',
+      street: '',
+      number: ''
     },
     price: 2500,
     details: {
@@ -308,7 +330,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Amparo',
-      neighborhood: 'Chácara Vitória'
+      neighborhood: 'Chácara Vitória',
+      street: '',
+      number: ''
     },
     price: 80000,
     details: {
@@ -330,7 +354,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Taboão da Serra'
+      neighborhood: 'Taboão da Serra',
+      street: '',
+      number: ''
     },
     price: 200000,
     details: {
@@ -352,7 +378,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'Jaguariúna',
-      neighborhood: 'Bom Jardim'
+      neighborhood: 'Bom Jardim',
+      street: '',
+      number: ''
     },
     price: 500000,
     details: {
@@ -376,7 +404,9 @@ export const ImoveisTeste: ImovelType[] = [
     video: 'video_url',
     location: {
       city: 'São Paulo',
-      neighborhood: 'Vila Mariana'
+      neighborhood: 'Vila Mariana',
+      street: '',
+      number: ''
     },
     price: 6000,
     details: {

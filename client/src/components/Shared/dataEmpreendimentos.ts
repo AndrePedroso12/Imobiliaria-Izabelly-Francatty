@@ -12,7 +12,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Tamboré' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Tamboré',
+      street: '',
+      number: ''
+    },
 
     description: 'string',
     tags: ['']
@@ -27,7 +32,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Lagune Residencial' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Lagune Residencial',
+      street: '',
+      number: ''
+    },
 
     description: 'string',
     tags: ['']
@@ -42,7 +52,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Residencial Araucaria' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Residencial Araucaria',
+      street: '',
+      number: ''
+    },
 
     description: 'string',
     tags: ['']
@@ -56,7 +71,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Lago da Barra' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Lago da Barra',
+      street: '',
+      number: ''
+    },
 
     description: 'string',
     tags: ['']
@@ -71,7 +91,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Reserva Duas Marias' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Reserva Duas Marias',
+      street: '',
+      number: ''
+    },
     description: 'string',
     tags: ['']
   },
@@ -85,7 +110,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Jardim dos Ipês' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Jardim dos Ipês',
+      street: '',
+      number: ''
+    },
     description: 'string',
     tags: ['']
   },
@@ -99,7 +129,12 @@ export const EmpreendimentosTeste: EmpreendimentoType[] = [
       'https://si9dados.com.br/si9-fotos/flor/16662935528691666293552762a26332ab-90aa-4802-b251-7871c8a83ce0.jpg'
     ],
     video: '',
-    location: { city: 'Jaguariuna', neighborhood: 'Estância das Flores' },
+    location: {
+      city: 'Jaguariuna',
+      neighborhood: 'Estância das Flores',
+      street: '',
+      number: ''
+    },
     description: 'string',
     tags: ['']
   }
