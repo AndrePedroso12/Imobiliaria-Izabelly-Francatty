@@ -1,19 +1,26 @@
 <template>
   <div class="mais_buscados">
-    <h2 class="mais_buscados__title">Mais Buscados</h2>
-    <span class="mais_buscados__subtitle"
-      >Encontre as jóias mais cobiçadas da nossa imobiliária</span
+    <h2 class="mais_buscados__title" v-motion-slide-visible-once-top>Mais Buscados</h2>
+    <span class="mais_buscados__subtitle" v-motion-slide-visible-once-top>
+      Encontre as jóias mais cobiçadas da nossa imobiliária</span
     >
-    <div class="mais_buscados__buttons">
+    <div class="mais_buscados__buttons" v-motion-slide-visible-once-top>
       <ul>
-        <li class="active">Todos os Imóveis</li>
-        <li>Comprar</li>
-        <li>Alugar</li>
+        <li :class="{ active: filterType === 'todos' }" @click="filter('todos')">
+          Todos os Imóveis
+        </li>
+        <li :class="{ active: filterType === 'comprar' }" @click="filter('comprar')">Comprar</li>
+        <li :class="{ active: filterType === 'alugar' }" @click="filter('alugar')">Alugar</li>
       </ul>
     </div>
     <div class="mais_buscados__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="(chunk, index) in chunkedCards" :key="index">
+        <Slide
+          v-for="(chunk, index) in chunkedCards"
+          :key="index"
+          v-motion-slide-visible-once-top
+          :delay="index + '000'"
+        >
           <!-- Iterate over items in each chunk -->
           <template v-for="card in chunk" :key="card.id">
             <CardMaisBuscados :card-infos="card" />
@@ -33,26 +40,59 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import CardMaisBuscados from './CardMaisBuscados.vue'
-import type { ImovelType } from '@/interfaces/interfaces'
+import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { computed, defineComponent, ref } from 'vue'
-import { Carousel, Pagination, Slide } from 'vue3-carousel'
+import { Carousel, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
+const props = defineProps<{
+  maisBuscados: ImovelType[]
+}>()
+
+const cards = ref(props.maisBuscados)
+const chunkSize = 6
+
+const chunkedCards = computed(() => {
+  const chunks: ImovelType[][] = []
+  for (let i = 0; i < filteredCards.value.length; i += chunkSize) {
+    chunks.push(filteredCards.value.slice(i, i + chunkSize))
+  }
+  return chunks
+})
+
+const filterType = ref<'todos' | 'comprar' | 'alugar'>('todos')
+
+const filter = (type: 'todos' | 'comprar' | 'alugar') => {
+  filterType.value = type
+}
+
+const filteredCards = computed(() => {
+  if (filterType.value === 'comprar') {
+    return cards.value.filter((card) => card.model === 'Compra')
+  } else if (filterType.value === 'alugar') {
+    return cards.value.filter((card) => card.model === 'Alugar')
+  } else {
+    return cards.value
+  }
+})
+
 const settings = ref({
   itemsToShow: 2,
-  snapAlign: 'start'
+  snapAlign: 'start' as SnapAlign,
+  touchDrag: false,
+  transition: 2500
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 1,
-    snapAlign: 'start',
-    autoplay: '7000',
+    snapAlign: 'start' as SnapAlign,
+    autoplay: 7000,
     wrapAround: true
   }
 })
@@ -61,24 +101,8 @@ defineComponent({
   name: 'SliderEmpreendimentos',
   components: {
     Carousel,
-    Slide,
-    Pagination
+    Slide
   }
-})
-
-const props = defineProps<{
-  maisBuscados: ImovelType[]
-}>()
-
-const cards = ref(props.maisBuscados)
-
-const chunkSize = 6
-const chunkedCards = computed(() => {
-  const chunks: ImovelType[][] = []
-  for (let i = 0; i < cards.value.length; i += chunkSize) {
-    chunks.push(cards.value.slice(i, i + chunkSize))
-  }
-  return chunks
 })
 </script>
 
@@ -111,9 +135,19 @@ const chunkedCards = computed(() => {
       padding: 4px 20px;
       font-size: 1rem;
       font-weight: 500;
+      transition: 0.3s;
+      &:hover {
+        outline: 1px solid var(--color-background);
+        outline-offset: 5px;
+        background: white;
+        border-color: white;
+        color: var(--color-text);
+        transform: scale(1.1);
+      }
     }
 
     li.active {
+      cursor: auto;
       border-color: var(--color-text);
       border: 2px solid;
       background: var(--color-background);
@@ -121,6 +155,10 @@ const chunkedCards = computed(() => {
       padding: 4px 20px;
       font-size: 1rem;
       font-weight: 500;
+      &:hover {
+        outline: none;
+        transform: none;
+      }
     }
     li::marker {
       content: '';
@@ -137,6 +175,11 @@ const chunkedCards = computed(() => {
         flex-direction: column;
         align-items: center;
         min-width: 100%;
+      }
+      &:hover {
+        outline: 1px solid var(--color-background);
+        outline-offset: 5px;
+        background: white;
       }
     }
   }

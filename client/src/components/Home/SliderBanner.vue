@@ -1,5 +1,5 @@
 <template>
-  <Carousel :autoplay="5000" :wrap-around="true">
+  <Carousel :autoplay="5000" :wrap-around="true" :transition="2500">
     <Slide v-for="slide in banners" :key="slide.id">
       <div class="carousel__overlay"></div>
       <div class="carousel__item" :style="{ backgroundImage: `url(${slide.mainImage})` }">
@@ -79,7 +79,7 @@ defineComponent({
     flex-direction: column;
   }
   &__slide {
-    min-height: 41rem;
+    min-height: 43rem;
     background: white;
   }
 
@@ -127,6 +127,11 @@ defineComponent({
 
   &__button {
     margin: 20px auto;
+    transition: 0.4s;
+    &:hover {
+      transform: scale(1.3);
+      background-color: white;
+    }
   }
 
   &__prev,
@@ -140,6 +145,10 @@ defineComponent({
     border-radius: 40px;
     width: 60px;
     height: 40px;
+  }
+
+  a {
+    color: var(--color-text);
   }
 }
 </style>

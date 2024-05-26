@@ -5,15 +5,20 @@ import footerSite from './components/Shared/footerSite.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+
+function shouldShowMenu() {
+  if (route.name == 'login' || route.name == 'admin') return false
+  else return true
+}
 </script>
 
 <template>
   <header :class="route.name">
-    <Menu />
+    <Menu v-if="shouldShowMenu()" />
   </header>
 
   <RouterView />
-  <footerSite />
+  <footerSite v-if="shouldShowMenu()" />
 </template>
 
 <style scoped>

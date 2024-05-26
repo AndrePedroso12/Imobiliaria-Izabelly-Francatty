@@ -1,15 +1,15 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="empreendimentos">
-    <h2 class="empreendimentos__title">Últimos Empreendimentos</h2>
-    <span class="empreendimentos__subtitle"
+    <h2 class="empreendimentos__title" v-motion-slide-visible-once-top>Últimos Empreendimentos</h2>
+    <span class="empreendimentos__subtitle" v-motion-slide-visible-once-top
       >Descubra os empreendimentos mais promissores da cidade</span
     >
 
     <div class="empreendimentos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="card in 15" :key="card">
-          <CardEmpreendimentos />
+        <Slide v-for="(card, index) in EmpreendimentosRef" :key="index" v-motion-slide-visible-top>
+          <CardEmpreendimentos :card="card" />
         </Slide>
         <template #addons>
           <Navigation>
@@ -31,24 +31,28 @@
 import CardEmpreendimentos from './CardEmpreendimentos.vue'
 import { defineComponent, ref } from 'vue'
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+import type { SnapAlign } from '@/interfaces/interfaces'
+import { EmpreendimentosTeste } from '@/components/Shared/dataEmpreendimentos.js'
 
 import 'vue3-carousel/dist/carousel.css'
 
+const EmpreendimentosRef = ref(EmpreendimentosTeste)
+
 const settings = ref({
   itemsToShow: 1.3,
-  snapAlign: 'center',
-  autoplay: '5000',
+  snapAlign: 'center' as SnapAlign,
+  autoplay: 5000,
   wrapAround: true
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign
   },
   1024: {
     itemsToShow: 6,
-    snapAlign: 'start'
+    snapAlign: 'start' as SnapAlign
   }
 })
 

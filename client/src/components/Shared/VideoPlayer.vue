@@ -1,17 +1,22 @@
 <template>
   <div class="video-thumbnail" :class="{ open: showModal }">
-    <button v-if="showModal" class="close-button" @click="closeModal()">X</button>
-    <video
-      loop
-      :class="{ opened: showModal }"
-      :controls="showModal"
-      :autoplay="showModal"
-      @click="openModal"
-    >
-      <source :src="videoUrl + '#t=1.5'" type="video/mp4" />
-      Seu navegador não suporta vídeos HTML5.
-    </video>
-    <div class="play-icon" @click="openModal">
+    <div class="video-box" :class="{ opened: showModal }">
+      <button v-if="showModal" class="close-button" @click="closeModal()">X</button>
+
+      <video
+        loop
+        :class="{ opened: showModal }"
+        :controls="showModal || playVideo"
+        :autoplay="showModal || playVideo"
+        muted
+        @click="openModal"
+      >
+        <source :src="videoUrl + '#t=1.5'" type="video/mp4" />
+        <source :src="videoUrl" type="video/mp4" />
+        Seu navegador não suporta vídeos HTML5.
+      </video>
+    </div>
+    <div class="play-icon" @click="openModal" v-if="!playVideo">
       <Icon icon="solar:play-linear" width="1rem" height="1rem" />
     </div>
     <div v-if="showModal" class="modal-overlay" @click="closeModal()"></div>
@@ -22,21 +27,28 @@
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
+const props = defineProps<{
+  videoUrl: string
+  blockModal?: boolean
+}>()
+
+const { videoUrl } = props
+
 const showModal = ref(false)
+const playVideo = ref(false)
+const blockModal = ref(props.blockModal || false)
 
 const openModal = () => {
+  if (blockModal.value) {
+    playVideo.value = true
+    return
+  }
   showModal.value = true
 }
 
 const closeModal = () => {
   showModal.value = false
 }
-
-const props = defineProps<{
-  videoUrl: string
-}>()
-
-const { videoUrl } = props
 </script>
 
 <style scoped>
@@ -55,11 +67,27 @@ const { videoUrl } = props
 video {
   max-width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
   transition: 0.2s;
 }
 
 video.opened {
+  position: relative;
+  border-radius: 16px;
+  width: auto;
+  background: black;
+}
+
+.video-box {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.video-box.opened {
   position: fixed;
   z-index: 10;
   width: 50%;
@@ -68,6 +96,7 @@ video.opened {
   left: 27%;
   right: auto;
   border-radius: 16px;
+  background: black;
 }
 
 .play-icon {
@@ -118,8 +147,8 @@ iframe {
 
 .close-button {
   position: absolute;
-  top: -91px;
-  right: -53px;
+  top: 0;
+  right: 0;
   cursor: pointer;
   background-color: white;
   font-size: 20px;

@@ -1,5 +1,5 @@
 <template>
-  <Carousel :autoplay="5000" :wrap-around="true">
+  <Carousel :autoplay="5000" :wrap-around="true" :transition="1500">
     <Slide v-for="slide in slides" :key="slide">
       <div class="carousel__item">
         <figure>
@@ -34,7 +34,7 @@ const props = defineProps<{
 const slides = ref(props.imagens)
 
 defineComponent({
-  name: 'Basic',
+  name: 'BasicSlider',
   components: {
     Carousel,
     Slide,

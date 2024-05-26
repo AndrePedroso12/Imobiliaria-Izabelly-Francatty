@@ -3,20 +3,15 @@
     <button class="hamburger" @click="toggleMenu">
       <Icon icon="fa-solid:bars" width="1.7em" height="1.7em" />
     </button>
-    <img
-      alt="Izabelly Francati Logo"
-      class="logo desktop"
-      src="@/assets/logo-branco.svg"
-      width="250"
-      height="80"
-    />
-    <img
-      alt="Izabelly Francati Logo"
-      class="logo mobile"
-      src="@/assets/logo-preto.svg"
-      width="250"
-      height="80"
-    />
+    <RouterLink to="/">
+      <img
+        alt="Izabelly Francati Logo"
+        class="logo"
+        src="@/assets/logo-branco.svg"
+        width="250"
+        height="80"
+      />
+    </RouterLink>
 
     <nav class="desktop">
       <RouterLink to="/">Home</RouterLink>
@@ -69,13 +64,39 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const isMenuOpen = ref(false)
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+const header = ref<HTMLElement | null>(null)
+
+const handleScroll = () => {
+  if (!header.value) return
+
+  const scroll = window.scrollY
+  if (scroll >= 450) {
+    header.value.classList.add('scrolled')
+  } else {
+    header.value.classList.remove('scrolled')
+  }
+}
+
+onMounted(() => {
+  header.value = document.querySelector('.wrapper')
+  if (header.value) {
+    window.addEventListener('scroll', handleScroll)
+  }
+})
+
+onUnmounted(() => {
+  if (header.value) {
+    window.removeEventListener('scroll', handleScroll)
+  }
+})
 </script>
 
 <style scoped lang="scss">
@@ -89,13 +110,17 @@ function toggleMenu() {
   color: white;
   background: #0000007d;
   backdrop-filter: blur(10px);
+  transition: 0.6s;
+
+  &.scrolled {
+    background: rgb(224 224 224 / 49%);
+  }
 
   .home & {
     background: transparent;
   }
   @media (max-width: 768px) {
     color: var(--color-text);
-    background-color: white;
     display: flex;
     justify-content: flex-start;
   }
@@ -136,6 +161,7 @@ function toggleMenu() {
     background: transparent;
     border: none;
     cursor: pointer;
+    filter: brightness(100);
 
     &:focus {
       outline: none;
@@ -201,6 +227,25 @@ function toggleMenu() {
     .hamburger {
       display: block;
     }
+  }
+
+  &.scrolled {
+    .logo {
+      filter: brightness(0);
+    }
+    nav a {
+      color: var(--color-text);
+    }
+    .whatsapp {
+      color: var(--color-text);
+    }
+    .hamburger {
+      filter: brightness(0);
+    }
+  }
+
+  .home .scrolled {
+    background: #ffffff36;
   }
 }
 </style>

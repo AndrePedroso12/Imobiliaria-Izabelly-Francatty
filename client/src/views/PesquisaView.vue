@@ -13,6 +13,10 @@
       </div>
       <!-- Filtros ativos em formato de tags -->
       <div class="active-filters">
+        <span v-if="activeFilters.length" class="active-filter">
+          Remover filtros
+          <span @click="removeFilter('todos')" class="remove-filter">x</span>
+        </span>
         <span v-for="(value, key) in activeFilters" :key="key" class="active-filter">
           {{ value.value }}
           <span @click="removeFilter(value.key)" class="remove-filter">x</span>
@@ -97,7 +101,9 @@
           </select>
         </div>
         <div class="slide" v-for="card in paginatedImovies" :key="card.id">
-          <CardPrincipal :infos="card" />
+          <RouterLink :to="{ name: 'imovel', params: { id: card.id } }">
+            <CardPrincipal :infos="card" />
+          </RouterLink>
         </div>
         <!-- Paginação -->
         <div class="pagination" v-if="totalPages >= 2">
@@ -329,6 +335,13 @@ function removeFilter(key: any) {
       maxPrice.value = 0
       break
     case 'minPrice':
+      minPrice.value = 0
+      break
+    case 'todos':
+      selectedCity.value = ''
+      selectedModel.value = ''
+      selectedCategory.value = ''
+      maxPrice.value = 0
       minPrice.value = 0
       break
   }
@@ -583,6 +596,10 @@ select {
     transition: 0.25s all ease;
     pointer-events: none;
   }
+
+  &:hover {
+    border-color: var(--color-text);
+  }
 }
 
 .price-filter {
@@ -608,6 +625,9 @@ select {
     font-weight: 400;
     line-height: 1.9;
     width: 45%;
+    &:hover {
+      border-color: var(--color-text);
+    }
   }
 }
 
@@ -620,26 +640,21 @@ select {
 
   .active-filter {
     border-radius: 50px;
-    height: calc(1.9em + 1.5rem + 2px);
     border: 1px solid #e9e9e9;
-    padding: 12px 24px;
-    font-size: 18px;
+    padding: 1px 10px 2px;
+    font-size: 12px;
     margin: 10px;
     background-color: white;
-    position: relative;
+    &:hover .remove-filter {
+      color: red;
+    }
+
     .remove-filter {
-      color: white;
-      background: #f44336;
-      border: 1px solid red;
-      border-radius: 50px;
-      padding: 1px 8px;
-      font-weight: 500;
-      text-align: center;
-      font-size: 10px;
-      position: absolute;
-      top: -6px;
-      right: -7px;
       cursor: pointer;
+      display: inline-block;
+      font-size: 1.25em;
+      line-height: 0.8;
+      margin-left: 0.5em;
     }
   }
 }

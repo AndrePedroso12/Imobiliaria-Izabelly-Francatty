@@ -1,9 +1,9 @@
 <template>
   <div class="quem_somos" id="sobre">
-    <div class="quem_somos__image">
+    <div class="quem_somos__image" v-motion-slide-visible-once-top>
       <img src="@/assets/h21.jpg" alt="" srcset="" />
     </div>
-    <div class="quem_somos__texto">
+    <div class="quem_somos__texto" v-motion-slide-visible-once-top>
       <h1 class="title">Há mais de 8 anos no mercado imobiliario</h1>
       <p class="subtitle">
         Pellentesque egestas elementum egestas faucibus sem. Velit nunc egestas ut morbi. Leo diam
@@ -47,10 +47,14 @@ import { Icon } from '@iconify/vue'
   display: flex;
   justify-content: space-between;
   padding: 7rem 3rem;
+  max-width: 80%;
+  margin: 0 auto;
+
   @media (max-width: 768px) {
     padding: 3rem 1rem;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
 
   &__image {

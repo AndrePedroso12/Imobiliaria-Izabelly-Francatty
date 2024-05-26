@@ -24,7 +24,7 @@
             {{ card.details.suites }}
           </span>
           <span v-if="card.details.garage"
-            ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
+            ><Icon icon="cil:garage" width="1.2em" height="1.2em" />
             {{ card.details.garage }}
           </span>
 
@@ -71,6 +71,10 @@ function isArea(value: string) {
 </script>
 
 <style scoped lang="scss">
+a {
+  display: flex;
+  width: 100%;
+}
 .card {
   border-radius: 16px;
   margin-bottom: 1.875rem;
@@ -83,9 +87,9 @@ function isArea(value: string) {
   padding: 10px;
   background: #fff;
   margin: 0 15px;
-  width: 22rem;
   color: var(--color-text);
   align-self: stretch;
+  width: 100%;
   .image-wrapper {
     width: calc(100% + 27px);
     height: 15rem;
@@ -112,6 +116,11 @@ function isArea(value: string) {
     color: grey;
   }
 
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__icons {
     display: flex;
     justify-content: flex-start;
@@ -124,6 +133,9 @@ function isArea(value: string) {
       margin: 0 15px;
       border-left: 1px solid lightgrey;
       border-right: 1px solid lightgrey;
+    }
+    span:last-of-type {
+      border-right: 0;
     }
   }
 
@@ -153,5 +165,9 @@ function isArea(value: string) {
   .HouseCategory {
     margin-top: 1rem;
   }
+}
+
+.results .card {
+  width: 100%;
 }
 </style>

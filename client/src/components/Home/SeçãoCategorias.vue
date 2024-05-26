@@ -1,5 +1,5 @@
 <template>
-  <div class="categorias">
+  <div class="categorias" v-motion-slide-visible-once-top>
     <h3>De acordo com sua nescessidade</h3>
     <p>Encontre o imóvel perfeito para você:</p>
     <div class="categorias__wrapper">
@@ -20,10 +20,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ImovelType } from '@/interfaces/interfaces'
+import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
 import { computed, defineComponent, ref } from 'vue'
 import { Carousel, Slide } from 'vue3-carousel'
+
 import 'vue3-carousel/dist/carousel.css'
 
 const props = defineProps<{
@@ -67,18 +68,24 @@ function getCategoryIcon(category: string) {
 
 const settings = ref({
   itemsToShow: 1,
-  snapAlign: 'center',
-  autoplay: '2000'
+  snapAlign: 'center' as SnapAlign,
+  autoplay: 2000,
+  wrapAround: true,
+  mouseDrag: false
 })
 
 const breakpoints = ref({
   700: {
     itemsToShow: 2,
-    snapAlign: 'center'
+    snapAlign: 'center' as SnapAlign,
+    wrapAround: false,
+    mouseDrag: false
   },
   1024: {
     itemsToShow: 6,
-    snapAlign: 'start'
+    snapAlign: 'start' as SnapAlign,
+    wrapAround: false,
+    mouseDrag: false
   }
 })
 
