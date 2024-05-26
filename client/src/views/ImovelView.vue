@@ -2,29 +2,24 @@
   <div class="imovel-page">
     <div class="pagetop" id="top">
       <div class="top_description">
-        <div class="breadcrumbs">
+        <div class="breadcrumbs" v-motion-slide-visible-once-top>
           <RouterLink to="/">Home / </RouterLink>
           <RouterLink to="/">{{ imovel.location.city }} / </RouterLink>
           <RouterLink to="/">{{ imovel.location.neighborhood }}</RouterLink>
         </div>
-
-        <div class="share">
-          <div class="share_icon">
+        <p id="mensagem"></p>
+        <div class="share desktop">
+          <div class="share_icon" @click="shareSite()">
             <Icon icon="solar:share-outline" width="1.7em" height="1.7em" /><span
               >Compartilhar</span
             >
           </div>
-          <div class="share_icon">
+          <div class="share_icon" @click="copiarURL()">
             <Icon icon="carbon:copy-link" width="1.7em" height="1.7em" /><span>Copiar Link</span>
-          </div>
-          <div class="share_icon">
-            <Icon icon="formkit:bookmark" width="1.7em" height="1.7em" /><span
-              >Salvar nos favoritos</span
-            >
           </div>
         </div>
       </div>
-      <div class="title_section">
+      <div class="title_section" v-motion-slide-visible-once-top>
         <div class="title">
           <h1>
             {{ imovel.category }}
@@ -64,7 +59,7 @@
             v-model="currentSlide"
           >
             <Slide v-for="(image, index) in imovel.images" :key="index">
-              <div class="carousel__item">
+              <div class="carousel__item" v-motion-slide-visible-once-top>
                 <img :src="image" alt="Imagem do Imóvel" class="carousel__item" />
               </div>
             </Slide>
@@ -91,27 +86,35 @@
             ref="carousel"
           >
             <Slide v-for="(image, index) in imovel.images" :key="index">
-              <div class="carousel__item" @click="slideTo(index - 1)">
+              <div
+                class="carousel__item"
+                @click="slideTo(index - 1)"
+                v-motion-slide-visible-once-top
+              >
                 <img :src="image" alt="Imagem do Imóvel" class="carousel__item" />
               </div>
             </Slide>
           </Carousel>
         </div>
 
-        <IconsDetails :card-infos="imovel" />
+        <IconsDetails :card-infos="imovel" v-motion-slide-visible-once-top />
 
-        <div class="description">
+        <div class="description" v-motion-slide-visible-once-top>
           <div class="title">Descrição</div>
 
           <p>{{ imovel.description }}</p>
         </div>
-        <DetalhesInterna :card-infos="imovel" />
-        <CaracteristicasInterna :card-infos="imovel" />
+        <DetalhesInterna :card-infos="imovel" v-motion-slide-visible-once-top />
+        <CaracteristicasInterna :card-infos="imovel" v-motion-slide-visible-once-top />
 
         <div class="video_container">
           <div class="title">Video</div>
 
-          <VideoPlayer :videoUrl="imovel.video" :block-modal="true" />
+          <VideoPlayer
+            :videoUrl="imovel.video"
+            :block-modal="true"
+            v-motion-slide-visible-once-top
+          />
         </div>
       </div>
 
@@ -176,6 +179,34 @@ const currentSlide = ref(0)
 function slideTo(val: number) {
   currentSlide.value = val
 }
+
+function copiarURL() {
+  const url = window.location.href
+  navigator.clipboard
+    .writeText(url)
+    .then(() => {
+      // Mostra uma mensagem de sucesso
+      document.getElementById('mensagem').innerText = 'URL copiada com sucesso!'
+    })
+    .catch((err) => {
+      // Mostra uma mensagem de erro, se ocorrer
+      document.getElementById('mensagem').innerText = 'Erro ao copiar a URL: ' + err
+    })
+}
+
+async function shareSite() {
+  const shareData = {
+    title:
+      imovel.value.category +
+      'para ' +
+      imovel.value.model +
+      'em  ' +
+      imovel.value.location.neighborhood,
+    text: 'Imobiliaria Izabelly Francatti',
+    url: location.href
+  }
+  await navigator.share(shareData)
+}
 </script>
 
 <style lang="scss">
@@ -208,7 +239,9 @@ function slideTo(val: number) {
     flex-direction: column;
     align-content: flex-start;
     gap: 12px;
+    width: 71%;
     @media (max-width: 768px) {
+      width: 100%;
       flex-direction: column-reverse;
     }
 
@@ -219,7 +252,7 @@ function slideTo(val: number) {
       font-size: 32px;
       font-weight: 700;
       @media (max-width: 768px) {
-        font-size: 26px;
+        font-size: 22px;
       }
     }
     svg {
@@ -269,6 +302,9 @@ function slideTo(val: number) {
   justify-content: space-between;
   padding: 30px 0;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    padding: 45px 0 10px;
+  }
   .share {
     display: flex;
     justify-content: space-evenly;
@@ -352,6 +388,9 @@ function slideTo(val: number) {
       }
       #thumbnails {
         margin: 1rem 0;
+        img {
+          cursor: pointer;
+        }
       }
     }
 
@@ -463,6 +502,9 @@ function slideTo(val: number) {
     font-weight: 400;
     line-height: 1.9;
     margin-bottom: 1rem;
+    &:hover {
+      border-color: var(--color-text);
+    }
   }
 
   textarea {
@@ -470,5 +512,23 @@ function slideTo(val: number) {
     height: 9rem;
     line-height: 1.2;
   }
+
+  button {
+    &:hover {
+      border: 1px solid var(--color-background);
+      background-color: white;
+    }
+  }
+}
+
+#mensagem {
+  background: black;
+  color: white;
+  position: absolute;
+  right: -10px;
+  top: 6rem;
+  padding: 5px 12px;
+  opacity: 0.5;
+  border-radius: 9px;
 }
 </style>

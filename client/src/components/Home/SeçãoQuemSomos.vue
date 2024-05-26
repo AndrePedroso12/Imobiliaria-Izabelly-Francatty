@@ -1,9 +1,9 @@
 <template>
   <div class="quem_somos" id="sobre">
-    <div class="quem_somos__image">
+    <div class="quem_somos__image" v-motion-slide-visible-once-top>
       <img src="@/assets/h21.jpg" alt="" srcset="" />
     </div>
-    <div class="quem_somos__texto">
+    <div class="quem_somos__texto" v-motion-slide-visible-once-top>
       <h1 class="title">Há mais de 8 anos no mercado imobiliario</h1>
       <p class="subtitle">
         Pellentesque egestas elementum egestas faucibus sem. Velit nunc egestas ut morbi. Leo diam

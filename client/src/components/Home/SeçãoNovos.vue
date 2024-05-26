@@ -1,5 +1,5 @@
 <template>
-  <div class="novos">
+  <div class="novos" v-motion-slide-top>
     <div class="novos__topo">
       <div class="novos__text">
         <h2 class="novos__title">Novos Imóveis na sua região</h2>
@@ -18,7 +18,7 @@
     </div>
     <div class="novos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="card in filteredCards" :key="card.id">
+        <Slide v-for="card in filteredCards" :key="card.id" v-motion-slide-visible-top>
           <RouterLink :to="{ name: 'imovel', params: { id: card.id } }">
             <CardPrincipal :infos="card" />
           </RouterLink>
@@ -139,9 +139,15 @@ defineComponent({
       margin: 0 1rem;
       background: #ffffff1a;
       color: white;
+      &:hover {
+        background-color: white;
+        color: black;
+      }
+
       &.active {
         background: white;
         color: black;
+        cursor: auto;
       }
       &:first-of-type {
         @media (max-width: 768px) {
@@ -181,6 +187,7 @@ defineComponent({
   }
   a {
     color: var(--color-text);
+    width: 100%;
   }
 }
 </style>

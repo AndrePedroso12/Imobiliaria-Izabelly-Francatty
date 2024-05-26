@@ -1,5 +1,5 @@
 <template>
-  <div class="searchbar">
+  <div class="searchbar" v-motion-slide-visible-top>
     <div class="searchbar__select">
       <label for="Cidade">Cidade</label>
 
@@ -179,6 +179,7 @@ function goToResults() {
   color: white;
   margin: -3rem 8rem;
   position: relative;
+  transition: 0.6s;
 
   @media (max-width: 768px) {
     display: flex;
@@ -257,6 +258,9 @@ function goToResults() {
         transition: 0.25s all ease;
         pointer-events: none;
       }
+      &:hover {
+        border: 1px solid white;
+      }
     }
     option {
       color: black;
@@ -273,6 +277,12 @@ function goToResults() {
     border-radius: 12px;
     padding: 12px 1.875rem;
     cursor: pointer;
+    transition: 0.4s;
+    &:hover {
+      background-color: white;
+      color: var(--color-text);
+      border: 1px solid var(--color-background);
+    }
     @media (max-width: 768px) {
       width: 100%;
       margin: 1rem auto;
@@ -281,6 +291,11 @@ function goToResults() {
   }
 
   button {
+    transition: 0.4s;
+    &:hover {
+      background-color: white;
+      border: 1px solid var(--color-background);
+    }
     @media (max-width: 768px) {
       width: 100%;
 

@@ -79,7 +79,7 @@ defineComponent({
     flex-direction: column;
   }
   &__slide {
-    min-height: 41rem;
+    min-height: 43rem;
     background: white;
   }
 
@@ -127,6 +127,11 @@ defineComponent({
 
   &__button {
     margin: 20px auto;
+    transition: 0.4s;
+    &:hover {
+      transform: scale(1.3);
+      background-color: white;
+    }
   }
 
   &__prev,

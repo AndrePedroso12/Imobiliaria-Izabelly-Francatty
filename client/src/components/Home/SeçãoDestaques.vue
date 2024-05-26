@@ -1,5 +1,5 @@
 <template>
-  <div class="destaques">
+  <div class="destaques" v-motion-slide-visible-once-top>
     <h3>Destaque dos destaques</h3>
     <p>Explore os imóveis mais exclusivos e desejados da nossa coleção:</p>
     <div class="destaques__wrapper">
@@ -124,10 +124,16 @@ function truncateText(text: string) {
     &_principal {
       width: 50%;
       padding: 15px;
+      border-radius: 16px;
       @media (max-width: 768px) {
         width: 100%;
         padding: 0;
         margin-bottom: 1rem;
+      }
+      &:hover {
+        transform: scale(1.02);
+        outline: 1px solid var(--color-background);
+        outline-offset: 5px;
       }
       .cards_mais_buscados {
         width: 100%;
@@ -189,6 +195,11 @@ function truncateText(text: string) {
       width: 50%;
       border-radius: 16px;
       margin-right: 1rem;
+      &:hover {
+        transform: scale(1.02);
+        outline: 1px solid var(--color-background);
+        outline-offset: 5px;
+      }
       .video-thumbnail {
         border-radius: 16px;
       }
@@ -210,6 +221,9 @@ function truncateText(text: string) {
       &:hover .icon svg {
         opacity: 1;
         transform: translateX(0);
+      }
+      &:hover {
+        transform: scale(1.1);
       }
 
       .area {
@@ -241,6 +255,9 @@ function truncateText(text: string) {
           transform: translateX(-100%);
           opacity: 0;
           transition: 0.2s;
+        }
+        &:hover {
+          transform: scale(1.05);
         }
       }
     }

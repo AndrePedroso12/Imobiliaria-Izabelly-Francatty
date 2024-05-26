@@ -1,14 +1,14 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="empreendimentos">
-    <h2 class="empreendimentos__title">Últimos Empreendimentos</h2>
-    <span class="empreendimentos__subtitle"
+    <h2 class="empreendimentos__title" v-motion-slide-visible-once-top>Últimos Empreendimentos</h2>
+    <span class="empreendimentos__subtitle" v-motion-slide-visible-once-top
       >Descubra os empreendimentos mais promissores da cidade</span
     >
 
     <div class="empreendimentos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="(card, index) in EmpreendimentosRef" :key="index">
+        <Slide v-for="(card, index) in EmpreendimentosRef" :key="index" v-motion-slide-visible-top>
           <CardEmpreendimentos :card="card" />
         </Slide>
         <template #addons>

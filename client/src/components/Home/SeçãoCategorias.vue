@@ -1,5 +1,5 @@
 <template>
-  <div class="categorias">
+  <div class="categorias" v-motion-slide-visible-once-top>
     <h3>De acordo com sua nescessidade</h3>
     <p>Encontre o imóvel perfeito para você:</p>
     <div class="categorias__wrapper">

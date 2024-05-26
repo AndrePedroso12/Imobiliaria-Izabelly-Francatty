@@ -134,6 +134,9 @@ a {
       border-left: 1px solid lightgrey;
       border-right: 1px solid lightgrey;
     }
+    span:last-of-type {
+      border-right: 0;
+    }
   }
 
   &__price {

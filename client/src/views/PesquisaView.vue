@@ -596,6 +596,10 @@ select {
     transition: 0.25s all ease;
     pointer-events: none;
   }
+
+  &:hover {
+    border-color: var(--color-text);
+  }
 }
 
 .price-filter {
@@ -621,6 +625,9 @@ select {
     font-weight: 400;
     line-height: 1.9;
     width: 45%;
+    &:hover {
+      border-color: var(--color-text);
+    }
   }
 }
 
@@ -638,6 +645,9 @@ select {
     font-size: 12px;
     margin: 10px;
     background-color: white;
+    &:hover .remove-filter {
+      color: red;
+    }
 
     .remove-filter {
       cursor: pointer;

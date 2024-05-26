@@ -1,10 +1,10 @@
 <template>
   <div class="mais_buscados">
-    <h2 class="mais_buscados__title">Mais Buscados</h2>
-    <span class="mais_buscados__subtitle"
-      >Encontre as jóias mais cobiçadas da nossa imobiliária</span
+    <h2 class="mais_buscados__title" v-motion-slide-visible-once-top>Mais Buscados</h2>
+    <span class="mais_buscados__subtitle" v-motion-slide-visible-once-top>
+      Encontre as jóias mais cobiçadas da nossa imobiliária</span
     >
-    <div class="mais_buscados__buttons">
+    <div class="mais_buscados__buttons" v-motion-slide-visible-once-top>
       <ul>
         <li :class="{ active: filterType === 'todos' }" @click="filter('todos')">
           Todos os Imóveis
@@ -15,7 +15,12 @@
     </div>
     <div class="mais_buscados__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide v-for="(chunk, index) in chunkedCards" :key="index">
+        <Slide
+          v-for="(chunk, index) in chunkedCards"
+          :key="index"
+          v-motion-slide-visible-once-top
+          :delay="index + '000'"
+        >
           <!-- Iterate over items in each chunk -->
           <template v-for="card in chunk" :key="card.id">
             <CardMaisBuscados :card-infos="card" />
@@ -130,9 +135,19 @@ defineComponent({
       padding: 4px 20px;
       font-size: 1rem;
       font-weight: 500;
+      transition: 0.3s;
+      &:hover {
+        outline: 1px solid var(--color-background);
+        outline-offset: 5px;
+        background: white;
+        border-color: white;
+        color: var(--color-text);
+        transform: scale(1.1);
+      }
     }
 
     li.active {
+      cursor: auto;
       border-color: var(--color-text);
       border: 2px solid;
       background: var(--color-background);
@@ -140,6 +155,10 @@ defineComponent({
       padding: 4px 20px;
       font-size: 1rem;
       font-weight: 500;
+      &:hover {
+        outline: none;
+        transform: none;
+      }
     }
     li::marker {
       content: '';
@@ -156,6 +175,11 @@ defineComponent({
         flex-direction: column;
         align-items: center;
         min-width: 100%;
+      }
+      &:hover {
+        outline: 1px solid var(--color-background);
+        outline-offset: 5px;
+        background: white;
       }
     }
   }
