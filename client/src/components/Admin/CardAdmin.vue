@@ -2,16 +2,49 @@
   <article class="card">
     <div class="image-wrapper">
       <img loading="lazy" decoding="async" :src="card.mainImage" alt="" />
+      <div class="card__edit mobile">
+        <span @click="edit()"
+          ><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em"
+        /></span>
+        <span @click="deleteButton()"
+          ><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em"
+        /></span>
+      </div>
     </div>
 
-    <div class="card__description">
+    <div class="card__description_mobile mobile">
+      <div class="card__price">
+        <div class="sell" v-if="card.model == 'Compra'">
+          <span>Venda</span>
+          R$ {{ card.price }}
+        </div>
+        <div class="rent" v-if="card.model == 'Alugar'">
+          <span>Aluguel</span>
+          R$ {{ card.price }}
+        </div>
+        <div class="condominio" v-if="card.monthly">
+          <span>Condominio</span>
+          R$ {{ card.monthly }}
+        </div>
+      </div>
+      <p class="card__title">{{ card.location.street }}, nº{{ card.location.number }}</p>
+      <p class="card__location">
+        <Icon icon="mynaui:location" width="1.2em" height="1.2em" />
+        {{ card.location.neighborhood }} - {{ card.location.city }}
+      </p>
+      <div class="card__model" :class="card.model">
+        <p>{{ card.model }}</p>
+      </div>
+    </div>
+
+    <div class="card__description desktop">
       <p class="card__title">{{ card.location.street }}, nº{{ card.location.number }}</p>
       <p class="card__location">
         <Icon icon="mynaui:location" width="1.2em" height="1.2em" />
         {{ card.location.neighborhood }} - {{ card.location.city }}
       </p>
     </div>
-    <div class="card__price">
+    <div class="card__price desktop">
       <div class="sell" v-if="card.model == 'Compra'">
         <span>Venda</span>
         R$ {{ card.price }}
@@ -26,7 +59,7 @@
       </div>
     </div>
 
-    <div class="card__bottom">
+    <div class="card__bottom desktop">
       <div class="card__icons" :class="{ HouseCategory: !isArea(infos.category) }">
         <span v-if="card.details.rooms"
           ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
@@ -52,11 +85,11 @@
       </div>
     </div>
 
-    <div class="card__model" :class="card.model">
+    <div class="card__model desktop" :class="card.model">
       <p>{{ card.model }}</p>
     </div>
 
-    <div class="card__edit">
+    <div class="card__edit desktop">
       <span @click="edit()"><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em" /></span>
       <span @click="deleteButton()"
         ><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em"
@@ -113,15 +146,35 @@ a {
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  @media (max-width: 768px) {
+    padding: 35px 15px 40px;
+    margin: 20px 0;
+  }
   .image-wrapper {
     overflow: hidden;
     border-radius: 16px;
     width: 150px;
+    @media (max-width: 768px) {
+      min-width: 100px;
+      height: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-right: 12px;
+    }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      @media (max-width: 768px) {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 18px;
+        margin-bottom: 10px;
+      }
     }
   }
   &__description {
@@ -130,10 +183,19 @@ a {
     font-size: 0.9375rem;
     text-align: left;
     flex: 0.5;
+    &_mobile {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
   }
   &__title {
     font-size: 19px;
     font-weight: 600;
+    @media (max-width: 768px) {
+      font-size: 15px;
+      line-height: normal;
+    }
   }
 
   &__location {
@@ -168,6 +230,9 @@ a {
     flex-direction: column;
     gap: 10px;
     flex: 0.2;
+    @media (max-width: 768px) {
+      flex-direction: row;
+    }
   }
 
   &__model {
@@ -193,6 +258,11 @@ a {
     flex: 0.2;
     display: flex;
     justify-content: flex-end;
+    @media (max-width: 768px) {
+      flex: 1;
+      display: flex;
+      justify-content: space-around;
+    }
 
     span {
       cursor: pointer;
@@ -226,6 +296,9 @@ a {
     font-weight: 500;
     color: #eb664e;
     line-height: 1.5;
+    @media (max-width: 768px) {
+      font-size: 15px;
+    }
 
     & span {
       font-size: 15px;

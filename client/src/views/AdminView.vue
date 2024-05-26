@@ -156,6 +156,9 @@ function getPageName(value: string) {
   height: 100vh;
   padding: 20px;
   background-color: #f9f9f9;
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 }
 .loader {
   top: 50%;
@@ -166,6 +169,9 @@ function getPageName(value: string) {
   padding: 20px;
   height: 100vh;
   overflow-y: scroll;
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .header p {
