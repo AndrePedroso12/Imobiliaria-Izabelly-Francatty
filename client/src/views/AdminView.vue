@@ -57,8 +57,8 @@
     ></div>
     <!-- Conteúdo dinâmico -->
     <div class="content" v-if="!loading">
-      <div class="header" v-if="userInfos && currentComponent.__name">
-        <p>{{ getPageName(currentComponent.__name) }}</p>
+      <div class="header" v-if="userInfos">
+        <p>{{ getPageName(currentComponent) }}</p>
       </div>
       <component
         :is="currentComponent"
@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Component } from 'vue'
+import { onMounted, ref, computed, type Component } from 'vue'
 import { Icon } from '@iconify/vue'
 import { useAuth } from '@/composables'
 import router from '@/router'
@@ -83,7 +83,9 @@ import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import AccountPage from '@/components/Admin/AccountPage.vue'
 
 const currentComponent = ref<Component>(HomePage)
-const currentPageName = ref('HomePage')
+const currentPageName = computed(() => {
+  return getPageName(currentComponent.value)
+})
 const authFunction = useAuth()
 const token = ref('')
 const userId = ref('')
@@ -125,16 +127,15 @@ function changePage(component: Component) {
   selectedCard.value = undefined
   toggleMenu()
   currentComponent.value = component
-  if (component.name) currentPageName.value = component.name
 }
 
 function isCurrentPage(component: Component) {
-  // @ts-ignore: Unreachable code error
-  return currentComponent.value.__name === component.__name
+  return getPageName(currentComponent.value) === getPageName(component)
 }
 
-function getPageName(value: string) {
-  switch (value) {
+function getPageName(value: any) {
+  const data = value.__name
+  switch (data) {
     case 'HomePage':
       return 'Dashboard'
     case 'CreatePosts':
