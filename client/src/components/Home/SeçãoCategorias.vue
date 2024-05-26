@@ -79,12 +79,14 @@ const breakpoints = ref({
     itemsToShow: 2,
     snapAlign: 'center' as SnapAlign,
     wrapAround: false,
+    autoplay: false,
     mouseDrag: false
   },
   1024: {
     itemsToShow: 6,
     snapAlign: 'start' as SnapAlign,
     wrapAround: false,
+    autoplay: false,
     mouseDrag: false
   }
 })

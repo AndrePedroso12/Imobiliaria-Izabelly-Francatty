@@ -1,5 +1,6 @@
 <template>
-  <div class="imovel-page">
+  <LoaderSpinner v-if="loading" />
+  <div class="imovel-page" v-if="!loading && imovel">
     <div class="pagetop" id="top">
       <div class="top_description">
         <div class="breadcrumbs" v-motion-slide-visible-once-top>
@@ -158,7 +159,15 @@ esse anuncio...
     </div>
   </div>
 
-  <SeçãoNovos :novosCadastros="ImoveisTeste" />
+  <Suspense>
+    <!-- component with nested async dependencies -->
+    <SeçãoNovos :novosCadastros="allImoveis" v-if="allImoveis" />
+
+    <!-- loading state via #fallback slot -->
+    <template #fallback>
+      <LoaderDots v-if="loadingNovos" />
+    </template>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
@@ -167,14 +176,51 @@ import DetalhesInterna from '@/components/Interna/DetalhesInterna.vue'
 import IconsDetails from '@/components/Interna/IconsDetails.vue'
 import VideoPlayer from '@/components/Shared/VideoPlayer.vue'
 import SeçãoNovos from '@/components/Home/SeçãoNovos.vue'
-import { ImoveisTeste } from '@/components/Shared/dataTest'
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+import { useImoveis } from '@/composables'
+import { useRoute } from 'vue-router'
+import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
+import LoaderDots from '@/components/Shared/LoaderDots.vue'
 
-const imovel = ref(ImoveisTeste[0])
+const imovel = ref()
+const allImoveis = ref()
+const loading = ref(false)
+const loadingNovos = ref(false)
 const currentSlide = ref(0)
+const ImoveisFunction = useImoveis()
+const route = useRoute()
+const imovelId = ref<number>(parseInt(route.params.id as string))
+
+onMounted(async () => {
+  await getImovel()
+  await getAllImoveis()
+})
+
+watch(route, async () => {
+  imovelId.value = parseInt(route.params.id as string)
+  window.scrollTo(0, 0)
+  await getImovel()
+  await getAllImoveis()
+})
+
+async function getImovel() {
+  loading.value = true
+
+  const data = await ImoveisFunction.carregarImovelPorId(imovelId.value)
+  if (data) imovel.value = data
+  loading.value = false
+}
+
+async function getAllImoveis() {
+  loadingNovos.value = true
+
+  const data = await ImoveisFunction.carregarImoveis()
+  if (data) allImoveis.value = data
+  loadingNovos.value = false
+}
 
 function slideTo(val: number) {
   currentSlide.value = val
@@ -361,6 +407,7 @@ async function shareSite() {
       .carousel__item {
         width: 100%;
         height: 100%;
+        max-height: 43rem;
         border-radius: 16px;
         margin-right: 18px;
         overflow: hidden;
@@ -381,6 +428,7 @@ async function shareSite() {
         margin: 1rem 0;
         img {
           cursor: pointer;
+          max-height: 11rem;
         }
       }
     }
@@ -397,6 +445,12 @@ async function shareSite() {
         font-size: 27px;
         font-weight: 500;
         margin-bottom: 10px;
+      }
+
+      p {
+        width: 100%;
+        word-wrap: break-word;
+        /* white-space: nowrap; */
       }
     }
   }

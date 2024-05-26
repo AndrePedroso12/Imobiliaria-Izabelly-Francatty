@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="box">
-      <Icon icon="iconoir:bathroom" width="1.7em" height="1.7em" />
+      <Icon icon="bi:house" width="1.7em" height="1.7em" />
       <p>{{ infos.category }}</p>
     </div>
     <div class="box" v-if="infos.details.area">
       <Icon icon="mdi:surface-area" width="1.7em" height="1.7em" />
-      <p>Terreno {{ infos.details.area }}m²</p>
+      <p>{{ infos.details.area }}m²</p>
     </div>
     <div class="box" v-if="infos.details.rooms">
       <Icon icon="lucide:bed" width="1.7em" height="1.7em" />

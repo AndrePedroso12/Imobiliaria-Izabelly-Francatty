@@ -9,7 +9,11 @@
     <div class="empreendimentos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="(card, index) in EmpreendimentosRef" :key="index" v-motion-slide-visible-top>
-          <CardEmpreendimentos :card="card" />
+          <RouterLink
+            :to="{ name: 'pesquisa', params: { empreendimento: card.location.neighborhood } }"
+          >
+            <CardEmpreendimentos :card="card" />
+          </RouterLink>
         </Slide>
         <template #addons>
           <Navigation>
@@ -95,6 +99,9 @@ defineComponent({
     border-radius: 40px;
     width: 60px;
     height: 40px;
+  }
+  a {
+    width: 100%;
   }
 }
 </style>

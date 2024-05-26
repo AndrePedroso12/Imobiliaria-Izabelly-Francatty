@@ -43,6 +43,7 @@
           <option value="Terreno">Terreno</option>
           <option value="Area">Area</option>
           <option value="Galpão">Galpão</option>
+          <option value="Comdominio">Comdominio</option>
         </select>
       </div>
       <div class="box-info w-50">
@@ -169,7 +170,7 @@
         </div>
       </div>
       <div class="box-info w-50">
-        <label for="">Deve aparecer na seçãod e mais buscados?</label>
+        <label for="">Deve aparecer na seção de mais buscados?</label>
         <div class="checkbox-wrapper-22">
           <label class="switch" for="isTop">
             <input type="checkbox" id="isTop" v-model="cardInfos.isTop" />
@@ -291,11 +292,13 @@ const tipoCondominio = ref<boolean>(false)
 const mainImagePreview = ref()
 const mainImageFile = ref<File>()
 const galleryPreviews = ref<(string | ArrayBuffer)[]>([])
+const galleryFiles = ref<File[]>([])
 const videoPreview = ref()
 const videoFile = ref<File>()
 const loading = ref(false)
 const errorText = ref()
 const successText = ref()
+const imagensParaDeletar = ref<number[]>([])
 
 const newTag = ref('')
 const tags = ref<string[]>([])
@@ -344,6 +347,7 @@ function previewMainImage(event: any) {
 
 function previewGalleryImage(event: Event) {
   const input = event.target as HTMLInputElement
+
   if (input.files) {
     const files = Array.from(input.files)
     files.forEach((file) => {
@@ -355,6 +359,7 @@ function previewGalleryImage(event: Event) {
         }
         reader.readAsDataURL(file)
       }
+      galleryFiles.value.push(file)
     })
   }
 }
@@ -381,15 +386,25 @@ function getImageSource(image: string | ArrayBuffer | null): string {
   return typeof image === 'string' ? image : ''
 }
 
-function getVideoSource(video: string | null): string {
-  return video ? `data:video/mp4;base64,${video}` : ''
-}
-
 function removeMainImage() {
   mainImagePreview.value = ''
 }
 
 function removeGalleryImage(index: number) {
+  const imageUrl = galleryPreviews.value?.[index]
+
+  if (typeof imageUrl === 'string' && imageUrl.includes('/api/imagem/')) {
+    const match = imageUrl.match(/\/api\/imagem\/(\d+)/)
+
+    if (match && match[1]) {
+      const imageId = parseInt(match[1], 10)
+      imagensParaDeletar.value.push(imageId)
+    } else {
+      console.error('Erro ao extrair o ID da imagem da URL:', imageUrl)
+    }
+  } else {
+    console.error('URL da imagem não é válida ou não contém "/api/imagem/":', imageUrl)
+  }
   galleryPreviews.value.splice(index, 1)
 }
 
@@ -452,8 +467,26 @@ async function saveChanges() {
       await ImagemFunction.salvarImagem(cardInfos.value.id, mainImageFile.value)
     }
 
+    if (galleryFiles.value) {
+      await ImagemFunction.salvarMultiplasImagens(cardInfos.value.id, galleryFiles.value)
+    }
+
     if (videoFile.value) {
       await ImagemFunction.carregarVideo(cardInfos.value.id, videoFile.value)
+    }
+  }
+
+  if (imagensParaDeletar.value) {
+    try {
+      const promises = imagensParaDeletar.value.map((imageId) =>
+        ImagemFunction.deletarImagem(imageId)
+      )
+      await Promise.all(promises)
+      console.log('Todas as imagens marcadas foram excluídas com sucesso.')
+      // Limpa a lista após deletar
+      imagensParaDeletar.value.length = 0
+    } catch (error) {
+      console.error('Erro ao excluir uma ou mais imagens:', error)
     }
   }
   loading.value = false

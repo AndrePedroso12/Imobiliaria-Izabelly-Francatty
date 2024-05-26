@@ -37,8 +37,8 @@ export interface ImovelType {
 }
 
 export interface RawImovelData {
-  banner?: boolean
-  isfavourite?: boolean
+  isBanner?: boolean
+  isFavorite?: boolean
   isTop?: boolean
   tipo: 'Terreno' | 'Casa' | 'Apartamento' | 'Condomínio' | 'Galpão' | 'Area'
   pretensao: 'Compra' | 'Alugar'

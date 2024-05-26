@@ -10,56 +10,60 @@ import SeçãoDestaques from '@/components/Home/SeçãoDestaques.vue'
 import BarraContato from '@/components/Shared/BarraContato.vue'
 import NuvemDeTags from '@/components/Shared/NuvemDeTags.vue'
 
-import { ImoveisTeste } from '../components/Shared/dataTest.js'
 import { ref, onMounted } from 'vue'
 
-import { useAuth, useImoveis } from '@/composables'
+import { useImoveis } from '@/composables'
+import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 
-const ImoviesRef = ref(ImoveisTeste)
+const ImoviesRef = ref()
 const ImoveisFunction = useImoveis()
-const loginFunction = useAuth()
+const loading = ref(true)
+const banners = ref()
+const maisBuscados = ref()
+const novosImoveis = ref()
+const destaque = ref()
 
-// async function carregarViaComposable() {
-//   try {
-//     const data = await ImoveisFunction.carregarImoveis()
-//     console.log('Imóveis carregados:', data)
-//   } catch (error) {
-//     console.error('Erro ao carregar imóveis:', error)
-//   }
-// }
-// async function LoginTeste() {
-//   try {
-//     const data = await loginFunction.login('AndrePedroso', 'Canola12')
-//     console.log('Imóveis carregados:', data)
-//   } catch (error) {
-//     console.error('Erro ao carregar imóveis:', error)
-//   }
-// }
+async function getAllImoveis() {
+  loading.value = true
 
-// onMounted(async () => {
-//   await LoginTeste()
-//   carregarViaComposable()
-// })
-const banners = ImoviesRef.value.filter((obj) => obj.banner === true)
-const maisBuscados = ImoviesRef.value.filter((obj) => obj.isfavourite === true)
-const novosImoveis = ImoviesRef.value.filter(
-  (item) => !item.isfavourite && !item.isTop && !item.banner
-)
-const destaque = ImoviesRef.value.filter((obj) => obj.isTop === true)[0]
+  const data = await ImoveisFunction.carregarImoveis()
+  if (data) ImoviesRef.value = data
+  loading.value = false
+}
+
+onMounted(async () => {
+  await getAllImoveis()
+  if (ImoviesRef.value) {
+    banners.value = ImoviesRef.value.filter((obj: any) => obj.banner === true)
+    maisBuscados.value = ImoviesRef.value.filter((obj: any) => obj.isfavourite === true)
+    novosImoveis.value = ImoviesRef.value.filter(
+      (item: any) => !item.isfavourite && !item.isTop && !item.banner
+    )
+    destaque.value = ImoviesRef.value.filter((obj: any) => obj.isTop === true)[0]
+  }
+})
 </script>
 
 <template>
   <main>
-    <SliderBanner :imoveis="banners" />
-    <SearchBar :imoveis="ImoviesRef" />
-    <SeçãoMaisBuscados :maisBuscados="maisBuscados" />
-    <SeçãoEmpreendimentos />
-    <SeçãoNovos :novosCadastros="novosImoveis" />
-    <SeçãoQuemSomos />
-    <SeçãoCategorias :categorias="ImoviesRef" />
-    <SeçãoDestaques :destaque="destaque" />
-    <BarraContato />
-    <NuvemDeTags />
-    <!-- <TheWelcome /> -->
+    <LoaderSpinner v-if="loading" />
+    <div v-if="!loading && ImoviesRef">
+      <SliderBanner :imoveis="banners" v-if="banners" />
+      <SearchBar :imoveis="ImoviesRef" />
+      <SeçãoMaisBuscados :maisBuscados="maisBuscados" v-if="maisBuscados" />
+      <SeçãoEmpreendimentos />
+      <SeçãoNovos :novosCadastros="novosImoveis" v-if="novosImoveis" />
+      <SeçãoQuemSomos />
+      <SeçãoCategorias :categorias="ImoviesRef" v-if="ImoviesRef" />
+      <SeçãoDestaques :destaque="destaque" v-if="destaque" />
+      <BarraContato />
+      <NuvemDeTags />
+    </div>
   </main>
 </template>
+
+<style scoped>
+#loader-1 {
+  margin: 40vh auto;
+}
+</style>

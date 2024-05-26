@@ -1,25 +1,26 @@
 <template>
-  <div class="destaques" v-motion-slide-visible-once-top>
+  <LoaderDots v-if="loading" />
+  <div class="destaques" v-motion-slide-visible-once-top v-if="destaqueCard">
     <h3>Destaque dos destaques</h3>
     <p>Explore os imóveis mais exclusivos e desejados da nossa coleção:</p>
     <div class="destaques__wrapper">
       <div class="destaques__card_principal">
-        <CardMaisBuscados :cardInfos="destaque" />
+        <CardMaisBuscados :cardInfos="destaqueCard" />
       </div>
       <div class="destaques__card_secundario">
-        <div class="destaques__card_slider"><ImageSlider :imagens="destaque.images" /></div>
+        <div class="destaques__card_slider"><ImageSlider :imagens="destaqueCard.images" /></div>
         <div class="destaques__card_bottom">
           <div class="destaques__card_video">
-            <VideoPlayer :videoUrl="destaque.video" />
+            <VideoPlayer :videoUrl="destaqueCard.video" />
           </div>
           <div class="destaques__card_text">
-            <div class="area">{{ destaque.details.area }}m²</div>
+            <div class="area">{{ destaqueCard.details.area }}m²</div>
             <div class="description">
-              {{ generateDescription(destaque) }}
+              {{ generateDescription(destaqueCard) }}
             </div>
-            <div class="text">{{ truncateText(destaque.description) }}</div>
+            <div class="text">{{ truncateText(destaqueCard.description) }}</div>
             <div class="icon">
-              <RouterLink :to="{ name: 'imovel', params: { id: destaque.id } }">
+              <RouterLink :to="{ name: 'imovel', params: { id: destaqueCard.id } }">
                 <Icon icon="mingcute:arrow-right-line" width="1.2em" height="1.2em" />
               </RouterLink>
             </div>
@@ -32,17 +33,34 @@
 
 <script setup lang="ts">
 import type { ImovelType } from '@/interfaces/interfaces'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import CardMaisBuscados from './CardMaisBuscados.vue'
 import ImageSlider from '../Shared/ImageSlider.vue'
 import VideoPlayer from '../Shared/VideoPlayer.vue'
+import { useImoveis } from '@/composables'
+import LoaderDots from '../Shared/LoaderDots.vue'
 
 const props = defineProps<{
   destaque: ImovelType
 }>()
 
-const destaque = ref(props.destaque)
+const destaqueID = ref(props.destaque.id)
+const ImoveisFunction = useImoveis()
+const destaqueCard = ref()
+const loading = ref(true)
+
+onMounted(async () => {
+  await getAllImoveis()
+})
+
+async function getAllImoveis() {
+  loading.value = true
+
+  const data = await ImoveisFunction.carregarImovelPorId(destaqueID.value)
+  if (data) destaqueCard.value = data
+  loading.value = false
+}
 
 function generateDescription(houseDescription: ImovelType): string {
   let description = ''

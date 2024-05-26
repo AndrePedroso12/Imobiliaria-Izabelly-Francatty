@@ -19,7 +19,7 @@ const router = createRouter({
       component: () => import('../views/ImovelView.vue')
     },
     {
-      path: '/pesquisa/:categoria?/:cidade?/:modelo?',
+      path: '/pesquisa/:categoria?/:cidade?/:modelo?/:empreendimento?',
       name: 'pesquisa',
       component: () => import('../views/PesquisaView.vue')
     },

@@ -7,10 +7,10 @@ export const useImagens = () => {
   const token = storageComposable.get('token')
 
   // Função para criar um novo imóvel
-  async function salvarImagem(id: number, imagemFile: File): Promise<void> {
+  async function salvarImagem(id: number, imagemFile: File, isMain: boolean = true): Promise<void> {
     const formData = new FormData()
     formData.append('imagem', imagemFile)
-    formData.append('isMain', 'true')
+    formData.append('isMain', isMain.toString())
     try {
       const response = await fetch(`${endpoints.IMAGENS.CREATE}/${id}`, {
         method: 'POST',
@@ -52,8 +52,39 @@ export const useImagens = () => {
     }
   }
 
+  async function salvarMultiplasImagens(id: number, imagensFiles: File[]): Promise<void> {
+    const promises = imagensFiles.map((imagemFile) => salvarImagem(id, imagemFile, false))
+
+    try {
+      await Promise.all(promises)
+      console.log('Todas as imagens foram salvas com sucesso.')
+    } catch (error) {
+      console.error('Erro ao salvar uma ou mais imagens:', error)
+      throw error
+    }
+  }
+
+  // Função para deletar um imóvel por ID
+  async function deletarImagem(id: number) {
+    try {
+      const response = await fetch(`${endpoints.IMAGENS.DELETE}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error('Erro ao deletar imóvel por ID:', error)
+      throw error
+    }
+  }
+
   return {
     salvarImagem,
-    carregarVideo
+    carregarVideo,
+    salvarMultiplasImagens,
+    deletarImagem
   }
 }

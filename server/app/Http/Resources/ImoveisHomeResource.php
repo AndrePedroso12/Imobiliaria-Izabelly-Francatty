@@ -20,7 +20,7 @@ class ImoveisHomeResource extends JsonResource
         $data = [
             'id' => $this->imovel->id,
             'banner' => isset($this->imovel->isBanner) && $this->imovel->isBanner > 0 ? true : false,
-            'isfavourite' => isset($this->imovel->isfavourite) && $this->imovel->isfavourite > 0 ? true : false,
+            'isfavourite' => isset($this->imovel->isFavorite) && $this->imovel->isFavorite > 0 ? true : false,
             'isTop' => isset($this->imovel->isTop) && $this->imovel->isTop > 0 ? true : false,
             'category' => $this->imovel->tipo,
             'model' => $this->imovel->pretensao,

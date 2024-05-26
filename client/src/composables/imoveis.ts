@@ -142,8 +142,8 @@ export const useImoveis = () => {
 
   function convertImovelTypeToRaw(imovel: ImovelType): RawImovelData {
     return {
-      banner: imovel.banner,
-      isfavourite: imovel.isfavourite,
+      isBanner: imovel.banner,
+      isFavorite: imovel.isfavourite,
       isTop: imovel.isTop,
       tipo: imovel.category,
       pretensao: imovel.model,
@@ -173,7 +173,9 @@ export const useImoveis = () => {
   function convertImages(data: any) {
     const prefix = 'http://server.test'
     // Processamento das imagens
-    const images = data.images.map((image: ImageResponse) => prefix + image.imagem)
+    const images = data.images
+      .filter((image: ImageResponse) => !image.isMain)
+      .map((image: ImageResponse) => prefix + image.imagem)
     const mainImage = data.images.find((image: ImageResponse) => image.isMain)
 
     // Atualizando data com as imagens processadas

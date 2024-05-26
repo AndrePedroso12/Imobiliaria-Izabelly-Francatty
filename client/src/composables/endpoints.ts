@@ -23,7 +23,7 @@ const getEndpoints = () => {
     IMAGENS: {
       CREATE: `${localUrl}/api/imagem/imovel`,
       GET: `${localUrl}/api/imagem/imovel`,
-      DELETE: `${localUrl}/api/imagem/imovel`,
+      DELETE: `${localUrl}/api/imagem`,
       VIDEO: `${localUrl}/api/imovel/addVideo`
     }
   }

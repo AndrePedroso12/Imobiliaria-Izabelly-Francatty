@@ -1,5 +1,7 @@
 <template>
-  <div class="results-page">
+  <LoaderDots v-if="loading" />
+
+  <div class="results-page" v-if="!loading && ImoviesRef">
     <div class="pagetop" id="top">
       <h1>Resultados da Pesquisa</h1>
 
@@ -138,11 +140,17 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ImoveisTeste } from '../components/Shared/dataTest.js'
-import { ref, computed } from 'vue'
-
+import { ref, computed, onMounted } from 'vue'
+import { useImoveis } from '@/composables'
 import CardPrincipal from '@/components/Shared/CardPrincipal.vue'
 
-const ImoviesRef = ref(ImoveisTeste)
+import LoaderDots from '@/components/Shared/LoaderDots.vue'
+import type { ImovelType } from '@/interfaces/interfaces.js'
+
+const ImoviesRef = ref<ImovelType[]>()
+const ImoveisFunction = useImoveis()
+const loading = ref(false)
+
 const route = useRoute()
 const router = useRouter()
 const filterBar = ref(false)
@@ -161,30 +169,33 @@ const perPage = 10
 const currentPage = ref(0)
 
 // Calcular o total de páginas
-const totalPages = computed(() => Math.ceil(filteredImovies.value.length / perPage))
+const totalPages = computed(() => {
+  if (filteredImovies.value) return Math.ceil(filteredImovies.value.length / perPage)
+  else return 0
+})
 
 // Filtrar imóveis com base nos filtros selecionados
 const filteredImovies = computed(() => {
   let filtered = ImoviesRef.value
-
+  if (!filtered) return
   // Filtro por cidade
   if (selectedCity.value) {
-    filtered = filtered.filter((imovel) => imovel.location.city === selectedCity.value)
+    filtered = filtered.filter((imovel: any) => imovel.location.city === selectedCity.value)
   }
 
   // Filtro por modelo
   if (selectedModel.value) {
-    filtered = filtered.filter((imovel) => imovel.model === selectedModel.value)
+    filtered = filtered.filter((imovel: any) => imovel.model === selectedModel.value)
   }
 
   // Filtro por categoria
   if (selectedCategory.value) {
-    filtered = filtered.filter((imovel) => imovel.category === selectedCategory.value)
+    filtered = filtered.filter((imovel: any) => imovel.category === selectedCategory.value)
   }
 
   // Filtro por preço mínimo
   if (minPrice.value !== null && minPrice.value !== 0) {
-    filtered = filtered.filter((imovel) => {
+    filtered = filtered.filter((imovel: any) => {
       if (imovel.price >= minPrice.value) return true
       if (imovel.monthly !== undefined && imovel.monthly >= minPrice.value) return true
       return false
@@ -193,7 +204,7 @@ const filteredImovies = computed(() => {
 
   // Filtro por preço máximo
   if (maxPrice.value !== null && maxPrice.value !== 0) {
-    filtered = filtered.filter((imovel) => {
+    filtered = filtered.filter((imovel: any) => {
       if (imovel.price <= maxPrice.value) return true
       if (imovel.monthly !== undefined && imovel.monthly <= maxPrice.value) return true
       return false
@@ -202,28 +213,30 @@ const filteredImovies = computed(() => {
 
   // Filtro por quartos
   if (selectedRooms.value) {
-    filtered = filtered.filter((imovel) => imovel.details.rooms === selectedRooms.value)
+    filtered = filtered.filter((imovel: any) => imovel.details.rooms === selectedRooms.value)
   }
 
   // Filtro por banheiros
   if (selectedBathrooms.value) {
-    filtered = filtered.filter((imovel) => imovel.details.bathrooms === selectedBathrooms.value)
+    filtered = filtered.filter(
+      (imovel: any) => imovel.details.bathrooms === selectedBathrooms.value
+    )
   }
 
   // Filtro por vagas de garagem
   if (selectedGarage.value) {
-    filtered = filtered.filter((imovel) => imovel.details.garage === selectedGarage.value)
+    filtered = filtered.filter((imovel: any) => imovel.details.garage === selectedGarage.value)
   }
 
   switch (selectedOrder.value) {
     case 'precoMenor':
-      filtered = filtered.sort((a, b) => a.price - b.price)
+      filtered = filtered.sort((a: any, b: any) => a.price - b.price)
       break
     case 'precoMaior':
-      filtered = filtered.sort((a, b) => b.price - a.price)
+      filtered = filtered.sort((a: any, b: any) => b.price - a.price)
       break
     case 'maisRecentes':
-      filtered = filtered.sort((a, b) => b.id - a.id)
+      filtered = filtered.sort((a: any, b: any) => b.id - a.id)
       break
   }
 
@@ -231,12 +244,14 @@ const filteredImovies = computed(() => {
 })
 
 const totalResults = computed(() => {
+  if (!filteredImovies.value) return
   if (totalPages.value == 1) return totalPages.value * filteredImovies.value.length
   else return (totalPages.value - 1) * filteredImovies.value.length
 })
 
 // Imóveis paginados
 const paginatedImovies = computed(() => {
+  if (!filteredImovies.value) return
   const startIndex = currentPage.value * perPage
   return filteredImovies.value.slice(startIndex, startIndex + perPage)
 })
@@ -264,32 +279,38 @@ function toggleFilters() {
 
 // Lista única de cidades para o filtro
 const uniqueCities = computed(() => {
-  return [...new Set(ImoviesRef.value.map((imovel) => imovel.location.city))]
+  if (!ImoviesRef.value) return
+  return [...new Set(ImoviesRef.value.map((imovel: any) => imovel.location.city))]
 })
 
 // Lista única de modelos para o filtro
 const uniqueModels = computed(() => {
-  return [...new Set(ImoviesRef.value.map((imovel) => imovel.model))]
+  if (!ImoviesRef.value) return
+  return [...new Set(ImoviesRef.value.map((imovel: any) => imovel.model))]
 })
 
 // Lista única de categorias para o filtro
 const uniqueCategories = computed(() => {
-  return [...new Set(ImoviesRef.value.map((imovel) => imovel.category))]
+  if (!ImoviesRef.value) return
+  return [...new Set(ImoviesRef.value.map((imovel: any) => imovel.category))]
 })
 
 // Lista única de quartos para o filtro
 const uniqueRooms = computed(() => {
-  return [...new Set(ImoviesRef.value.map((imovel) => imovel.details.rooms || 0))]
+  if (!ImoviesRef.value) return
+  return [...new Set(ImoviesRef.value.map((imovel: any) => imovel.details.rooms || 0))]
 })
 
 // Lista única de banheiros para o filtro
 const uniqueBathrooms = computed(() => {
-  return [...new Set(ImoviesRef.value.map((imovel) => imovel.details.bathrooms || 0))]
+  if (!ImoviesRef.value) return
+  return [...new Set(ImoviesRef.value.map((imovel: any) => imovel.details.bathrooms || 0))]
 })
 
 // Lista única de vagas de garagem para o filtro
 const uniqueGarages = computed(() => {
-  return [...new Set(ImoviesRef.value.map((imovel) => imovel.details.garage || 0))]
+  if (!ImoviesRef.value) return
+  return [...new Set(ImoviesRef.value.map((imovel: any) => imovel.details.garage || 0))]
 })
 
 // Function to sort values from smallest to largest
@@ -298,9 +319,18 @@ function sortValues(values: number[]): number[] {
 }
 
 // Compute sorted lists of rooms, bathrooms, and garage for selects
-const uniqueRoomsSorted = computed(() => sortValues(uniqueRooms.value))
-const uniqueBathroomsSorted = computed(() => sortValues(uniqueBathrooms.value))
-const uniqueGaragesSorted = computed(() => sortValues(uniqueGarages.value))
+const uniqueRoomsSorted = computed(() => {
+  if (!uniqueRooms.value) return
+  else return sortValues(uniqueRooms.value)
+})
+const uniqueBathroomsSorted = computed(() => {
+  if (!uniqueBathrooms.value) return
+  return sortValues(uniqueBathrooms.value)
+})
+const uniqueGaragesSorted = computed(() => {
+  if (!uniqueGarages.value) return
+  return sortValues(uniqueGarages.value)
+})
 
 function shouldDisplayBar() {
   return route.params.cidade || route.params.categoria || route.params.modelo
@@ -368,6 +398,18 @@ function applyFilters() {
     }
   })
 }
+
+async function getAllImoveis() {
+  loading.value = true
+
+  const data = await ImoveisFunction.carregarImoveis()
+  if (data) ImoviesRef.value = data
+  loading.value = false
+}
+
+onMounted(async () => {
+  await getAllImoveis()
+})
 </script>
 
 <style scoped lang="scss">
@@ -659,3 +701,16 @@ select {
   }
 }
 </style>
+: { location: { city: string | string[] } }: { model: string | string[] }: { category: string |
+string[] }: { price: number; monthly: number | undefined }: { price: number; monthly: number |
+undefined }: { details: { rooms: number } }: { details: { bathrooms: number } }: { details: {
+garage: number } }: { price: number }: { price: number }: { price: number }: { price: number }: {
+id: number }: { id: number }: { location: { city: any } }: { model: any }: { category: any }: {
+details: { rooms: any } }: { details: { bathrooms: any } }: { details: { garage: any } }: {
+location: { city: string | string[] } }: { model: string | string[] }: { category: string | string[]
+}: { price: number; monthly: number | undefined }: { price: number; monthly: number | undefined }: {
+details: { rooms: number } }: { details: { bathrooms: number } }: { details: { garage: number } }: {
+price: number }: { price: number }: { price: number }: { price: number }: { id: number }: { id:
+number }: { location: { city: any } }: { model: any }: { category: any }: { details: { rooms: any }
+}: { details: { bathrooms: any } }: { details: { garage: any } }: { price: number }: { price: number
+}: { price: number }: { price: number }: { id: number }: { id: number }

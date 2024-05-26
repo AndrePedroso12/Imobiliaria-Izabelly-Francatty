@@ -154,6 +154,7 @@ a {
     overflow: hidden;
     border-radius: 16px;
     width: 150px;
+    height: 110px;
     @media (max-width: 768px) {
       min-width: 100px;
       height: 100%;
@@ -190,7 +191,7 @@ a {
     }
   }
   &__title {
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 600;
     @media (max-width: 768px) {
       font-size: 15px;
@@ -292,7 +293,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 500;
     color: #eb664e;
     line-height: 1.5;
