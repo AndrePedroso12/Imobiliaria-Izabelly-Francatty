@@ -129,6 +129,7 @@ function changePage(component: Component) {
 }
 
 function isCurrentPage(component: Component) {
+  // @ts-ignore: Unreachable code error
   return currentComponent.value.__name === component.__name
 }
 
