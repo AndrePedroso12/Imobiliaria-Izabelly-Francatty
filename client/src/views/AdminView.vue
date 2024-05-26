@@ -286,7 +286,7 @@ function getPageName(value: string) {
   width: 100%;
   padding: 2rem 0;
   text-align: center;
-  @media screen {
+  @media (max-width: 768px) {
     margin: 0 auto;
     background: #242424;
     width: 100%;
@@ -300,7 +300,7 @@ function getPageName(value: string) {
     border-radius: 50px;
     overflow: hidden;
     margin: 0 auto;
-    @media screen {
+    @media (max-width: 768px) {
       height: 3rem;
       width: 3rem;
     }
@@ -314,14 +314,14 @@ function getPageName(value: string) {
   .user-name {
     font-size: 36px;
     font-weight: bold;
-    @media screen {
+    @media (max-width: 768px) {
       font-size: 21px;
     }
   }
 
   .user-email {
     font-size: 15px;
-    @media screen {
+    @media (max-width: 768px) {
       font-size: 11px;
     }
   }
