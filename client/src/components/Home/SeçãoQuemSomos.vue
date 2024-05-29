@@ -6,22 +6,33 @@
     <div class="quem_somos__texto" v-motion-slide-visible-once-top>
       <h1 class="title">Há mais de 8 anos no mercado imobiliario</h1>
       <p class="subtitle">
-        Pellentesque egestas elementum egestas faucibus sem. Velit nunc egestas ut morbi. Leo diam
-        diam.
+        Atuando no mercado imobiliário desde 2021 em mais de 8 cidades do Brasil, A imobiliaria
+        Izabelly Francatti vem se especializando cada vez mais no desenvolvimento e comercialização
+        de empreendimentos.
+        <br />
+        <br />
+        E agora com um ponto novo ponto de atendimento para melhor atende-los, venha nós conhecer
+        estamos localizados na Av. Francisco Sales Pires, 25 - Florianópolis.
       </p>
       <div class="icons">
         <div class="icon_line">
           <div class="icon"><Icon icon="iconoir:home-alt" width="2em" height="2em" /></div>
           <div class="text">
             <p>Há mais de 5 anos no mercado Imobiliário</p>
-            <span>Sumo petentium ut per, at his wisim utinam adipiscing. Est ei graeco</span>
+            <span
+              >Atendendo em mais de 8 cidades pelo Brasil, nós atendemos desde pessoas físicas a
+              grandes empresas.</span
+            >
           </div>
         </div>
         <div class="icon_line">
           <div class="icon"><Icon icon="gis:search-home" width="2em" height="2em" /></div>
           <div class="text">
             <p>Atendimento Exclusivo</p>
-            <span>Sumo petentium ut per, at his wisim utinam adipiscing. Est ei graeco</span>
+            <span
+              >Seu atendimento será sempre direto e exclusivo, seja presencial ou digital, prezamos
+              pelo atendimento rápido e sempre buscar o melhor para nossos clientes.</span
+            >
           </div>
         </div>
         <div class="icon_line">
@@ -30,7 +41,10 @@
           </div>
           <div class="text">
             <p>Chave na sua mão</p>
-            <span>Sumo petentium ut per, at his wisim utinam adipiscing. Est ei graeco</span>
+            <span
+              >Com um atendimento prioritário, nós garantimos que seu imóvel esteja pronto para uso
+              o mais rápido possível.</span
+            >
           </div>
         </div>
       </div>

@@ -313,6 +313,7 @@ function goToResults() {
   border: 1px solid black;
   border-radius: 12px;
   left: 7%;
+  z-index: 9;
 
   .select_bars {
     display: flex;

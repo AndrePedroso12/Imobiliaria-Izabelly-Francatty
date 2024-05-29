@@ -218,6 +218,10 @@ function truncateText(text: string) {
         outline: 1px solid var(--color-background);
         outline-offset: 5px;
       }
+      &:has(.opened):hover {
+        transform: none;
+        outline: none;
+      }
       .video-thumbnail {
         border-radius: 16px;
       }

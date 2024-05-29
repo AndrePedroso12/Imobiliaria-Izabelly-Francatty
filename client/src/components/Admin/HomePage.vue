@@ -24,22 +24,22 @@
       </div>
       <div class="card">
         <div class="infos">
-          <div class="number">{{ imoveisList.length }}</div>
+          <div class="number">{{ imoveisParaComprar?.length }}</div>
           <div class="text">Imóveis á venda</div>
         </div>
 
         <div class="icon">
-          <Icon icon="fluent:check-24-regular" width="1.2em" height="1.2em" />
+          <Icon icon="material-symbols:sell-outline" width="1.2em" height="1.2em" />
         </div>
       </div>
       <div class="card">
         <div class="infos">
-          <div class="number">{{ imoveisList.length }}</div>
+          <div class="number">{{ imoveisParaAlugar?.length }}</div>
           <div class="text">Imóveis para alugar</div>
         </div>
 
         <div class="icon">
-          <Icon icon="fluent:check-24-regular" width="1.2em" height="1.2em" />
+          <Icon icon="icon-park-outline:afferent-two" width="1.2em" height="1.2em" />
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ import { Icon } from '@iconify/vue'
 import { Carousel, Slide } from 'vue3-carousel'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
 import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useAuth, useImoveis } from '@/composables'
 import { onMounted } from 'vue'
 import LoaderDots from '../Shared/LoaderDots.vue'
@@ -78,6 +78,15 @@ const imoveisList = ref<ImovelType[]>()
 const fraseDoDia = ref()
 const loadingImoveis = ref(false)
 const loadingFrase = ref(false)
+const imoveisParaAlugar = computed(() => {
+  if (!imoveisList.value) return
+  return imoveisList.value.filter((item) => item.model === 'Alugar')
+})
+
+const imoveisParaComprar = computed(() => {
+  if (!imoveisList.value) return
+  return imoveisList.value.filter((item) => item.model === 'Compra')
+})
 
 const props = defineProps<{
   user?: any
