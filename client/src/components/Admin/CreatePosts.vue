@@ -433,7 +433,7 @@ async function saveChanges() {
 
       if (!data.errors) {
         cardInfos.value = data
-        successText.value = 'Imóvel atualizado com sucesso'
+        successText.value = 'Imóvel atualizado com sucesso, aguarde para ser redirecionado'
       } else if (data) {
         errorText.value = data
       } else {
