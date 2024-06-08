@@ -1,30 +1,31 @@
 const getEndpoints = () => {
-  const apiUrl = 'http://server.test'
+  const apiUrl = 'https://server.imobiliriafrancatti.com.br/public'
   const localUrl = 'http://server.test'
 
   return {
     AUTH: {
-      LOGIN: `${localUrl}/api/login`,
-      LOGOUT: `${localUrl}/api/Account/Logout`,
-      CREATE_USER: `${localUrl}/api/user`,
-      UPDATE_USER: `${localUrl}/api/user`,
-      UPDATE_PASSWORD: `${localUrl}/api/user/changePassword`,
-      GET_USER: `${localUrl}/api/user/4`,
-      GET_USERS: `${localUrl}/api/user`
+      LOGIN: `${apiUrl}/api/login`,
+      LOGOUT: `${apiUrl}/api/Account/Logout`,
+      CREATE_USER: `${apiUrl}/api/user`,
+      UPDATE_USER: `${apiUrl}/api/user`,
+      UPDATE_PASSWORD: `${apiUrl}/api/user/changePassword`,
+      GET_USER: `${apiUrl}/api/user/4`,
+      GET_USERS: `${apiUrl}/api/user`
     },
     IMOVEIS: {
-      CREATE: `${localUrl}/api/imovel`,
-      GET: `${localUrl}/api/imovel`,
-      GET_ADMIN: `${localUrl}/api/imovel/admin`,
-      GET_ALL: `${localUrl}/api/imovel/home`,
-      GET_ALL_ADMIN: `${localUrl}/api/imovel/admin`,
-      GET_VIDEO: `${localUrl}/api/imovel/getVideo`
+      CREATE: `${apiUrl}/api/imovel`,
+      GET: `${apiUrl}/api/imovel`,
+      GET_ADMIN: `${apiUrl}/api/imovel/admin`,
+      GET_ALL: `${apiUrl}/api/imovel/home`,
+      GET_ALL_ADMIN: `${apiUrl}/api/imovel/admin`,
+      GET_VIDEO: `${apiUrl}/api/imovel/getVideo`
     },
     IMAGENS: {
-      CREATE: `${localUrl}/api/imagem/imovel`,
-      GET: `${localUrl}/api/imagem/imovel`,
-      DELETE: `${localUrl}/api/imagem`,
-      VIDEO: `${localUrl}/api/imovel/addVideo`
+      CREATE: `${apiUrl}/api/imagem/imovel`,
+      GET: `${apiUrl}/api/imagem/imovel`,
+      DELETE: `${apiUrl}/api/imagem`,
+      VIDEO: `${apiUrl}/api/imovel/addVideo`,
+      VIEW: `${apiUrl}`
     }
   }
 }

@@ -5,8 +5,8 @@
       <div class="text">
         <h1>Olá, {{ user.name }}</h1>
         <p class="title">Frase motivacional do dia:</p>
-        <p class="frase">{{ fraseDoDia.resposta[0].frase }}</p>
-        <p class="author">- {{ fraseDoDia.resposta[0].nomeAutor }}</p>
+        <p class="frase">{{ fraseDoDia.quote }}</p>
+        <p class="author">- {{ fraseDoDia.author }}</p>
       </div>
       <div class="icon"><Icon icon="iconamoon:home-thin" width="1.2em" height="1.2em" /></div>
     </div>
@@ -67,15 +67,16 @@ import { Carousel, Slide } from 'vue3-carousel'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
 import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { computed, ref } from 'vue'
-import { useAuth, useImoveis } from '@/composables'
+import { useImoveis } from '@/composables'
 import { onMounted } from 'vue'
 import LoaderDots from '../Shared/LoaderDots.vue'
 import LoaderSpinner from '../Shared/LoaderSpinner.vue'
+import frases from '@/assets/frases.json'
+import type { Quote } from '@/interfaces/interfaces'
 
 const ImoveisFunction = useImoveis()
-const authFunction = useAuth()
 const imoveisList = ref<ImovelType[]>()
-const fraseDoDia = ref()
+const fraseDoDia = ref<Quote | null>(null)
 const loadingImoveis = ref(false)
 const loadingFrase = ref(false)
 const imoveisParaAlugar = computed(() => {
@@ -104,12 +105,12 @@ async function getImoveis() {
 }
 async function getFrases() {
   loadingFrase.value = true
-  try {
-    const data = await authFunction.getFrases()
-    if (data) fraseDoDia.value = data
-  } catch (error) {
-    console.error('Erro ao carregar frases:', error)
-  }
+  const today = new Date()
+  const start = new Date(today.getFullYear(), 0, 0)
+  const diff = today.getTime() - start.getTime()
+  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24))
+  fraseDoDia.value = frases[dayOfYear % frases.length]
+
   loadingFrase.value = false
 }
 

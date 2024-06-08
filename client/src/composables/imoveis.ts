@@ -171,7 +171,7 @@ export const useImoveis = () => {
   }
 
   function convertImages(data: any) {
-    const prefix = 'http://server.test'
+    const prefix = endpoints.IMAGENS.VIEW
     // Processamento das imagens
     const images = data.images
       .filter((image: ImageResponse) => !image.isMain)

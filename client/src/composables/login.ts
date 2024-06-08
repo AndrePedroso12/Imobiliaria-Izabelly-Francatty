@@ -1,6 +1,9 @@
 import { useStorage } from './storage'
 import { useRouter } from 'vue-router'
 import { getEndpoints } from './endpoints'
+import frases from '@/assets/frases.json'
+import type { Quote } from '@/interfaces/interfaces'
+import { ref } from 'vue'
 
 export const useAuth = () => {
   const endpoints = getEndpoints()
@@ -116,18 +119,14 @@ export const useAuth = () => {
   }
 
   async function getFrases() {
-    try {
-      const response = await fetch('https://frases.docapi.dev/frase/obter', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const data = await response.json()
-      return data
-    } catch (error) {
-      console.error('Erro resgatar frase', error)
-    }
+    const quote = ref<Quote | null>(null)
+
+    const today = new Date()
+    const start = new Date(today.getFullYear(), 0, 0)
+    const diff = today.getTime() - start.getTime()
+    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24))
+    quote.value = frases[dayOfYear % frases.length]
+    return quote.value
   }
 
   function logout() {

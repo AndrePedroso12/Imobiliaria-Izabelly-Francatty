@@ -92,3 +92,8 @@ export interface ImageResponse {
   imagem: string
   isMain: boolean
 }
+export interface Quote {
+  id: number
+  quote: string
+  author: string
+}

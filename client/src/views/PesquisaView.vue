@@ -89,11 +89,11 @@
         </select>
       </div>
 
-      <div class="results" v-if="paginatedImovies.length">
+      <div class="results" v-if="paginatedImovies?.length">
         <!-- Seletor de ordenação -->
         <div class="order-select">
           <p>
-            Mostrando {{ paginatedImovies.length }} resultados de {{ totalResults }}
+            Mostrando {{ paginatedImovies?.length }} resultados de {{ totalResults }}
             <span v-if="totalPages >= 2"> - Página {{ currentPage }} de {{ totalPages }}</span>
           </p>
           <select v-model="selectedOrder" @change="applyFilters">
@@ -139,7 +139,6 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ImoveisTeste } from '../components/Shared/dataTest.js'
 import { ref, computed, onMounted } from 'vue'
 import { useImoveis } from '@/composables'
 import CardPrincipal from '@/components/Shared/CardPrincipal.vue'
@@ -158,11 +157,13 @@ const filterBar = ref(false)
 const selectedCity = ref(route.params.cidade)
 const selectedModel = ref(route.params.modelo)
 const selectedCategory = ref(route.params.categoria)
+const selectedEmpreendimento = ref<string>(route.params.empreendimento as string)
 const selectedRooms = ref(parseInt(router.currentRoute.value.query.quartos as string) || 0)
 const selectedBathrooms = ref(parseInt(router.currentRoute.value.query.banheiros as string) || 0)
 const selectedGarage = ref(parseInt(router.currentRoute.value.query.garagem as string) || 0)
-const minPrice = ref(parseInt(router.currentRoute.value.query.minPrice as string) || 0)
-const maxPrice = ref(parseInt(router.currentRoute.value.query.maxPrice as string) || 0)
+const minPrice = ref(parseInt(router.currentRoute.value.query.precoMin as string) || 0)
+const maxPrice = ref(parseInt(router.currentRoute.value.query.precoMax as string) || 0)
+
 const selectedOrder = ref('precoMenor') // Default to sorting by lowest price
 // Paginação
 const perPage = 10
@@ -193,22 +194,21 @@ const filteredImovies = computed(() => {
     filtered = filtered.filter((imovel: any) => imovel.category === selectedCategory.value)
   }
 
+  // Filtro por Empreendimento
+  if (selectedEmpreendimento.value) {
+    filtered = filtered.filter((imovel: ImovelType) =>
+      imovel.location.neighborhood.includes(selectedEmpreendimento.value)
+    )
+  }
+
   // Filtro por preço mínimo
-  if (minPrice.value !== null && minPrice.value !== 0) {
-    filtered = filtered.filter((imovel: any) => {
-      if (imovel.price >= minPrice.value) return true
-      if (imovel.monthly !== undefined && imovel.monthly >= minPrice.value) return true
-      return false
-    })
+  if (minPrice.value !== null && minPrice.value) {
+    filtered = filtered.filter((imovel: any) => imovel.price >= minPrice.value)
   }
 
   // Filtro por preço máximo
-  if (maxPrice.value !== null && maxPrice.value !== 0) {
-    filtered = filtered.filter((imovel: any) => {
-      if (imovel.price <= maxPrice.value) return true
-      if (imovel.monthly !== undefined && imovel.monthly <= maxPrice.value) return true
-      return false
-    })
+  if (maxPrice.value !== null && maxPrice.value) {
+    filtered = filtered.filter((imovel: any) => imovel.price <= maxPrice.value)
   }
 
   // Filtro por quartos
@@ -342,8 +342,9 @@ const activeFilters = computed(() => {
   if (selectedCity.value) filters.push({ key: 'city', value: selectedCity.value })
   if (selectedModel.value) filters.push({ key: 'model', value: selectedModel.value })
   if (selectedCategory.value) filters.push({ key: 'category', value: selectedCategory.value })
-  if (maxPrice.value !== 0) filters.push({ key: 'maxPrice', value: `Preço até ${maxPrice.value}` })
-  if (minPrice.value !== 0)
+  if (maxPrice.value !== 0 && maxPrice.value)
+    filters.push({ key: 'maxPrice', value: `Preço até ${maxPrice.value}` })
+  if (minPrice.value !== 0 && minPrice.value)
     filters.push({ key: 'minPrice', value: `Preço á partir de ${minPrice.value}` })
 
   return filters
@@ -390,8 +391,8 @@ function applyFilters() {
       categoria: selectedCategory.value
     },
     query: {
-      precoMin: minPrice.value,
-      precoMax: maxPrice.value,
+      precoMin: minPrice.value || 0,
+      precoMax: maxPrice.value || 0,
       quartos: selectedRooms.value,
       banheiros: selectedBathrooms.value,
       garagem: selectedGarage.value
