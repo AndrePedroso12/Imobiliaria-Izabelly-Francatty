@@ -1,12 +1,18 @@
 <template>
   <div class="tags">
     <h2 class="tags__title">Pesquisas Populares</h2>
-    <span class="tags__subtitle">Lorem ipsum dolor sit amet, connsectetur adipiscing elit.</span>
 
     <div class="tags__wrapper">
-      <a v-for="tag in Tags" :key="tag.nome" :href="tag.link">
+      <RouterLink
+        :to="{
+          name: 'pesquisa',
+          params: { cidade: tag.link, empreendimento: tag?.empreendimento }
+        }"
+        v-for="tag in Tags"
+        :key="tag.nome"
+      >
         {{ tag.nome }}
-      </a>
+      </RouterLink>
     </div>
   </div>
 </template>

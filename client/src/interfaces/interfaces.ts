@@ -78,6 +78,7 @@ export interface EmpreendimentoType {
 export interface NuvemDeTags {
   nome: string
   link: string
+  empreendimento?: string
 }
 export interface User {
   id: number
