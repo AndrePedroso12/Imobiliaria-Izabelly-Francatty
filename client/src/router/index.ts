@@ -24,12 +24,22 @@ const router = createRouter({
       component: () => import('../views/PesquisaView.vue')
     },
     {
+      path: '/imoblogin',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue')
     },
     {
       path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue')
+    },
+    {
+      path: '/painel',
       name: 'admin',
       component: () => import('../views/AdminView.vue')
     },
