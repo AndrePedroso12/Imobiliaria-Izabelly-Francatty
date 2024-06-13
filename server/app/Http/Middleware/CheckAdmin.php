@@ -26,7 +26,7 @@ class CheckAdmin
         try {
             $token = $request->bearerToken();
             if (!$token) {
-                return response(["error" => "Invalid Token"], 402);
+                return response(["error" => "Token Inválido"], 402);
             }
 
             $decodedToken = $this->tokenHelper->validateToken($token);
@@ -37,7 +37,7 @@ class CheckAdmin
             }
             return $next($request);
         } catch (Exception $e) {
-            return response(["error" => "Invalid Token"], 402);
+            return response(["error" => "Token Inválido"], 402);
         }
     }
 }

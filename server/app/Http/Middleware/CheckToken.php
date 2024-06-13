@@ -27,7 +27,7 @@ class CheckToken
         try {
             $token = $request->bearerToken();
             if (!$token) {
-                return response(["error" => "Invalid Token"], 402);
+                return response(["error" => "Token Inválido"], 402);
             }
 
             $decodedToken = $this->tokenHelper->validateToken($token);
@@ -35,13 +35,13 @@ class CheckToken
                 if ($request->ip() == $decodedToken->ip) {
                     $user = User::find($decodedToken->user->id);
                     if (!$user) {
-                        return response(["error" => "Invalid Token"], 402);
+                        return response(["error" => "Token Inválido"], 402);
                     }
                 }
             }
             return $next($request);
         } catch (Exception $e) {
-            return response(["error" => "Invalid Token"], 402);
+            return response(["error" => "Token Inválido"], 402);
         }
     }
 }

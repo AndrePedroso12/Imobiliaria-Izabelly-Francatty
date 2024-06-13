@@ -24,14 +24,17 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "login" => ["required"],
-            "password" => ["required"]
+            "login" => ["required"], // 
+            "password" => ["required"] // 
         ];
     }
-    /**
-     * Get the error messages for the defined validation rules.*
-     * @return array
-     */
+    public function messages()
+    {
+        return [
+            "login.required" => "Informe o Login",
+            "password.required" => "Informe a Senha",
+        ];
+    }
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
