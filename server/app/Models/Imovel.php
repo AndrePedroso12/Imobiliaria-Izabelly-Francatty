@@ -36,6 +36,7 @@ class Imovel extends Model
         'isBanner',
         'monthly',
         'video',
+        'comments'
     ];
 
     public function images()
