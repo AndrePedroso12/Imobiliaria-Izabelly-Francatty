@@ -41,6 +41,7 @@ class ImoveisAdminResource extends JsonResource
             ],
             'price' => $this->imovel->preco,
             'monthly' => $this->imovel->monthly,
+            'rent' => $this->imovel->rent,
             'details' => [
                 'rooms' => $this->imovel->qtd_quartos,
                 'bathrooms' => $this->imovel->qtd_banheiros,

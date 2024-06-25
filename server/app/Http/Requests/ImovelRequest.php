@@ -34,7 +34,8 @@ class ImovelRequest extends FormRequest
             "bairro" => ['required'], // Campo "Bairro" é necessário
             "numero" => ['required'], // Campo "Número" é necessário
             "cidade" => ['required'], // Campo "Cidade" é necessário
-            "monthly" => ['numeric'], // Campo "Condomínio" deve conter apenas números
+            "monthly" => ['numeric', 'nullable'], // Campo "Condomínio" deve conter apenas números
+            "rent" => ['numeric', 'nullable'], // Campo "Condomínio" deve conter apenas números
             "qtd_quartos" => ['numeric'],
             "qtd_Suites" => ['numeric'],
             "qtd_banheiros" => ['numeric'],
