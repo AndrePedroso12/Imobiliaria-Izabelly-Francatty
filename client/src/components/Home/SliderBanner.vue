@@ -12,7 +12,7 @@
             Oportunidade em <br />
             {{ slide.location.neighborhood }}
           </div>
-          <div class="carousel__price">R$ {{ slide.price }}<span>mil</span></div>
+          <div class="carousel__price">R$ {{ slide.price }}</div>
           <RouterLink :to="{ name: 'imovel', params: { id: slide.id } }">
             <button class="carousel__button">
               Saiba Mais <Icon icon="lets-icons:arrow-right" width="1.5em" height="1.5em" />

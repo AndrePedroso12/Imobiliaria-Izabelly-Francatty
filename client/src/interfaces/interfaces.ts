@@ -16,12 +16,13 @@ export interface ImovelType {
   isfavourite?: boolean
   isTop?: boolean
   category: 'Apartamento' | 'Casa' | 'Terreno' | 'Area' | 'Condomínio' | 'Galpão'
-  model: 'Compra' | 'Alugar'
+  model: 'Compra' | 'Alugar' | 'Compra e Aluga'
   mainImage: string
   images: string[]
-  video: string
+  video?: string
   location: Location
   price: number
+  rent?: number
   monthly?: number
   details: {
     rooms?: number
@@ -34,6 +35,7 @@ export interface ImovelType {
   description: string
   tags: string[]
   sellerName: string
+  comments?: string
 }
 
 export interface RawImovelData {
@@ -41,7 +43,7 @@ export interface RawImovelData {
   isFavorite?: boolean
   isTop?: boolean
   tipo: 'Terreno' | 'Casa' | 'Apartamento' | 'Condomínio' | 'Galpão' | 'Area'
-  pretensao: 'Compra' | 'Alugar'
+  pretensao: 'Compra' | 'Alugar' | 'Compra e Aluga'
   rua: string
   bairro: string
   numero: string
@@ -56,23 +58,21 @@ export interface RawImovelData {
   qtd_banheiros: number
   qtd_vagas_garagem: number
   preco: number
-  monthly: number | null
+  aluguel?: number | null
+  monthly?: number | null
   descricao: string
   caracteristics: string[]
   tags: string[]
   vendedor: string
   contato_vendedor: string
+  comentarios?: string
 }
 
 export interface EmpreendimentoType {
   id: number
+  name: string
   logo: string
   mainImage: string
-  images: string[]
-  video: string
-  location: Location
-  description: string
-  tags: string[]
 }
 
 export interface NuvemDeTags {
