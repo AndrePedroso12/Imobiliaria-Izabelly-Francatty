@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmpreendimentoController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ImovelController;
 use App\Http\Controllers\UserController;
@@ -55,7 +56,20 @@ Route::prefix('imovel')->group(function () {
     Route::get('/{id}', [ImovelController::class, 'getImovel']);
     Route::get('/getVideo/{id}', [ImovelController::class, 'getVideo']);
 });
+
 Route::prefix('imagem')->group(function () {
+    Route::get('/filename/{id}', [ImagesController::class, 'getImageByFileName']);
     Route::get('/{id}', [ImagesController::class, 'getImage']);
+
     Route::get('/', [ImagesController::class, 'getAllImages']);
+});
+
+Route::prefix('empreendimento')->group(function () {
+    Route::middleware(CheckToken::class)->group(function () {
+        Route::post('/', [EmpreendimentoController::class, 'createEmpreendimentoById']);
+        Route::post('/{id}', [EmpreendimentoController::class, 'updateEmpreendimentoById']);
+        Route::delete('/{id}', [EmpreendimentoController::class, 'deleteEmpreendimentoById']);
+    });
+    Route::get('/', [EmpreendimentoController::class, 'getAllEmpreendimentos']);
+    Route::get('/{id}', [EmpreendimentoController::class, 'getEmpreendimentoById']);
 });

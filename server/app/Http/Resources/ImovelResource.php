@@ -41,6 +41,7 @@ class ImovelResource extends JsonResource
             'description' => $this->imovel->descricao,
             'tags' =>  explode("|", $this->imovel->tags),
             'sellerName' => $this->imovel->vendedor,
+            'comments' => $this->imovel->comments,
         ];
 
         return $data;

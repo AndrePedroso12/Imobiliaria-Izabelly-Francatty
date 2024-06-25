@@ -38,12 +38,12 @@ class ImagesController extends Controller
         if (Storage::exists('public/' . $imagem->imagem)) {
             // Se o arquivo existe, exclua-o
             Storage::delete('public/' . $imagem->imagem);
-            return response(["message" => "Imagem deletado com sucesso!"]);
+            return response(["message" => "Imagem deletada com sucesso!"]);
         } else {
             // Se o arquivo não existe, retorne uma resposta 404
             return response(["error" => 'Imagem não encontrado'], 404);
         }
-        return response(["message" => "Imagem deletado com sucesso!"]);
+        return response(["message" => "Imagem deletada com sucesso!"]);
     }
 
     public function addImagem(Request $request, $id_imovel)
@@ -110,5 +110,13 @@ class ImagesController extends Controller
 
         $imovel = Imovel::find($newMain->imovel_id);
         return response(new ImoveisAdminResource($imovel));
+    }
+
+    public function getImageByFileName($filename)
+    {
+        if (Storage::exists('public/' . $filename)) {
+            return Storage::download('public/' . $filename);
+        }
+        return response(["errors" => "Imagem não encontrada"], 404);
     }
 }

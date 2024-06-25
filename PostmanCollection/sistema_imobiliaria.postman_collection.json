@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c30bd1e8-9df0-40c0-a396-7cb82ff2da55",
+		"_postman_id": "924d0f22-3ec1-428d-80b1-6a4086c73f3a",
 		"name": "sistema_imobiliaria",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25009092"
@@ -660,6 +660,261 @@
 								"api",
 								"imovel",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empreendimentos",
+			"item": [
+				{
+					"name": "createEmpreendimento",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Empreendimento 2",
+									"type": "text"
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.jpg"
+								},
+								{
+									"key": "mainImage",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://server.test/api/empreendimento",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"empreendimento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateEmpreendimento",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Empreendimento 4",
+									"type": "text"
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.jpg",
+									"disabled": true
+								},
+								{
+									"key": "mainImage",
+									"type": "file",
+									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://server.test/api/empreendimento/1",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"empreendimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmpreendimento",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/empreendimento/6",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"empreendimento",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEmpreendimentos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/empreendimento",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"empreendimento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteEmpreendimento",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://server.test/api/empreendimento/6",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"empreendimento",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImagensEmpreendimento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://server.test/api/imagem/filename/iq7DSOqlE8ObL4oqqWWitPe2fbLWvqL9B3zwtTxw.jpg",
+							"protocol": "http",
+							"host": [
+								"server",
+								"test"
+							],
+							"path": [
+								"api",
+								"imagem",
+								"filename",
+								"iq7DSOqlE8ObL4oqqWWitPe2fbLWvqL9B3zwtTxw.jpg"
 							]
 						}
 					},
