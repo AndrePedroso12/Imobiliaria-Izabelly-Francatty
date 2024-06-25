@@ -30,6 +30,7 @@ class ImovelResource extends JsonResource
             ],
             'price' => $this->imovel->preco,
             'monthly' => $this->imovel->monthly,
+            'rent' => $this->imovel->rent,
             'details' => [
                 'rooms' => $this->imovel->qtd_quartos,
                 'bathrooms' => $this->imovel->qtd_banheiros,
@@ -41,7 +42,7 @@ class ImovelResource extends JsonResource
             'description' => $this->imovel->descricao,
             'tags' =>  explode("|", $this->imovel->tags),
             'sellerName' => $this->imovel->vendedor,
-            'comments' => $this->imovel->comments,
+            // 'comments' => $this->imovel->comments,
         ];
 
         return $data;
