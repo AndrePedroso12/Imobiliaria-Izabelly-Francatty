@@ -24,14 +24,19 @@ class ChangePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "password" => ["required"],
-            "newPassword" => ["required"],
+            "password" => ["required"], // Digite a senha atual
+            "newPassword" => ["required"], // Digite a nova senha
         ];
     }
-    /**
-     * Get the error messages for the defined validation rules.*
-     * @return array
-     */
+
+    public function messages()
+    {
+        return [
+            "password.required" => "Digite a senha atual",
+            "newPassword.required" => "Digite a nova senha",
+        ];
+    }
+
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

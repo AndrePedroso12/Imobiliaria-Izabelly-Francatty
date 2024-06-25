@@ -24,15 +24,21 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required"],
-            "email" => ["required"],
-            "password" => ["required"],
+            "name" => ["required"], // Informe o nome do usuário
+            "email" => ["required"], // Informe o email do usuário
+            "password" => ["required"], // Informe a senha do usuário
         ];
     }
-    /**
-     * Get the error messages for the defined validation rules.*
-     * @return array
-     */
+
+    public function messages()
+    {
+        return [
+            "name.required" => "Informe o nome do usuário",
+            "email.required" => "Informe o email do usuário",
+            "password.required" => "Informe a senha do usuário",
+
+        ];
+    }
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
