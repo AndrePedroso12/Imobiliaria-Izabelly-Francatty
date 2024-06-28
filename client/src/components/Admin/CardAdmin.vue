@@ -45,13 +45,13 @@
       </p>
     </div>
     <div class="card__price desktop">
-      <div class="sell" v-if="card.model == 'Compra'">
+      <div class="sell" v-if="card.model == 'Compra' || card.model == 'Compra e Aluga'">
         <span>Venda</span>
-        R$ {{ card.price }}
+        R$ {{ imoveisFunction.formatPrice(card.price) }}
       </div>
-      <div class="rent" v-if="card.model == 'Alugar'">
+      <div class="rent" v-if="card.model == 'Alugar' || card.model == 'Compra e Aluga'">
         <span>Aluguel</span>
-        R$ {{ card.price }}
+        R$ {{ card.rent ? imoveisFunction.formatPrice(card.rent) : '' }}
       </div>
       <div class="condominio" v-if="card.monthly">
         <span>Condominio</span>
@@ -107,6 +107,7 @@
 import type { ImovelType } from '@/interfaces/interfaces'
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
+import { useImoveis } from '@/composables'
 
 const props = defineProps<{
   infos: ImovelType
@@ -114,6 +115,7 @@ const props = defineProps<{
 
 const card = ref(props.infos)
 const isExpanded = ref(false)
+const imoveisFunction = useImoveis()
 const emit = defineEmits(['edit', 'delete'])
 
 function edit() {
@@ -340,6 +342,7 @@ a {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  cursor: auto;
 
   p {
     flex: 0.6;

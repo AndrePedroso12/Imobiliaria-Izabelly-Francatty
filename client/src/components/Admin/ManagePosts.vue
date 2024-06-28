@@ -158,6 +158,7 @@ function confirmDeleteImovel() {
   background: #fff;
   margin-bottom: 20px;
   border: 1px solid #e9e9e9;
+  cursor: pointer;
   @media (max-width: 786px) {
     padding: 35px 15px 40px;
   }

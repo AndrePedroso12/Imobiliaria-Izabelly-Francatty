@@ -263,7 +263,7 @@
           />
           <video controls>
             <source type="video/mp4" :src="videoPreview" />
-            Your browser does not support the video tag.
+            Se navegador não suporta a reprodução de videos.
           </video>
         </div>
 
@@ -351,35 +351,101 @@ function removeLastTag(event: KeyboardEvent) {
   }
 }
 
-function previewMainImage(event: any) {
+async function addLogoAndConvertToWebP(imageFile: File): Promise<string> {
+  const logo = new Image()
+  logo.src = '/logo-transparente.png' // Substitua pelo caminho do seu logo
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.src = e.target?.result as string
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+
+        if (!ctx) {
+          console.log('Erro ao obter contexto do canvas')
+          reject('Erro ao obter contexto do canvas')
+          return
+        }
+        canvas.width = img.width
+        canvas.height = img.height
+        ctx.drawImage(img, 0, 0)
+
+        // Centralizar o logo
+        const logoWidth = 500 // Ajuste conforme necessário
+        const logoHeight = 300 // Ajuste conforme necessário
+        const x = (img.width - logoWidth) / 2
+        const y = (img.height - logoHeight) / 2
+
+        ctx.drawImage(logo, x, y, logoWidth, logoHeight)
+
+        const dataUrl = canvas.toDataURL('image/webp')
+        resolve(dataUrl)
+      }
+      img.onerror = reject
+    }
+    reader.readAsDataURL(imageFile)
+  })
+}
+
+// function previewMainImage(event: any) {
+//   const file = event.target.files[0]
+//   mainImageFile.value = file
+//   if (file) {
+//     const reader = new FileReader()
+//     reader.onload = (e) => {
+//       if (!e.target) return
+//       mainImagePreview.value = e.target.result
+//     }
+//     reader.readAsDataURL(file)
+//   }
+// }
+
+async function previewMainImage(event: any) {
   const file = event.target.files[0]
   mainImageFile.value = file
   if (file) {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      if (!e.target) return
-      mainImagePreview.value = e.target.result
-    }
-    reader.readAsDataURL(file)
+    console.log('Fileeeee')
+    mainImagePreview.value = await addLogoAndConvertToWebP(file)
+
+    console.log(mainImagePreview.value)
   }
 }
 
-function previewGalleryImage(event: Event) {
+// function previewGalleryImage(event: Event) {
+//   const input = event.target as HTMLInputElement
+
+//   if (input.files) {
+//     const files = Array.from(input.files)
+//     files.forEach((file) => {
+//       if (file) {
+//         const reader = new FileReader()
+//         reader.onload = (e) => {
+//           if (!e.target?.result) return
+//           galleryPreviews.value.push(e.target.result)
+//         }
+//         reader.readAsDataURL(file)
+//       }
+//       galleryFiles.value.push(file)
+//     })
+//   }
+// }
+
+async function previewGalleryImage(event: Event) {
   const input = event.target as HTMLInputElement
 
   if (input.files) {
     const files = Array.from(input.files)
-    files.forEach((file) => {
+    for (const file of files) {
       if (file) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          if (!e.target?.result) return
-          galleryPreviews.value.push(e.target.result)
-        }
-        reader.readAsDataURL(file)
+        const processedImage = await addLogoAndConvertToWebP(file)
+        galleryPreviews.value.push(processedImage)
+        galleryFiles.value.push(file)
       }
-      galleryFiles.value.push(file)
-    })
+    }
   }
 }
 
