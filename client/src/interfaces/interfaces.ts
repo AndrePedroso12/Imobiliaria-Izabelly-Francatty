@@ -71,6 +71,7 @@ export interface RawImovelData {
 export interface EmpreendimentoType {
   id: number
   name: string
+  city: string
   logo: string
   mainImage: string
 }
