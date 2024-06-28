@@ -51,6 +51,7 @@
         <select v-model="cardInfos.model">
           <option value="Compra">Comprar</option>
           <option value="Alugar">Alugar</option>
+          <option value="Compra e Aluga">Compra e Aluga</option>
         </select>
       </div>
       <div class="box-info">
@@ -96,7 +97,7 @@
       </div>
 
       <div class="box-info w-25">
-        <label for="">Qtd. Vagas na garagem</label>
+        <label for="">Qtd. Vagas</label>
         <input type="number" v-model="cardInfos.details.garage" />
       </div>
       <div class="box-info w-25">
@@ -136,10 +137,20 @@
 
     <div class="basic-info">
       <h5>Preço</h5>
-      <div class="box-info w-50">
-        <label for="" v-if="cardInfos.model != 'Alugar'">Preço venda</label>
-        <label for="" v-else>Preço aluguel</label>
+      <div
+        class="box-info w-50"
+        v-if="cardInfos.model == 'Compra' || cardInfos.model == 'Compra e Aluga'"
+      >
+        <label for="">Preço venda</label>
         <input type="number" v-model="cardInfos.price" />
+      </div>
+
+      <div
+        class="box-info w-50"
+        v-if="cardInfos.model == 'Alugar' || cardInfos.model == 'Compra e Aluga'"
+      >
+        <label for="">Preço aluguel</label>
+        <input type="number" v-model="cardInfos.rent" />
       </div>
 
       <div class="box-info w-50" v-if="tipoCondominio">
@@ -187,6 +198,14 @@
         <input type="text" v-model="cardInfos.tags[0]" class="w-25" />
         <input type="text" v-model="cardInfos.tags[1]" class="w-25" />
         <input type="text" v-model="cardInfos.tags[2]" class="w-25" />
+      </div>
+    </div>
+
+    <div class="basic-info" v-if="cardInfos">
+      <h5>Comentários internos</h5>
+      <div class="box-info">
+        <label for="">Comentários</label>
+        <textarea type="text" v-model="cardInfos.comments"></textarea>
       </div>
     </div>
 
@@ -659,6 +678,7 @@ onMounted(async () => {
       display: block;
       overflow: hidden;
       position: relative;
+      min-width: 190px;
       width: 190px;
       margin-bottom: 20px;
       height: 6.7rem;
@@ -676,6 +696,7 @@ onMounted(async () => {
       background: white;
       padding: 7px;
       font-size: 2rem;
+      cursor: pointer;
     }
 
     .image-box {

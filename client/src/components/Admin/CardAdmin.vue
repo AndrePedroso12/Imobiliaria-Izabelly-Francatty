@@ -1,5 +1,5 @@
 <template>
-  <article class="card">
+  <article class="card" @click="toggleExpand">
     <div class="image-wrapper">
       <img loading="lazy" decoding="async" :src="card.mainImage" alt="" />
       <div class="card__edit mobile">
@@ -59,6 +59,15 @@
       </div>
     </div>
 
+    <div class="card__model desktop" :class="card.model">
+      <p>{{ card.model }}</p>
+    </div>
+  </article>
+  <!-- Accordion Content -->
+  <div v-if="isExpanded" class="accordion-content">
+    <!-- Coloque aqui o conteúdo do acordeão que deseja exibir -->
+    <p v-if="card.comments">{{ card.comments }}</p>
+    <p v-else>Nenhum comentário</p>
     <div class="card__bottom desktop">
       <div class="card__icons" :class="{ HouseCategory: !isArea(infos.category) }">
         <span v-if="card.details.rooms"
@@ -85,17 +94,13 @@
       </div>
     </div>
 
-    <div class="card__model desktop" :class="card.model">
-      <p>{{ card.model }}</p>
-    </div>
-
     <div class="card__edit desktop">
       <span @click="edit()"><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em" /></span>
       <span @click="deleteButton()"
         ><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em"
       /></span>
     </div>
-  </article>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -108,6 +113,7 @@ const props = defineProps<{
 }>()
 
 const card = ref(props.infos)
+const isExpanded = ref(false)
 const emit = defineEmits(['edit', 'delete'])
 
 function edit() {
@@ -121,6 +127,10 @@ function deleteButton() {
 function isArea(value: string) {
   if (value == 'Casa' || value == 'Condominio' || value == 'Apartamento') return false
   else return true
+}
+
+function toggleExpand() {
+  isExpanded.value = !isExpanded.value
 }
 </script>
 
@@ -140,12 +150,15 @@ a {
   border: 0;
   padding: 10px;
   background: #fff;
-  margin: 0 15px;
+  /* margin: 0 15px; */
   color: var(--color-text);
   align-self: stretch;
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  border: 1px solid #d3d3d354;
+  align-items: center;
+
   @media (max-width: 768px) {
     padding: 35px 15px 40px;
     margin: 20px 0;
@@ -315,5 +328,25 @@ a {
 
 .results .card {
   width: 100%;
+}
+
+.accordion-content {
+  padding: 2.5rem 15px;
+  border: 1px solid #eaeaea;
+  border-top: none;
+  margin-top: -40px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  p {
+    flex: 0.6;
+    border: 1px solid #eaeaea;
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 8px;
+  }
 }
 </style>
