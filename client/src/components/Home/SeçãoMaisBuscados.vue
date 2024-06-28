@@ -14,19 +14,14 @@
       </ul>
     </div>
     <div class="mais_buscados__wrapper">
-      <Carousel v-bind="settings" :breakpoints="breakpoints">
-        <Slide
-          v-for="(chunk, index) in chunkedCards"
-          :key="index"
-          v-motion-slide-visible-once-top
-          :delay="index + '000'"
-        >
-          <!-- Iterate over items in each chunk -->
-          <template v-for="card in chunk" :key="card.id">
-            <CardMaisBuscados :card-infos="card" />
-          </template>
-        </Slide>
-      </Carousel>
+      <!-- <Carousel v-bind="settings" :breakpoints="breakpoints">
+        <Slide v-for="(chunk, index) in chunkedCards" :key="index"> -->
+      <!-- Iterate over items in each chunk -->
+      <template v-for="card in chunkedCards" :key="card.id">
+        <CardMaisBuscados :card-infos="card" />
+      </template>
+      <!-- </Slide> 
+      </Carousel>-->
     </div>
 
     <button class="mais_buscados__button round">
@@ -54,11 +49,7 @@ const cards = ref(props.maisBuscados)
 const chunkSize = 6
 
 const chunkedCards = computed(() => {
-  const chunks: ImovelType[][] = []
-  for (let i = 0; i < filteredCards.value.length; i += chunkSize) {
-    chunks.push(filteredCards.value.slice(i, i + chunkSize))
-  }
-  return chunks
+  return filteredCards.value.slice(0, chunkSize) // Return the first 6 cards as a flat array
 })
 
 const filterType = ref<'todos' | 'comprar' | 'alugar'>('todos')
@@ -69,39 +60,11 @@ const filter = (type: 'todos' | 'comprar' | 'alugar') => {
 
 const filteredCards = computed(() => {
   if (filterType.value === 'comprar') {
-    return cards.value.filter((card) => card.model === 'Compra')
+    return cards.value.filter((card) => card.model === 'Compra' || card.model === 'Compra e Aluga')
   } else if (filterType.value === 'alugar') {
-    return cards.value.filter((card) => card.model === 'Alugar')
+    return cards.value.filter((card) => card.model === 'Alugar' || card.model === 'Compra e Aluga')
   } else {
     return cards.value
-  }
-})
-
-const settings = ref({
-  itemsToShow: 2,
-  snapAlign: 'start' as SnapAlign,
-  touchDrag: false,
-  transition: 2500
-})
-
-const breakpoints = ref({
-  700: {
-    itemsToShow: 2,
-    snapAlign: 'center' as SnapAlign
-  },
-  1024: {
-    itemsToShow: 1,
-    snapAlign: 'start' as SnapAlign,
-    autoplay: 7000,
-    wrapAround: true
-  }
-})
-
-defineComponent({
-  name: 'SliderEmpreendimentos',
-  components: {
-    Carousel,
-    Slide
   }
 })
 </script>
@@ -166,21 +129,14 @@ defineComponent({
   }
 
   &__wrapper {
-    .carousel__slide {
+    display: flex;
+    flex-wrap: wrap;
+    @media (max-width: 768px) {
       display: flex;
-      flex-wrap: wrap;
-      @media (max-width: 768px) {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: column;
-        align-items: center;
-        min-width: 100%;
-      }
-      &:hover {
-        outline: 1px solid var(--color-background);
-        outline-offset: 5px;
-        background: white;
-      }
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100%;
     }
   }
 
@@ -192,6 +148,14 @@ defineComponent({
       font-weight: inherit;
       display: flex;
       align-items: center;
+    }
+  }
+  .cards_mais_buscados {
+    &:hover {
+      outline: 1px solid var(--color-background);
+      outline-offset: 10px;
+      background: white;
+      transform: translateY(-10px);
     }
   }
 }

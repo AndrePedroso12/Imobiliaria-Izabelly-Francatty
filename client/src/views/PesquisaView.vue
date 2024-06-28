@@ -186,7 +186,9 @@ const filteredImovies = computed(() => {
 
   // Filtro por modelo
   if (selectedModel.value) {
-    filtered = filtered.filter((imovel: any) => imovel.model === selectedModel.value)
+    filtered = filtered.filter(
+      (imovel: any) => imovel.model === selectedModel.value || imovel.model == 'Compra e Aluga'
+    )
   }
 
   // Filtro por categoria
@@ -231,9 +233,11 @@ const filteredImovies = computed(() => {
   switch (selectedOrder.value) {
     case 'precoMenor':
       filtered = filtered.sort((a: any, b: any) => a.price - b.price)
+      filtered = filtered.sort((a: any, b: any) => a.rent - b.rent)
       break
     case 'precoMaior':
       filtered = filtered.sort((a: any, b: any) => b.price - a.price)
+      filtered = filtered.sort((a: any, b: any) => a.rent - b.rent)
       break
     case 'maisRecentes':
       filtered = filtered.sort((a: any, b: any) => b.id - a.id)
@@ -470,6 +474,10 @@ onMounted(async () => {
       article.card {
         width: 100% !important;
         margin: 0;
+      }
+      a {
+        display: flex;
+        height: 100%;
       }
     }
   }

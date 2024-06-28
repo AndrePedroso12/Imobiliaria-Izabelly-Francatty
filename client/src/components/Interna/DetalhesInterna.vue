@@ -6,10 +6,7 @@
         <p>Area do Terreno</p>
         <span>{{ infos.details.area }}m²</span>
       </div>
-      <div class="box" v-if="infos.details.area">
-        <p>Area construida</p>
-        <span>{{ infos.details.area }}m²</span>
-      </div>
+
       <div class="box" v-if="infos.details.rooms">
         <p>Quartos</p>
         <span>{{ infos.details.rooms }}</span>
@@ -26,19 +23,24 @@
         <p>Vagas na garagem</p>
         <span>{{ infos.details.garage }}</span>
       </div>
-      <div class="box">
-        <p>Valor</p>
-        <span>R$ {{ infos.price }},00</span>
+      <div class="box" v-if="infos.price">
+        <p>Valor de venda</p>
+        <span>R$ {{ imoveisFunction.formatPrice(infos.price) }}</span>
+      </div>
+      <div class="box" v-if="infos.rent">
+        <p>Aluguel</p>
+        <span>R$ {{ imoveisFunction.formatPrice(infos.rent) }}</span>
       </div>
       <div class="box" v-if="infos.monthly">
         <p>Valor condominio</p>
-        <span>R$ {{ infos.monthly }},00 / mês</span>
+        <span>R$ {{ imoveisFunction.formatPrice(infos.monthly) }} / mês</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useImoveis } from '@/composables'
 import type { ImovelType } from '@/interfaces/interfaces'
 import { ref } from 'vue'
 
@@ -47,6 +49,7 @@ const props = defineProps<{
 }>()
 
 const infos = ref(props.cardInfos)
+const imoveisFunction = useImoveis()
 </script>
 
 <style scoped lang="scss">

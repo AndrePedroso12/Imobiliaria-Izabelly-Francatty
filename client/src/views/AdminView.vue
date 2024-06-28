@@ -37,6 +37,11 @@
         <p>Gerenciar</p>
       </div>
 
+      <div class="menu-icon" @click="changePage(ManagePosts)">
+        <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
+        <p>Empreendimentos</p>
+      </div>
+
       <div class="menu-icon" @click="changePage(AccountPage)">
         <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
         <p>Minha Conta</p>
