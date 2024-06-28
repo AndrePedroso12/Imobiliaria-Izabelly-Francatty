@@ -204,6 +204,7 @@ import { useRoute } from 'vue-router'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import LoaderDots from '@/components/Shared/LoaderDots.vue'
 import type { ImovelType } from '@/interfaces/interfaces'
+import { useHead } from '@vueuse/head'
 
 const imovel = ref<ImovelType>()
 const allImoveis = ref()
@@ -214,6 +215,13 @@ const ImoveisFunction = useImoveis()
 const route = useRoute()
 const imovelId = ref<number>(parseInt(route.params.id as string))
 const isExpanded = ref(false)
+const shareName = ref(
+  imovel.value?.category +
+    'para ' +
+    imovel.value?.model +
+    'em  ' +
+    imovel.value?.location.neighborhood
+)
 
 onMounted(async () => {
   await getImovel()
@@ -239,7 +247,43 @@ async function getAllImoveis() {
   loadingNovos.value = true
 
   const data = await ImoveisFunction.carregarImoveis()
-  if (data) allImoveis.value = data
+  if (data) {
+    allImoveis.value = data
+    useHead({
+      title:
+        imovel.value?.category +
+        ' ' +
+        'para ' +
+        imovel.value?.model +
+        ' ' +
+        'em  ' +
+        imovel.value?.location.neighborhood,
+      meta: [
+        {
+          name: 'description',
+          content:
+            'A Imobiliária Izabelly Francatti atua no mercado imobiliário desde 2021 em mais de 8 cidades do Brasil. Especializada no desenvolvimento e comercialização de empreendimentos. Venha nos conhecer na Av. Francisco Sales Pires, 25 - Florianópolis.'
+        },
+        {
+          property: 'og:title',
+          content:
+            imovel.value?.category +
+            ' ' +
+            'para ' +
+            imovel.value?.model +
+            ' ' +
+            ' em  ' +
+            imovel.value?.location.neighborhood
+        },
+        {
+          property: 'og:description',
+          content:
+            'A Imobiliária Izabelly Francatti atua no mercado imobiliário desde 2021 em mais de 8 cidades do Brasil. Especializada no desenvolvimento e comercialização de empreendimentos. Venha nos conhecer na Av. Francisco Sales Pires, 25 - Florianópolis.'
+        }
+      ]
+    })
+  }
+
   loadingNovos.value = false
 }
 
@@ -256,8 +300,10 @@ async function shareSite() {
   const shareData = {
     title:
       imovel.value?.category +
+      ' ' +
       'para ' +
       imovel.value?.model +
+      ' ' +
       'em  ' +
       imovel.value?.location.neighborhood,
     text: 'Imobiliaria Izabelly Francatti',
