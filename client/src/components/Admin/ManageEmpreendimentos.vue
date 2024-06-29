@@ -4,51 +4,16 @@
 
     <div class="error" v-if="hasError">{{ errorText }}</div>
 
-    <div class="card all-imoveis" v-if="!loading && allImoveis">
-      <div class="manage_filters">
-        <div class="manage__buttons">
-          <button :class="{ active: filterType === 'todos' }" @click="filter('todos')">
-            Todos
-          </button>
-          <button :class="{ active: filterType === 'comprar' }" @click="filter('comprar')">
-            Comprar
-          </button>
-          <button :class="{ active: filterType === 'alugar' }" @click="filter('alugar')">
-            Alugar
-          </button>
-        </div>
-
-        <div class="manage__selects">
-          <!-- Filtro por cidade -->
-          <select v-model="selectedCity" @change="applyFilters">
-            <option value="" selected>Todas as cidades</option>
-            <option v-for="city in uniqueCities" :key="city">{{ city }}</option>
-          </select>
-          <!-- Filtro por modelo -->
-          <select v-model="selectedModel" @change="applyFilters">
-            <option value="" selected>Todos os modelos</option>
-            <option v-for="model in uniqueModels" :key="model">{{ model }}</option>
-          </select>
-          <!-- Filtro por categoria -->
-          <select v-model="selectedCategory" @change="applyFilters">
-            <option value="" selected>Todas as categorias</option>
-            <option v-for="category in uniqueCategories" :key="category">{{ category }}</option>
-          </select>
-        </div>
-      </div>
-
+    <div class="card all-imoveis" v-if="!loading && empreendimentos">
       <div class="manage__cards">
         <div class="manage__cards__header">
+          <p class="Imagem">Logo</p>
           <p class="Imagem">Imagem</p>
-          <p class="Endereço desktop">Endereço</p>
-
-          <p class="Preço desktop">Preço</p>
-
-          <p class="Modelo desktop">Modelo</p>
+          <p class="Endereço">Endereço</p>
         </div>
-        <CardAdmin
+        <CardEmpreendimentos
           :infos="card"
-          v-for="card in filteredCards"
+          v-for="card in empreendimentos"
           :key="card.id"
           @edit="setSelectedCard(card.id)"
           @delete="deleteCard(card.id)"
@@ -59,50 +24,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
-import { useImoveis } from '@/composables'
-import type { ImovelType } from '@/interfaces/interfaces'
-import CardAdmin from './CardAdmin.vue'
+import { useEmpreendimentos } from '@/composables'
+import type { EmpreendimentoType } from '@/interfaces/interfaces'
+import CardEmpreendimentos from './CardEmpreendimentos.vue'
 
 const loading = ref(false)
-const imoveisFunctions = useImoveis()
-const allImoveis = ref<ImovelType[]>()
 const errorText = ref('')
 const hasError = ref(false)
-
-const selectedCity = ref('')
-const selectedModel = ref('')
-const selectedCategory = ref('')
+const empreendimentos = ref<EmpreendimentoType[]>()
+const EmpreendimentosFunction = useEmpreendimentos()
 const selectedCard = ref()
 
-const emit = defineEmits(['edit'])
-
-// Lista única de cidades para o filtro
-const uniqueCities = computed(() => {
-  if (allImoveis.value) return [...new Set(allImoveis.value.map((imovel) => imovel.location.city))]
-  else return null
-})
-
-// Lista única de modelos para o filtro
-const uniqueModels = computed(() => {
-  if (allImoveis.value) return [...new Set(allImoveis.value.map((imovel) => imovel.model))]
-  else return null
-})
-
-// Lista única de categorias para o filtro
-const uniqueCategories = computed(() => {
-  if (allImoveis.value) return [...new Set(allImoveis?.value.map((imovel) => imovel.category))]
-  else return null
-})
-
-function applyFilters() {}
+const emit = defineEmits(['editEmpreendimento'])
 
 onMounted(async () => {
   loading.value = true
 
   try {
-    allImoveis.value = await imoveisFunctions.carregarImoveisAdmin()
+    empreendimentos.value = await EmpreendimentosFunction.carregarEmpreendimentos()
   } catch (error: any) {
     errorText.value = error
     hasError.value = true
@@ -110,42 +51,26 @@ onMounted(async () => {
   loading.value = false
 })
 
-const filterType = ref<'comprar' | 'alugar' | 'todos'>('todos')
-
-const filteredCards = computed(() => {
-  if (filterType.value === 'comprar' && allImoveis.value) {
-    return allImoveis.value.filter((card) => card.model === 'Compra')
-  } else if (filterType.value === 'alugar' && allImoveis.value) {
-    return allImoveis.value.filter((card) => card.model === 'Alugar')
-  } else {
-    return allImoveis.value
-  }
-})
-
-const filter = (type: 'comprar' | 'alugar' | 'todos') => {
-  filterType.value = type
-}
-
 async function setSelectedCard(card: number) {
   selectedCard.value = card
-  await emit('edit', selectedCard.value)
+  await emit('editEmpreendimento', selectedCard.value)
 }
 
 async function deleteCard(card: number) {
-  const shouldDelete = await confirmDeleteImovel()
+  const shouldDelete = await confirmDeleteEmpreendimento()
   if (shouldDelete) {
     loading.value = true
-    await imoveisFunctions.deletarImovelPorId(card)
-    allImoveis.value = await imoveisFunctions.carregarImoveisAdmin()
+    await EmpreendimentosFunction.deletarEmpreendimentoPorId(card)
+    empreendimentos.value = await EmpreendimentosFunction.carregarEmpreendimentos()
     loading.value = false
   } else {
     return
   }
 }
 
-function confirmDeleteImovel() {
+function confirmDeleteEmpreendimento() {
   return new Promise<boolean>((resolve) => {
-    const confirmation = confirm('Tem certeza que deseja deletar este imóvel?')
+    const confirmation = confirm('Tem certeza que deseja deletar este empreendimento?')
     resolve(confirmation)
   })
 }
@@ -199,14 +124,10 @@ select {
     border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
   margin-right: 40px;
-  @media (max-width: 1611px) {
-    height: 3rem;
-  }
   @media (max-width: 786px) {
     width: 100%;
     margin: 0;
   }
-
   /* Remove IE arrow */
   &::-ms-expand {
     display: none;
@@ -261,10 +182,6 @@ select {
       flex-wrap: wrap;
       width: 100%;
       gap: 12px;
-    }
-    @media (max-width: 1611px) {
-      flex-direction: column;
-      gap: 15px;
     }
 
     button {

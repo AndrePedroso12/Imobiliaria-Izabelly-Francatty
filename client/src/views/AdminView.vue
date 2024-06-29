@@ -29,22 +29,27 @@
         :class="{ active: isCurrentPage(CreatePosts) }"
         @click="changePage(CreatePosts)"
       >
-        <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
-        <p>Cadastrar</p>
+        <Icon icon="material-symbols:add-home-outline" width="1.2em" height="1.2em" />
+        <p>Cadastrar imóvel</p>
       </div>
       <div class="menu-icon" @click="changePage(ManagePosts)">
         <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
-        <p>Gerenciar</p>
+        <p>Gerenciar imóveis</p>
       </div>
 
-      <div class="menu-icon" @click="changePage(ManagePosts)">
-        <Icon icon="fluent:board-16-regular" width="1.2em" height="1.2em" />
-        <p>Empreendimentos</p>
+      <div class="menu-icon" @click="changePage(CreateEmpreendimentos)">
+        <Icon icon="gridicons:create" width="1.2em" height="1.2em" />
+        <p>Cadastrar empreendimentos</p>
+      </div>
+
+      <div class="menu-icon" @click="changePage(ManageEmpreendimentos)">
+        <Icon icon="material-symbols:bookmark-manager-outline" width="1.2em" height="1.2em" />
+        <p>Gerenciar empreendimentos</p>
       </div>
 
       <div class="menu-icon" @click="changePage(AccountPage)">
         <Icon icon="material-symbols:manage-accounts-outline" width="1.2em" height="1.2em" />
-        <p>Minha Conta</p>
+        <p>Minha conta</p>
       </div>
       <div class="menu-icon" @click="logOut()">
         <Icon icon="ic:round-logout" width="1.2em" height="1.2em" />
@@ -70,7 +75,9 @@
         :user="userInfos"
         :selectedCard="selectedCard"
         @edit="editImovel"
+        @editEmpreendimento="editEmpreendimento"
         @saved="savedSucces"
+        @savedEmpreendimento="savedSuccesEmpreendimentos()"
       ></component>
     </div>
   </div>
@@ -84,8 +91,10 @@ import router from '@/router'
 import HomePage from '@/components/Admin/HomePage.vue'
 import CreatePosts from '@/components/Admin/CreatePosts.vue'
 import ManagePosts from '@/components/Admin/ManagePosts.vue'
+import ManageEmpreendimentos from '@/components/Admin/ManageEmpreendimentos.vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import AccountPage from '@/components/Admin/AccountPage.vue'
+import CreateEmpreendimentos from '@/components/Admin/CreateEmpreendimentos.vue'
 
 const currentComponent = ref<Component>(HomePage)
 const currentPageName = computed(() => {
@@ -122,10 +131,19 @@ function editImovel(card: number) {
   selectedCard.value = card
   currentComponent.value = CreatePosts
 }
+function editEmpreendimento(card: number) {
+  selectedCard.value = card
+  currentComponent.value = CreateEmpreendimentos
+}
 
 function savedSucces() {
   selectedCard.value = undefined
   currentComponent.value = ManagePosts
+}
+
+function savedSuccesEmpreendimentos() {
+  selectedCard.value = undefined
+  currentComponent.value = ManageEmpreendimentos
 }
 
 function changePage(component: Component) {
@@ -147,6 +165,10 @@ function getPageName(value: any) {
       return 'Cadastrar / Editar um imóvel'
     case 'ManagePosts':
       return 'Gerenciar Imóveis'
+    case 'CreateEmpreendimentos':
+      return 'Cadastrar / Editar um empreendimento'
+    case 'ManageEmpreendimentos':
+      return 'Gerenciar Empreendimentos'
     case 'AccountPage':
       return 'Gerenciar sua conta'
 
@@ -214,7 +236,7 @@ function getPageName(value: any) {
 }
 
 .sidebar {
-  width: 19rem;
+  width: 20rem;
   height: 100vh;
   background-color: #282828;
   color: #fff;
@@ -225,7 +247,7 @@ function getPageName(value: any) {
   overflow: hidden;
   align-items: flex-start;
   border-radius: 24px;
-  margin-right: 60px;
+  margin-right: 20px;
 
   @media (max-width: 768px) {
     position: fixed;
@@ -291,8 +313,9 @@ function getPageName(value: any) {
   margin: 0 auto;
   background: #242424;
   width: 100%;
-  padding: 2rem 0;
+  padding: 1rem 0;
   text-align: center;
+
   @media (max-width: 768px) {
     margin: 0 auto;
     background: #242424;
@@ -302,11 +325,12 @@ function getPageName(value: any) {
   }
   .user-picture {
     background: var(--color-background);
-    height: 7rem;
-    width: 7rem;
+    height: 4rem;
+    width: 4rem;
     border-radius: 50px;
     overflow: hidden;
     margin: 0 auto;
+
     @media (max-width: 768px) {
       height: 3rem;
       width: 3rem;
@@ -319,7 +343,7 @@ function getPageName(value: any) {
   }
 
   .user-name {
-    font-size: 36px;
+    font-size: 1rem;
     font-weight: bold;
     @media (max-width: 768px) {
       font-size: 21px;
@@ -327,7 +351,7 @@ function getPageName(value: any) {
   }
 
   .user-email {
-    font-size: 15px;
+    font-size: 0.8rem;
     @media (max-width: 768px) {
       font-size: 11px;
     }
