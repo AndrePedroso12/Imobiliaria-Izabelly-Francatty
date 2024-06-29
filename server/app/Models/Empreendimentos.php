@@ -10,5 +10,5 @@ class Empreendimentos extends Model
     use HasFactory;
     protected $table = 'empreendimentos';
 
-    protected $fillable = ['name', 'logo', 'mainImage'];
+    protected $fillable = ['name', 'logo', 'mainImage', 'city'];
 }

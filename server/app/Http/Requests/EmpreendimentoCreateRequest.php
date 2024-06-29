@@ -18,6 +18,7 @@ class EmpreendimentoCreateRequest extends FormRequest
     {
         return [
             "name" => ["required"],
+            "city" => ["required"],
             "logo" => ["required"],
             "mainImage" => ["required"]
         ];
@@ -26,6 +27,7 @@ class EmpreendimentoCreateRequest extends FormRequest
     {
         return [
             "name.required" => "Informe o Nome do Empreendimento",
+            "city.required" => "Informe a cidade do Empreendimento",
             "logo.required" => "Necessário incluir uma logo",
             "mainImage.required" => "Necessário incluir uma imagem",
         ];

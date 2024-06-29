@@ -18,12 +18,14 @@ class EmpreendimentoUpdateRequest extends FormRequest
     {
         return [
             "name" => ["required"],
+            "city" => ["required"],
         ];
     }
     public function messages()
     {
         return [
             "name.required" => "Informe o Nome do Empreendimento",
+            "city.required" => "Informe a cidade do Empreendimento",
         ];
     }
     protected function failedValidation(Validator $validator)
