@@ -26,7 +26,14 @@
                 {{ infos.details.area }}m²</span
               >
             </div>
-            <span class="cards_mais_buscados__price">R$ {{ infos.price }}</span>
+            <span class="cards_mais_buscados__price"
+              >R$
+              {{
+                infos.rent
+                  ? imoveisFunction.formatPrice(infos.rent)
+                  : imoveisFunction.formatPrice(infos.price)
+              }}</span
+            >
           </div>
         </div>
         <div class="image-wrapper">
@@ -44,6 +51,7 @@
 </template>
 
 <script setup lang="ts">
+import { useImoveis } from '@/composables'
 import type { ImovelType } from '@/interfaces/interfaces'
 import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
@@ -53,6 +61,7 @@ const props = defineProps<{
 }>()
 
 const infos = ref(props.cardInfos)
+const imoveisFunction = useImoveis()
 
 function isArea(value: string) {
   if (value == 'Casa' || value == 'Condominio' || value == 'Apartamento') return false

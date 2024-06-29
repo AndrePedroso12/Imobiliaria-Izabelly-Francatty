@@ -41,11 +41,10 @@
         <div class="manage__cards__header">
           <p class="Imagem">Imagem</p>
           <p class="Endereço desktop">Endereço</p>
-          <p class="Endereço mobile">Infos</p>
+
           <p class="Preço desktop">Preço</p>
-          <p class="Informações desktop">Informações</p>
+
           <p class="Modelo desktop">Modelo</p>
-          <p class="Gerenciar desktop">Gerenciar</p>
         </div>
         <CardAdmin
           :infos="card"

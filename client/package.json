@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/head": "^2.0.0",
     "@vueuse/motion": "^2.1.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",

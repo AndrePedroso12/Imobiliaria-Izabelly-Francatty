@@ -2,13 +2,13 @@
   <div class="cards_empreendimentos">
     <article>
       <div class="cards_empreendimentos__description">
-        <p class="cards_empreendimentos__title">{{ card.location.neighborhood }}</p>
+        <p class="cards_empreendimentos__title">{{ card.name }}</p>
         <p class="cards_empreendimentos__location">
-          <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.location.city }}
+          <Icon icon="mynaui:location" width="1.2em" height="1.2em" /> {{ card.city }}
         </p>
       </div>
       <div class="cards_empreendimentos__logo">
-        <img :src="card.logo" :alt="card.location.neighborhood" />
+        <img :src="card.logo" :alt="card.name" />
       </div>
       <div class="image-wrapper">
         <img

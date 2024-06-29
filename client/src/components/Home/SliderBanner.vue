@@ -12,7 +12,14 @@
             Oportunidade em <br />
             {{ slide.location.neighborhood }}
           </div>
-          <div class="carousel__price">R$ {{ slide.price }}</div>
+          <div class="carousel__price">
+            R$
+            {{
+              slide.rent
+                ? imoveisFunction.formatPrice(slide.rent)
+                : imoveisFunction.formatPrice(slide.price)
+            }}
+          </div>
           <RouterLink :to="{ name: 'imovel', params: { id: slide.id } }">
             <button class="carousel__button">
               Saiba Mais <Icon icon="lets-icons:arrow-right" width="1.5em" height="1.5em" />
@@ -43,12 +50,14 @@ import { Icon } from '@iconify/vue'
 
 import 'vue3-carousel/dist/carousel.css'
 import type { ImovelType } from '@/interfaces/interfaces'
+import { useImoveis } from '@/composables'
 
 const props = defineProps<{
   imoveis: ImovelType[]
 }>()
 
 const banners = ref(props.imoveis)
+const imoveisFunction = useImoveis()
 
 defineComponent({
   name: 'SliderBanner',

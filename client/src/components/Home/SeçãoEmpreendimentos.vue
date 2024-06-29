@@ -9,9 +9,7 @@
     <div class="empreendimentos__wrapper">
       <Carousel v-bind="settings" :breakpoints="breakpoints">
         <Slide v-for="(card, index) in EmpreendimentosRef" :key="index" v-motion-slide-visible-top>
-          <RouterLink
-            :to="{ name: 'pesquisa', params: { empreendimento: card.location.neighborhood } }"
-          >
+          <RouterLink :to="{ name: 'pesquisa', params: { empreendimento: card.name } }">
             <CardEmpreendimentos :card="card" />
           </RouterLink>
         </Slide>

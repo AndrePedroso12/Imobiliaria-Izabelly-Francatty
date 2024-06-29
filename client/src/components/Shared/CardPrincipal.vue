@@ -35,17 +35,17 @@
           <span v-if="isArea(infos.category)"> {{ infos.category }}</span>
         </div>
         <div class="card__price">
-          <div class="sell" v-if="card.model == 'Compra'">
+          <div class="sell" v-if="card.model == 'Compra' || card.model == 'Compra e Aluga'">
             <span>Venda</span>
-            R$ {{ card.price }}
+            R$ {{ imoveisFunction.formatPrice(card.price) }}
           </div>
-          <div class="rent" v-if="card.model == 'Alugar'">
+          <div class="rent" v-if="card.model == 'Alugar' || card.model == 'Compra e Aluga'">
             <span>Aluguel</span>
-            R$ {{ card.price }}/mês
+            R$ {{ card.rent ? imoveisFunction.formatPrice(card.rent) : '' }}/mês
           </div>
           <div class="condominio" v-if="card.monthly">
             <span>Condominio</span>
-            R$ {{ card.monthly }}/mês
+            R$ {{ imoveisFunction.formatPrice(card.monthly) }}/mês
           </div>
         </div>
       </div>
@@ -57,12 +57,14 @@
 import type { ImovelType } from '@/interfaces/interfaces'
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
+import { useImoveis } from '@/composables/imoveis'
 
 const props = defineProps<{
   infos: ImovelType
 }>()
 
 const card = ref(props.infos)
+const imoveisFunction = useImoveis()
 
 function isArea(value: string) {
   if (value == 'Casa' || value == 'Condominio' || value == 'Apartamento') return false

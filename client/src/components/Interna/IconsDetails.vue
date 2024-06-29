@@ -24,9 +24,7 @@
     </div>
     <div class="box" v-if="infos.details.garage">
       <Icon icon="cil:garage" width="1.7em" height="1.7em" />
-      <p>
-        {{ infos.details.garage }} Vaga<span v-if="infos.details.garage >= 2">s</span> de garagem
-      </p>
+      <p>{{ infos.details.garage }} Vaga<span v-if="infos.details.garage >= 2">s</span></p>
     </div>
   </div>
 </template>

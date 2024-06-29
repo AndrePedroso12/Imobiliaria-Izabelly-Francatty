@@ -39,13 +39,26 @@
           </p>
         </div>
 
-        <div class="price">
-          <p class="price_num">R$ {{ imovel.price }}</p>
+        <div class="price" v-if="imovel.model != 'Compra e Aluga'">
+          <p class="price_num" v-if="imovel.price">
+            R$ {{ ImoveisFunction.formatPrice(imovel.price) }}
+          </p>
+          <p class="price_num" v-if="imovel.rent">
+            R$ {{ ImoveisFunction.formatPrice(imovel.rent) }}
+          </p>
 
           <p v-if="imovel.monthly" class="price_condominio">
-            Condomínio - R$ {{ imovel.monthly }}/mês
+            Condomínio - R$ {{ ImoveisFunction.formatPrice(imovel.monthly) }}/mês
           </p>
           <p v-else class="price_area">Area {{ imovel.details.area }}m²</p>
+        </div>
+
+        <div class="price" v-else>
+          <p class="price_num">Compra R$ {{ ImoveisFunction.formatPrice(imovel.price) }}</p>
+
+          <p class="price_condominio">
+            Aluguel - R$ {{ imovel.rent ? ImoveisFunction.formatPrice(imovel.rent) : '' }}/mês
+          </p>
         </div>
       </div>
     </div>
@@ -108,7 +121,7 @@
         <DetalhesInterna :card-infos="imovel" v-motion-slide-visible-once-top />
         <CaracteristicasInterna :card-infos="imovel" v-motion-slide-visible-once-top />
 
-        <div class="video_container">
+        <div class="video_container" v-if="imovel.video">
           <div class="title">Video</div>
 
           <VideoPlayer
@@ -120,16 +133,22 @@
       </div>
 
       <div class="contato_sticky">
-        <div class="container">
-          <p class="title">Agende uma visita</p>
-          <input type="text" placeholder="Seu nome" />
-          <input type="text" placeholder="Cidade" />
-          <textarea type="text" placeholder="">
-Olá, gostaria agendar uma visita ao imovel
-        </textarea
-          >
+        <div class="container" :class="{ closed: !isExpanded }">
+          <p class="title" @click="toggleExpand">
+            Agende uma visita
+            <Icon icon="raphael:arrowdown" width="1em" height="1em" />
+          </p>
 
-          <button>Enviar</button>
+          <div v-if="isExpanded">
+            <input type="text" placeholder="Seu nome" />
+            <input type="text" placeholder="Cidade" />
+            <textarea type="text" placeholder="">
+  Olá, gostaria agendar uma visita ao imovel
+          </textarea
+            >
+
+            <button>Enviar</button>
+          </div>
         </div>
 
         <div class="container">
@@ -142,7 +161,7 @@ Olá, gostaria agendar uma visita ao imovel
             <div class="dados_vendedor">
               <p v-if="imovel.sellerName != null">{{ imovel.sellerName }}</p>
               <p v-else>Izabelly Francatti</p>
-              <span>CRECI: 123456</span>
+              <span>CRECI: 257739F</span>
             </div>
           </div>
           <input type="text" placeholder="Seu nome" />
@@ -184,8 +203,10 @@ import { useImoveis } from '@/composables'
 import { useRoute } from 'vue-router'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import LoaderDots from '@/components/Shared/LoaderDots.vue'
+import type { ImovelType } from '@/interfaces/interfaces'
+import { useHead } from '@vueuse/head'
 
-const imovel = ref()
+const imovel = ref<ImovelType>()
 const allImoveis = ref()
 const loading = ref(false)
 const loadingNovos = ref(false)
@@ -193,6 +214,14 @@ const currentSlide = ref(0)
 const ImoveisFunction = useImoveis()
 const route = useRoute()
 const imovelId = ref<number>(parseInt(route.params.id as string))
+const isExpanded = ref(false)
+const shareName = ref(
+  imovel.value?.category +
+    'para ' +
+    imovel.value?.model +
+    'em  ' +
+    imovel.value?.location.neighborhood
+)
 
 onMounted(async () => {
   await getImovel()
@@ -218,7 +247,43 @@ async function getAllImoveis() {
   loadingNovos.value = true
 
   const data = await ImoveisFunction.carregarImoveis()
-  if (data) allImoveis.value = data
+  if (data) {
+    allImoveis.value = data
+    useHead({
+      title:
+        imovel.value?.category +
+        ' ' +
+        'para ' +
+        imovel.value?.model +
+        ' ' +
+        'em  ' +
+        imovel.value?.location.neighborhood,
+      meta: [
+        {
+          name: 'description',
+          content:
+            'A Imobiliária Izabelly Francatti atua no mercado imobiliário desde 2021 em mais de 8 cidades do Brasil. Especializada no desenvolvimento e comercialização de empreendimentos. Venha nos conhecer na Av. Francisco Sales Pires, 25 - Florianópolis.'
+        },
+        {
+          property: 'og:title',
+          content:
+            imovel.value?.category +
+            ' ' +
+            'para ' +
+            imovel.value?.model +
+            ' ' +
+            ' em  ' +
+            imovel.value?.location.neighborhood
+        },
+        {
+          property: 'og:description',
+          content:
+            'A Imobiliária Izabelly Francatti atua no mercado imobiliário desde 2021 em mais de 8 cidades do Brasil. Especializada no desenvolvimento e comercialização de empreendimentos. Venha nos conhecer na Av. Francisco Sales Pires, 25 - Florianópolis.'
+        }
+      ]
+    })
+  }
+
   loadingNovos.value = false
 }
 
@@ -234,15 +299,21 @@ function copiarURL() {
 async function shareSite() {
   const shareData = {
     title:
-      imovel.value.category +
+      imovel.value?.category +
+      ' ' +
       'para ' +
-      imovel.value.model +
+      imovel.value?.model +
+      ' ' +
       'em  ' +
-      imovel.value.location.neighborhood,
+      imovel.value?.location.neighborhood,
     text: 'Imobiliaria Izabelly Francatti',
     url: location.href
   }
   await navigator.share(shareData)
+}
+
+function toggleExpand() {
+  isExpanded.value = !isExpanded.value
 }
 </script>
 
@@ -497,6 +568,9 @@ async function shareSite() {
     border-radius: 16px;
     border: 1px solid #ebebeb;
     margin-bottom: 2rem;
+    &.closed {
+      padding: 1rem 30px;
+    }
   }
 
   .title {
@@ -504,6 +578,13 @@ async function shareSite() {
     font-weight: 700;
     line-height: normal;
     margin-bottom: 1rem;
+    svg {
+      background: #82828224;
+      border-radius: 50px;
+      margin-left: 20px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
   }
   .vendedor {
     background: #f5f5f5;

@@ -190,6 +190,14 @@ export const useImoveis = () => {
     return dataArray.map((data: any) => convertImages(data))
   }
 
+  function formatPrice(price: number) {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(price)
+  }
+
   return {
     criarNovoImovel,
     atualizarImovel,
@@ -198,6 +206,7 @@ export const useImoveis = () => {
     carregarImoveis,
     carregarImoveisAdmin,
     carregarImovelPorIdAdmin,
-    convertImovelTypeToRaw
+    convertImovelTypeToRaw,
+    formatPrice
   }
 }

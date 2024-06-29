@@ -42,6 +42,16 @@
           <Icon icon="icon-park-outline:afferent-two" width="1.2em" height="1.2em" />
         </div>
       </div>
+      <div class="card">
+        <div class="infos">
+          <div class="number">{{ imoveisParaComprareAlugar?.length }}</div>
+          <div class="text">Imóveis para alugar e vender</div>
+        </div>
+
+        <div class="icon">
+          <Icon icon="iconamoon:home-thin" width="1.2em" height="1.2em" />
+        </div>
+      </div>
     </div>
 
     <v-card title="Cadastros Recentes" variant="tonal" class="imoveis">
@@ -87,6 +97,11 @@ const imoveisParaAlugar = computed(() => {
 const imoveisParaComprar = computed(() => {
   if (!imoveisList.value) return
   return imoveisList.value.filter((item) => item.model === 'Compra')
+})
+
+const imoveisParaComprareAlugar = computed(() => {
+  if (!imoveisList.value) return
+  return imoveisList.value.filter((item) => item.model === 'Compra e Aluga')
 })
 
 const props = defineProps<{
