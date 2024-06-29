@@ -64,6 +64,7 @@ class EmpreendimentoController extends Controller
 
         $empreendimento = Empreendimentos::create([
             'name' => $request->name,
+            'city' => $request->city,
             'logo' => $logo_path,
             'mainImage' => $mainImage_path,
         ]);
@@ -104,6 +105,7 @@ class EmpreendimentoController extends Controller
 
         $empreendimento->update([
             "name" => $request->name,
+            "city" => $request->city,
             "logo" => $logo_path,
             "mainImage" => $mainImage_path,
         ]);
