@@ -23,7 +23,7 @@ class ImovelResource extends JsonResource
             'model' => $this->imovel->pretensao,
             'mainImage' => $this->imovel->mainImage,
             'images' => ImagesResource::collection($this->imovel->images),
-            'video' => '/api/imovel/getVideo/' . $this->imovel->id,
+            'video' => $this->imovel->video ? '/api/imovel/getVideo/' . $this->imovel->id : null,
             'location' => [
                 'city' => $this->imovel->cidade,
                 'neighborhood' => $this->imovel->bairro,
