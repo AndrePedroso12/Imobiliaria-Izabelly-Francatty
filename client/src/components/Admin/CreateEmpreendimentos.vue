@@ -102,32 +102,102 @@ function emitSaved() {
   emit('savedEmpreendimento')
 }
 
-function previewMainImage(event: any) {
+// function previewMainImage(event: any) {
+//   const file = event.target.files[0]
+//   mainImageFile.value = file
+//   cardInfos.value.mainImage = file
+//   if (file) {
+//     const reader = new FileReader()
+//     reader.onload = (e) => {
+//       if (!e.target) return
+//       mainImagePreview.value = e.target.result
+//     }
+//     reader.readAsDataURL(file)
+//   }
+// }
+
+// function previewLogoImage(event: any) {
+//   const file = event.target.files[0]
+//   galleryFiles.value = file
+//   cardInfos.value.logo = file
+//   if (file) {
+//     const reader = new FileReader()
+//     reader.onload = (e) => {
+//       if (!e.target) return
+//       galleryPreviews.value = e.target.result
+//     }
+//     reader.readAsDataURL(file)
+//   }
+// }
+
+// Funções alteradas para usar convertToWebP
+async function previewMainImage(event: any) {
   const file = event.target.files[0]
-  mainImageFile.value = file
-  cardInfos.value.mainImage = file
   if (file) {
+    const webpFile = await convertToWebPFile(file)
+    mainImageFile.value = webpFile
+    cardInfos.value.mainImage = webpFile
+
     const reader = new FileReader()
     reader.onload = (e) => {
       if (!e.target) return
       mainImagePreview.value = e.target.result
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(webpFile)
   }
 }
 
-function previewLogoImage(event: any) {
+async function previewLogoImage(event: any) {
   const file = event.target.files[0]
-  galleryFiles.value = file
-  cardInfos.value.logo = file
   if (file) {
+    const webpFile = await convertToWebPFile(file)
+    galleryFiles.value = webpFile
+    cardInfos.value.logo = webpFile
+
     const reader = new FileReader()
     reader.onload = (e) => {
       if (!e.target) return
-      galleryPreviews.value = e.target.result
+      galleryPreviews.value = [e.target.result]
     }
-    reader.readAsDataURL(file)
+    reader.readAsDataURL(webpFile)
   }
+}
+
+async function convertToWebPFile(imageFile: File): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.src = e.target?.result as string
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+
+        if (!ctx) {
+          reject('Erro ao obter contexto do canvas')
+          return
+        }
+
+        canvas.width = img.width
+        canvas.height = img.height
+        ctx.drawImage(img, 0, 0)
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const webpFile = new File([blob], imageFile.name.replace(/\.[^.]+$/, '.webp'), {
+              type: 'image/webp'
+            })
+            resolve(webpFile)
+          } else {
+            reject('Erro ao criar Blob')
+          }
+        }, 'image/webp')
+      }
+      img.onerror = reject
+    }
+    reader.readAsDataURL(imageFile)
+  })
 }
 
 function removeMainImage() {

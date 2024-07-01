@@ -30,6 +30,7 @@ export interface ImovelType {
     garage?: number
     suites?: number
     area: number
+    area_constructed?: number
     tags: string[]
   }
   description: string
@@ -58,7 +59,7 @@ export interface RawImovelData {
   qtd_banheiros: number
   qtd_vagas_garagem: number
   preco: number
-  aluguel?: number | null
+  rent?: number | null
   monthly?: number | null
   descricao: string
   caracteristics: string[]
@@ -72,8 +73,8 @@ export interface EmpreendimentoType {
   id: number
   name: string
   city: string
-  logo: string
-  mainImage: string
+  logo: any
+  mainImage: any
 }
 
 export interface NuvemDeTags {

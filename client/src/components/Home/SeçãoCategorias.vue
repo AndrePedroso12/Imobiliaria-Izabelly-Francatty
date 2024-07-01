@@ -152,7 +152,7 @@ defineComponent({
     align-content: center;
     text-align: center;
     align-items: center;
-    width: 90%;
+    width: 93%;
 
     .title {
       font-size: 19px;

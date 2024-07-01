@@ -25,6 +25,7 @@ class Imovel extends Model
         "qtd_banheiros",
         "qtd_vagas_garagem",
         "preco",
+        "rent",
         "descricao",
         "caracteristics",
         "vendedor",

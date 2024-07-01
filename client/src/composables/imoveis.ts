@@ -154,13 +154,14 @@ export const useImoveis = () => {
       // images: imovel.images,
       cidade: imovel.location.city,
       complemento: imovel.location.complemento,
-      area_construida: imovel.details.area,
+      area_construida: imovel.details.area_constructed ? imovel.details.area_constructed : 0,
       area_terreno: imovel.details.area, // Supondo que a área do terreno seja a mesma da área construída
       qtd_quartos: imovel.details.rooms ? imovel.details.rooms : 0,
       qtd_Suites: imovel.details.suites ? imovel.details.suites : 0,
       qtd_banheiros: imovel.details.bathrooms ? imovel.details.bathrooms : 0,
       qtd_vagas_garagem: imovel.details.garage ? imovel.details.garage : 0,
       preco: imovel.price,
+      rent: imovel.rent,
       monthly: imovel.monthly !== undefined ? imovel.monthly : null,
       descricao: imovel.description,
       caracteristics: imovel.details.tags, // Você pode mapear as características do ImovelType para cá

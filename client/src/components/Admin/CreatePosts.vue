@@ -101,8 +101,12 @@
         <input type="number" v-model="cardInfos.details.garage" />
       </div>
       <div class="box-info w-25">
-        <label for="">Tamanho do terreno</label>
+        <label for="">Área terreno</label>
         <input type="number" v-model="cardInfos.details.area" />
+      </div>
+      <div class="box-info w-25">
+        <label for="">Área Construida</label>
+        <input type="number" v-model="cardInfos.details.area_constructed" />
       </div>
       <div class="box-info">
         <label for="">Descrição</label>
@@ -391,6 +395,54 @@ async function addLogoAndConvertToWebP(imageFile: File): Promise<string> {
   })
 }
 
+async function convertToWebPFile(imageFile: File): Promise<File> {
+  const logo = new Image()
+  logo.src = '/logo-transparente.png' // Substitua pelo caminho do seu logo
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.src = e.target?.result as string
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+
+        if (!ctx) {
+          reject('Erro ao obter contexto do canvas')
+          return
+        }
+
+        canvas.width = img.width
+        canvas.height = img.height
+        ctx.drawImage(img, 0, 0)
+
+        // Centralizar o logo
+        const logoWidth = 500 // Ajuste conforme necessário
+        const logoHeight = 300 // Ajuste conforme necessário
+        const x = (img.width - logoWidth) / 2
+        const y = (img.height - logoHeight) / 2
+
+        ctx.drawImage(logo, x, y, logoWidth, logoHeight)
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const webpFile = new File([blob], imageFile.name.replace(/\.[^.]+$/, '.webp'), {
+              type: 'image/webp'
+            })
+            resolve(webpFile)
+          } else {
+            reject('Erro ao criar Blob')
+          }
+        }, 'image/webp')
+      }
+      img.onerror = reject
+    }
+    reader.readAsDataURL(imageFile)
+  })
+}
+
 // function previewMainImage(event: any) {
 //   const file = event.target.files[0]
 //   mainImageFile.value = file
@@ -406,12 +458,9 @@ async function addLogoAndConvertToWebP(imageFile: File): Promise<string> {
 
 async function previewMainImage(event: any) {
   const file = event.target.files[0]
-  mainImageFile.value = file
+  mainImageFile.value = await convertToWebPFile(file)
   if (file) {
-    console.log('Fileeeee')
     mainImagePreview.value = await addLogoAndConvertToWebP(file)
-
-    console.log(mainImagePreview.value)
   }
 }
 
@@ -443,7 +492,8 @@ async function previewGalleryImage(event: Event) {
       if (file) {
         const processedImage = await addLogoAndConvertToWebP(file)
         galleryPreviews.value.push(processedImage)
-        galleryFiles.value.push(file)
+        const newDrawnFile = await convertToWebPFile(file)
+        galleryFiles.value.push(newDrawnFile)
       }
     }
   }
