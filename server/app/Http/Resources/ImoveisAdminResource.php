@@ -31,7 +31,7 @@ class ImoveisAdminResource extends JsonResource
             'model' => $this->imovel->pretensao,
             'mainImage' => $this->imovel->mainImage,
             'images' => ImagesResource::collection($this->imovel->images),
-            'video' => '/api/imovel/getVideo/' . $this->imovel->id,
+            'video' => $this->imovel->video ? '/api/imovel/getVideo/' . $this->imovel->id : null,
             'location' => [
                 'street' => $this->imovel->rua,
                 'number' => $this->imovel->numero,
@@ -47,7 +47,8 @@ class ImoveisAdminResource extends JsonResource
                 'bathrooms' => $this->imovel->qtd_banheiros,
                 'garage' => $this->imovel->qtd_vagas_garagem,
                 'suites' => $this->imovel->qtd_Suites,
-                'area' => $this->imovel->area_construida ?? $this->imovel->area_terreno,
+                'area' => $this->imovel->area_terreno,
+                'area_construida' => $this->imovel->area_construida,
                 'tags' => explode("|", $this->imovel->caracteristics),
             ],
             'description' => $this->imovel->descricao,
