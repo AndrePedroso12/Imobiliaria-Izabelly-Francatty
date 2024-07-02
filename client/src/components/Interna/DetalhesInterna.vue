@@ -7,9 +7,9 @@
         <span>{{ infos.details.area }}m²</span>
       </div>
 
-      <div class="box" v-if="infos.details.area_constructed">
+      <div class="box" v-if="infos.details.area_construida">
         <p>Área construida</p>
-        <span>{{ infos.details.area_constructed }}</span>
+        <span>{{ infos.details.area_construida }}m²</span>
       </div>
       <div class="box" v-if="infos.details.rooms">
         <p>Quartos</p>

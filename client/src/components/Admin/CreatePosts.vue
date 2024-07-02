@@ -106,7 +106,7 @@
       </div>
       <div class="box-info w-25">
         <label for="">Área Construida</label>
-        <input type="number" v-model="cardInfos.details.area_constructed" />
+        <input type="number" v-model="cardInfos.details.area_construida" />
       </div>
       <div class="box-info">
         <label for="">Descrição</label>

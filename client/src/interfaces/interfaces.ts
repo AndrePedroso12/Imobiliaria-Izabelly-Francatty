@@ -30,7 +30,7 @@ export interface ImovelType {
     garage?: number
     suites?: number
     area: number
-    area_constructed?: number
+    area_construida?: number
     tags: string[]
   }
   description: string

@@ -154,7 +154,7 @@ export const useImoveis = () => {
       // images: imovel.images,
       cidade: imovel.location.city,
       complemento: imovel.location.complemento,
-      area_construida: imovel.details.area_constructed ? imovel.details.area_constructed : 0,
+      area_construida: imovel.details.area_construida ? imovel.details.area_construida : 0,
       area_terreno: imovel.details.area, // Supondo que a área do terreno seja a mesma da área construída
       qtd_quartos: imovel.details.rooms ? imovel.details.rooms : 0,
       qtd_Suites: imovel.details.suites ? imovel.details.suites : 0,
