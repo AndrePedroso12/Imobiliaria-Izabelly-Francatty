@@ -20,6 +20,11 @@ const getEndpoints = () => {
       GET_ALL_ADMIN: `${apiUrl}/api/imovel/admin`,
       GET_VIDEO: `${apiUrl}/api/imovel/getVideo`
     },
+    EMPREENDIMENTOS: {
+      CREATE: `${apiUrl}/api/empreendimento`,
+      GET: `${apiUrl}/api/empreendimento`,
+      GET_ALL: `${apiUrl}/api/empreendimento`
+    },
     IMAGENS: {
       CREATE: `${apiUrl}/api/imagem/imovel`,
       GET: `${apiUrl}/api/imagem/imovel`,

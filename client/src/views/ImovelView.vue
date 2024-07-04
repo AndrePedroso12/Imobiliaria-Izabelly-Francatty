@@ -317,7 +317,12 @@ function toggleExpand() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+#loader-1 {
+  position: relative;
+  margin: 40vh auto;
+}
+
 .imovel-page {
   padding: 2rem;
 }

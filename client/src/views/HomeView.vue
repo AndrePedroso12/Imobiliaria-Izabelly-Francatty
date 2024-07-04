@@ -65,5 +65,6 @@ onMounted(async () => {
 <style scoped>
 #loader-1 {
   margin: 40vh auto;
+  position: relative;
 }
 </style>

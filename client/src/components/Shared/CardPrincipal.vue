@@ -112,6 +112,7 @@ a {
   &__title {
     font-size: 19px;
     font-weight: 600;
+    line-height: normal;
   }
 
   &__location {

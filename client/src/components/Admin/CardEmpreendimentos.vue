@@ -1,116 +1,39 @@
 <template>
-  <article class="card" @click="toggleExpand">
+  <article class="card">
+    <div class="image-wrapper logo">
+      <img loading="lazy" decoding="async" :src="card.logo" alt="" />
+    </div>
     <div class="image-wrapper">
       <img loading="lazy" decoding="async" :src="card.mainImage" alt="" />
     </div>
 
-    <div class="card__description_mobile mobile">
-      <div class="card__price">
-        <div class="sell" v-if="card.model == 'Compra'">
-          <span>Venda</span>
-          R$ {{ card.price }}
-        </div>
-        <div class="rent" v-if="card.model == 'Alugar'">
-          <span>Aluguel</span>
-          R$ {{ card.price }}
-        </div>
-        <div class="condominio" v-if="card.monthly">
-          <span>Condominio</span>
-          R$ {{ card.monthly }}
-        </div>
-      </div>
-      <p class="card__title">{{ card.location.street }}, nº{{ card.location.number }}</p>
+    <div class="card__description">
+      <p class="card__title">{{ card.name }}</p>
       <p class="card__location">
         <Icon icon="mynaui:location" width="1.2em" height="1.2em" />
-        {{ card.location.neighborhood }} - {{ card.location.city }}
+        {{ card.city }}
       </p>
     </div>
-
-    <div class="card__description desktop">
-      <p class="card__title">{{ card.location.street }}, nº{{ card.location.number }}</p>
-      <p class="card__location">
-        <Icon icon="mynaui:location" width="1.2em" height="1.2em" />
-        {{ card.location.neighborhood }} - {{ card.location.city }}
-      </p>
-    </div>
-    <div class="card__price desktop">
-      <div class="sell" v-if="card.model == 'Compra' || card.model == 'Compra e Aluga'">
-        <span>Venda</span>
-        R$ {{ imoveisFunction.formatPrice(card.price) }}
-      </div>
-      <div class="rent" v-if="card.model == 'Alugar' || card.model == 'Compra e Aluga'">
-        <span>Aluguel</span>
-        R$ {{ card.rent ? imoveisFunction.formatPrice(card.rent) : '' }}
-      </div>
-      <div class="condominio" v-if="card.monthly">
-        <span>Condominio</span>
-        R$ {{ card.monthly }}
-      </div>
-    </div>
-
-    <div class="card__model" :class="card.model">
-      <p>{{ card.model }}</p>
-    </div>
-    <div class="card__edit mobile">
+    <div class="card__edit">
       <span @click="edit()"><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em" /></span>
       <span @click="deleteButton()"
         ><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em"
       /></span>
     </div>
   </article>
-  <!-- Accordion Content -->
-  <div v-if="isExpanded" class="accordion-content">
-    <!-- Coloque aqui o conteúdo do acordeão que deseja exibir -->
-    <p v-if="card.comments">{{ card.comments }}</p>
-    <p v-else>Nenhum comentário</p>
-    <div class="card__bottom">
-      <div class="card__icons" :class="{ HouseCategory: !isArea(infos.category) }">
-        <span v-if="card.details.rooms"
-          ><Icon icon="lucide:bed" width="1.2em" height="1.2em" />
-          {{ card.details.rooms }}
-        </span>
-        <span v-if="card.details.bathrooms"
-          ><Icon icon="fluent-emoji-high-contrast:toilet" width="1.2em" height="1.2em" />
-          {{ card.details.bathrooms }}
-        </span>
-        <span v-if="card.details.suites"
-          ><Icon icon="solar:bath-linear" width="1.2em" height="1.2em" />
-          {{ card.details.suites }}
-        </span>
-        <span v-if="card.details.garage"
-          ><Icon icon="cil:garage" width="1.2em" height="1.2em" />
-          {{ card.details.garage }}
-        </span>
-
-        <span v-if="card.details.area"
-          ><Icon icon="mdi:surface-area" width="1.2em" height="1.2em" />
-          {{ card.details.area }}m²</span
-        >
-      </div>
-    </div>
-
-    <div class="card__edit desktop">
-      <span @click="edit()"><Icon icon="clarity:pencil-line" width="1.2em" height="1.2em" /></span>
-      <span @click="deleteButton()"
-        ><Icon icon="fluent:delete-32-regular" width="1.2em" height="1.2em"
-      /></span>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
-import type { ImovelType } from '@/interfaces/interfaces'
+import type { EmpreendimentoType } from '@/interfaces/interfaces'
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import { useImoveis } from '@/composables'
 
 const props = defineProps<{
-  infos: ImovelType
+  infos: EmpreendimentoType
 }>()
 
 const card = ref(props.infos)
-const isExpanded = ref(false)
-const imoveisFunction = useImoveis()
+
 const emit = defineEmits(['edit', 'delete'])
 
 function edit() {
@@ -119,15 +42,6 @@ function edit() {
 
 function deleteButton() {
   emit('delete')
-}
-
-function isArea(value: string) {
-  if (value == 'Casa' || value == 'Condominio' || value == 'Apartamento') return false
-  else return true
-}
-
-function toggleExpand() {
-  isExpanded.value = !isExpanded.value
 }
 </script>
 
@@ -147,18 +61,17 @@ a {
   border: 0;
   padding: 10px;
   background: #fff;
-  /* margin: 0 15px; */
   color: var(--color-text);
   align-self: stretch;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   border: 1px solid #d3d3d354;
   align-items: center;
 
   @media (max-width: 768px) {
     padding: 35px 15px 40px;
-    margin: 20px 0;
+    display: flex;
     flex-wrap: wrap;
   }
   .image-wrapper {
@@ -168,7 +81,6 @@ a {
     height: 110px;
     @media (max-width: 768px) {
       min-width: 100px;
-      height: 100%;
       display: flex;
       flex: 1;
       flex-direction: column;
@@ -180,6 +92,7 @@ a {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background: #000000c2;
       @media (max-width: 768px) {
         width: 100%;
         height: 100px;
@@ -195,6 +108,13 @@ a {
     font-size: 0.9375rem;
     text-align: left;
     flex: 0.5;
+    @media (max-width: 768px) {
+      margin-top: 1rem;
+      padding: 0;
+      text-align: center;
+      flex: 1;
+      min-width: 100%;
+    }
     &_mobile {
       display: flex;
       flex-direction: column;
@@ -205,7 +125,7 @@ a {
     font-size: 16px;
     font-weight: 600;
     @media (max-width: 768px) {
-      font-size: 15px;
+      font-size: 1.2rem;
       line-height: normal;
     }
   }
@@ -256,11 +176,6 @@ a {
     text-align: center;
     justify-content: flex-start;
     flex: 0.2;
-    @media (max-width: 768px) {
-      flex: 1;
-      min-width: 100%;
-      margin: 10px auto;
-    }
     &.Alugar {
       color: #d1b735;
       background: #fdf9e5;
@@ -277,8 +192,11 @@ a {
     justify-content: flex-end;
     @media (max-width: 768px) {
       flex: 1;
-      justify-content: flex-start;
-      margin: 20px auto 0;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      gap: 20px;
+      margin-top: 20px;
     }
 
     span {
@@ -344,10 +262,6 @@ a {
   flex-wrap: nowrap;
   justify-content: space-between;
   cursor: auto;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-  }
 
   p {
     flex: 0.6;
@@ -355,11 +269,6 @@ a {
     padding: 10px;
     margin-right: 20px;
     border-radius: 8px;
-    @media (max-width: 768px) {
-      flex: 1;
-      min-width: 100%;
-      margin: 0;
-    }
   }
 }
 </style>

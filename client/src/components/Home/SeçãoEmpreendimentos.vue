@@ -7,7 +7,9 @@
     >
 
     <div class="empreendimentos__wrapper">
-      <Carousel v-bind="settings" :breakpoints="breakpoints">
+      <LoaderSpinner v-if="loading" />
+
+      <Carousel v-bind="settings" :breakpoints="breakpoints" v-else>
         <Slide v-for="(card, index) in EmpreendimentosRef" :key="index" v-motion-slide-visible-top>
           <RouterLink :to="{ name: 'pesquisa', params: { empreendimento: card.name } }">
             <CardEmpreendimentos :card="card" />
@@ -34,11 +36,25 @@ import CardEmpreendimentos from './CardEmpreendimentos.vue'
 import { defineComponent, ref } from 'vue'
 import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
 import type { SnapAlign } from '@/interfaces/interfaces'
-import { EmpreendimentosTeste } from '@/components/Shared/dataEmpreendimentos.js'
 
 import 'vue3-carousel/dist/carousel.css'
+import { onMounted } from 'vue'
+import { useEmpreendimentos } from '@/composables'
+import LoaderSpinner from '../Shared/LoaderSpinner.vue'
 
-const EmpreendimentosRef = ref(EmpreendimentosTeste)
+const EmpreendimentosRef = ref()
+const loading = ref(false)
+const EmpreendimentosFunction = useEmpreendimentos()
+onMounted(async () => {
+  await getAllEmpreendimentos()
+})
+async function getAllEmpreendimentos() {
+  loading.value = true
+
+  const data = await EmpreendimentosFunction.carregarEmpreendimentos()
+  if (data) EmpreendimentosRef.value = data
+  loading.value = false
+}
 
 const settings = ref({
   itemsToShow: 1.3,

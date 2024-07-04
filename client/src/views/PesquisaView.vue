@@ -1,7 +1,5 @@
 <template>
-  <LoaderDots v-if="loading" />
-
-  <div class="results-page" v-if="!loading && ImoviesRef">
+  <div class="results-page" v-if="ImoviesRef">
     <div class="pagetop" id="top">
       <h1>Resultados da Pesquisa</h1>
 
@@ -14,7 +12,7 @@
         <RouterLink to="/" v-if="$route.params.modelo">{{ $route.params.modelo }}</RouterLink>
       </div>
       <!-- Filtros ativos em formato de tags -->
-      <div class="active-filters">
+      <div class="active-filters" v-if="activeFilters.length">
         <span v-if="activeFilters.length" class="active-filter">
           Remover filtros
           <span @click="removeFilter('todos')" class="remove-filter">x</span>
@@ -89,7 +87,9 @@
         </select>
       </div>
 
-      <div class="results" v-if="paginatedImovies?.length">
+      <LoaderDots v-if="loading" />
+
+      <div class="results" v-else-if="paginatedImovies?.length">
         <!-- Seletor de ordenação -->
         <div class="order-select">
           <p>
@@ -102,6 +102,7 @@
             <option value="maisRecentes">Mais Recentes</option>
           </select>
         </div>
+
         <div class="slide" v-for="card in paginatedImovies" :key="card.id">
           <RouterLink :to="{ name: 'imovel', params: { id: card.id } }">
             <CardPrincipal :infos="card" />
@@ -176,76 +177,7 @@ const totalPages = computed(() => {
 })
 
 // Filtrar imóveis com base nos filtros selecionados
-const filteredImovies = computed(() => {
-  let filtered = ImoviesRef.value
-  if (!filtered) return
-  // Filtro por cidade
-  if (selectedCity.value) {
-    filtered = filtered.filter((imovel: any) => imovel.location.city === selectedCity.value)
-  }
-
-  // Filtro por modelo
-  if (selectedModel.value) {
-    filtered = filtered.filter(
-      (imovel: any) => imovel.model === selectedModel.value || imovel.model == 'Compra e Aluga'
-    )
-  }
-
-  // Filtro por categoria
-  if (selectedCategory.value) {
-    filtered = filtered.filter((imovel: any) => imovel.category === selectedCategory.value)
-  }
-
-  // Filtro por Empreendimento
-  if (selectedEmpreendimento.value) {
-    filtered = filtered.filter((imovel: ImovelType) =>
-      imovel.location.neighborhood.includes(selectedEmpreendimento.value)
-    )
-  }
-
-  // Filtro por preço mínimo
-  if (minPrice.value !== null && minPrice.value) {
-    filtered = filtered.filter((imovel: any) => imovel.price >= minPrice.value)
-  }
-
-  // Filtro por preço máximo
-  if (maxPrice.value !== null && maxPrice.value) {
-    filtered = filtered.filter((imovel: any) => imovel.price <= maxPrice.value)
-  }
-
-  // Filtro por quartos
-  if (selectedRooms.value) {
-    filtered = filtered.filter((imovel: any) => imovel.details.rooms === selectedRooms.value)
-  }
-
-  // Filtro por banheiros
-  if (selectedBathrooms.value) {
-    filtered = filtered.filter(
-      (imovel: any) => imovel.details.bathrooms === selectedBathrooms.value
-    )
-  }
-
-  // Filtro por vagas de garagem
-  if (selectedGarage.value) {
-    filtered = filtered.filter((imovel: any) => imovel.details.garage === selectedGarage.value)
-  }
-
-  switch (selectedOrder.value) {
-    case 'precoMenor':
-      filtered = filtered.sort((a: any, b: any) => a.price - b.price)
-      filtered = filtered.sort((a: any, b: any) => a.rent - b.rent)
-      break
-    case 'precoMaior':
-      filtered = filtered.sort((a: any, b: any) => b.price - a.price)
-      filtered = filtered.sort((a: any, b: any) => a.rent - b.rent)
-      break
-    case 'maisRecentes':
-      filtered = filtered.sort((a: any, b: any) => b.id - a.id)
-      break
-  }
-
-  return filtered
-})
+const filteredImovies = ref()
 
 const totalResults = computed(() => {
   if (!filteredImovies.value) return
@@ -386,6 +318,60 @@ function removeFilter(key: any) {
 // Aplicar os filtros selecionados
 function applyFilters() {
   currentPage.value = 0
+  // Perform filtering logic with checks
+  let filtered = ImoviesRef.value || []
+
+  if (selectedCity.value) {
+    filtered = filtered.filter((imovel) => imovel.location.city === selectedCity.value)
+  }
+
+  if (selectedModel.value) {
+    filtered = filtered.filter(
+      (imovel) => imovel.model === selectedModel.value || imovel.model === 'Compra e Aluga'
+    )
+  }
+
+  if (selectedCategory.value) {
+    filtered = filtered.filter((imovel) => imovel.category === selectedCategory.value)
+  }
+
+  if (selectedEmpreendimento.value) {
+    filtered = filtered.filter((imovel) =>
+      imovel.location.neighborhood.includes(selectedEmpreendimento.value)
+    )
+  }
+
+  if (minPrice.value !== null && minPrice.value !== undefined) {
+    filtered = filtered.filter((imovel) => imovel.price >= minPrice.value)
+  }
+
+  if (maxPrice.value !== null && maxPrice.value !== undefined && maxPrice.value > 0) {
+    filtered = filtered.filter((imovel) => imovel.price <= maxPrice.value)
+  }
+  if (selectedRooms.value) {
+    filtered = filtered.filter((imovel) => imovel.details.rooms === selectedRooms.value)
+  }
+
+  if (selectedBathrooms.value) {
+    filtered = filtered.filter((imovel) => imovel.details.bathrooms === selectedBathrooms.value)
+  }
+
+  if (selectedGarage.value) {
+    filtered = filtered.filter((imovel) => imovel.details.garage === selectedGarage.value)
+  }
+
+  switch (selectedOrder.value) {
+    case 'precoMenor':
+      filtered = filtered.sort((a, b) => a.price - b.price)
+      break
+    case 'precoMaior':
+      filtered = filtered.sort((a, b) => b.price - a.price)
+      break
+    case 'maisRecentes':
+      filtered = filtered.sort((a, b) => b.id - a.id)
+      break
+  }
+  filteredImovies.value = filtered
   // Redirecione ou atualize a rota conforme necessário
   // Exemplo:
   router.push({
@@ -409,7 +395,9 @@ async function getAllImoveis() {
 
   const data = await ImoveisFunction.carregarImoveis()
   if (data) ImoviesRef.value = data
+
   loading.value = false
+  applyFilters()
 }
 
 onMounted(async () => {
@@ -418,6 +406,11 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
+#loader-2 {
+  position: relative;
+  margin: 40vh auto;
+}
+
 .pagetop {
   margin: 0 auto;
   color: var(--color-text);
@@ -710,16 +703,3 @@ select {
   }
 }
 </style>
-: { location: { city: string | string[] } }: { model: string | string[] }: { category: string |
-string[] }: { price: number; monthly: number | undefined }: { price: number; monthly: number |
-undefined }: { details: { rooms: number } }: { details: { bathrooms: number } }: { details: {
-garage: number } }: { price: number }: { price: number }: { price: number }: { price: number }: {
-id: number }: { id: number }: { location: { city: any } }: { model: any }: { category: any }: {
-details: { rooms: any } }: { details: { bathrooms: any } }: { details: { garage: any } }: {
-location: { city: string | string[] } }: { model: string | string[] }: { category: string | string[]
-}: { price: number; monthly: number | undefined }: { price: number; monthly: number | undefined }: {
-details: { rooms: number } }: { details: { bathrooms: number } }: { details: { garage: number } }: {
-price: number }: { price: number }: { price: number }: { price: number }: { id: number }: { id:
-number }: { location: { city: any } }: { model: any }: { category: any }: { details: { rooms: any }
-}: { details: { bathrooms: any } }: { details: { garage: any } }: { price: number }: { price: number
-}: { price: number }: { price: number }: { id: number }: { id: number }

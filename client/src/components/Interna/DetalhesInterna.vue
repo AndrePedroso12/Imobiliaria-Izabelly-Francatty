@@ -3,10 +3,14 @@
     <div class="title">Detalhes</div>
     <div class="details_container">
       <div class="box">
-        <p>Area do Terreno</p>
+        <p>Área do Terreno</p>
         <span>{{ infos.details.area }}m²</span>
       </div>
 
+      <div class="box" v-if="infos.details.area_construida">
+        <p>Área construida</p>
+        <span>{{ infos.details.area_construida }}m²</span>
+      </div>
       <div class="box" v-if="infos.details.rooms">
         <p>Quartos</p>
         <span>{{ infos.details.rooms }}</span>
