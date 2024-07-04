@@ -7,7 +7,10 @@ use App\Http\Resources\ImoveisAdminResource;
 use App\Http\Resources\ImoveisHomeResource;
 use App\Http\Resources\ImovelResource;
 use App\Models\Imovel;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ImovelController extends Controller
@@ -135,8 +138,25 @@ class ImovelController extends Controller
         if (!$imovel) {
             return response(["error" => 'Imóvel não encontrado'], 404);
         }
+        try {
 
-        $imovel->delete();
-        return response(["message" => "Imóvel deletado com sucesso!"]);
+            DB::beginTransaction();
+            foreach ($imovel->images as $img) {
+
+                // Verifique se o arquivo existe
+                if (Storage::exists('public/' . $img->img)) {
+                    // Se o arquivo existe, exclua-o
+                    Storage::delete('public/' . $img->imagem);
+                }
+                $img->delete();
+            }
+
+            $imovel->delete();
+            DB::commit();
+            return response(["message" => "Imóvel deletado com sucesso!"]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response(["message" => "Falha ao Deletar imovel"], 500);
+        }
     }
 }
