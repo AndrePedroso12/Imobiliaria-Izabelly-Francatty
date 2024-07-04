@@ -143,9 +143,7 @@ class ImovelController extends Controller
             DB::beginTransaction();
             foreach ($imovel->images as $img) {
 
-                // Verifique se o arquivo existe
                 if (Storage::exists('public/' . $img->img)) {
-                    // Se o arquivo existe, exclua-o
                     Storage::delete('public/' . $img->imagem);
                 }
                 $img->delete();
