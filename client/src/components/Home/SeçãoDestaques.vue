@@ -10,10 +10,10 @@
       <div class="destaques__card_secundario">
         <div class="destaques__card_slider"><ImageSlider :imagens="destaqueCard.images" /></div>
         <div class="destaques__card_bottom">
-          <div class="destaques__card_video">
+          <div class="destaques__card_video" v-if="destaqueCard.video">
             <VideoPlayer :videoUrl="destaqueCard.video" />
           </div>
-          <div class="destaques__card_text">
+          <div class="destaques__card_text" :class="{ w100: !destaqueCard.video }">
             <div class="area">{{ destaqueCard.details.area }}m²</div>
             <div class="description">
               {{ generateDescription(destaqueCard) }}
@@ -281,6 +281,9 @@ function truncateText(text: string) {
         &:hover {
           transform: scale(1.05);
         }
+      }
+      &.w100 {
+        width: 100%;
       }
     }
   }

@@ -41,9 +41,10 @@
           <option value="Casa">Casa</option>
           <option value="Apartamento">Apartamento</option>
           <option value="Terreno">Terreno</option>
-          <option value="Area">Area</option>
+          <option value="Area">Área</option>
           <option value="Galpão">Galpão</option>
           <option value="Comdominio">Comdominio</option>
+          <option value="Sala Comercial">Sala Comercial</option>
         </select>
       </div>
       <div class="box-info w-50">
@@ -66,20 +67,6 @@
               </label>
             </div>
           </li>
-          <!-- <li>
-            <label>Aluguel</label>
-            <div class="checkbox-wrapper-22">
-              <label class="switch" for="tipoAluguel">
-                <input
-                  type="checkbox"
-                  id="tipoAluguel"
-                  v-model="tipoAluguel"
-                  @change="handleAluguel"
-                />
-                <div class="slider round"></div>
-              </label>
-            </div>
-          </li> -->
         </ul>
       </div>
       <h5>Descrição interna</h5>
@@ -130,7 +117,7 @@
                 v-model="newTag"
                 @keydown.enter.prevent="addTag"
                 @keydown.delete="removeLastTag"
-                @focusOut="addTag"
+                @focusout="addTag"
                 placeholder="Digite as caracteristicas do imóvel e aperte enter"
               />
             </div>
@@ -176,7 +163,7 @@
         </div>
       </div>
       <div class="box-info w-50">
-        <label for="">É um destaque?</label>
+        <label for="">Deve aparecer na seção de mais buscados?</label>
         <div class="checkbox-wrapper-22">
           <label class="switch" for="favorite">
             <input type="checkbox" id="favorite" v-model="cardInfos.isfavourite" />
@@ -185,7 +172,7 @@
         </div>
       </div>
       <div class="box-info w-50">
-        <label for="">Deve aparecer na seção de mais buscados?</label>
+        <label for="">É um destaque?</label>
         <div class="checkbox-wrapper-22">
           <label class="switch" for="isTop">
             <input type="checkbox" id="isTop" v-model="cardInfos.isTop" />
@@ -327,6 +314,7 @@ const newTag = ref('')
 const tags = ref<string[]>([])
 
 const props = defineProps<{
+  imoveisList?: ImovelType[]
   selectedCard?: number
 }>()
 
@@ -546,6 +534,30 @@ function removeGalleryImage(index: number) {
 async function saveChanges() {
   successText.value = ''
   errorText.value = ''
+
+  if (props.imoveisList) {
+    const hasDestaque = props.imoveisList.filter((item) => item.isTop)
+    if (hasDestaque && cardInfos.value.isTop) {
+      alert(
+        'A opção Destaque foi marcada, porém ja existe outro Imóvel destaque. \nRemova a opção destaque para continuar.' +
+          '\n\nImovel destaque:\n' +
+          hasDestaque[0].location.street +
+          '\n' +
+          hasDestaque[0].location.neighborhood
+      )
+      return
+    }
+  }
+
+  if (props.imoveisList) {
+    const hasFavourites = props.imoveisList.filter((item) => item.isfavourite)
+    if (hasFavourites.length >= 6 && cardInfos.value.isfavourite) {
+      alert(
+        'A opção Mais Buscados foi marcada, porém ja existem mais de 6 Imóveis nessa categoria. \n\nRemova a opção Mais buscados para continuar.'
+      )
+      return
+    }
+  }
 
   // Atualiza as imagens da galeria, se houver
   if (galleryPreviews.value.length > 0) {
@@ -787,6 +799,7 @@ onMounted(async () => {
 
     video {
       width: 100%;
+      pointer-events: none;
     }
 
     .image-holder {

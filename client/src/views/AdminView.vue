@@ -10,7 +10,9 @@
     <div class="sidebar" :class="{ active: isMenuOpen }" v-if="!loading && userInfos">
       <div class="user-info">
         <div class="user-picture">
-          <img alt="Izabelly Francati Logo" src="@/assets/logo-preto-top.svg" />
+          <RouterLink to="/">
+            <img alt="Izabelly Francati Logo" src="@/assets/logo-preto-top.svg" />
+          </RouterLink>
         </div>
         <div class="user-name">{{ userInfos.name }}</div>
         <div class="user-email">{{ userInfos.email }}</div>
@@ -74,6 +76,8 @@
         :is="currentComponent"
         :user="userInfos"
         :selectedCard="selectedCard"
+        :imoveisList="imoveisList"
+        @update="updateImovelList"
         @edit="editImovel"
         @editEmpreendimento="editEmpreendimento"
         @saved="savedSucces"
@@ -95,6 +99,7 @@ import ManageEmpreendimentos from '@/components/Admin/ManageEmpreendimentos.vue'
 import LoaderSpinner from '@/components/Shared/LoaderSpinner.vue'
 import AccountPage from '@/components/Admin/AccountPage.vue'
 import CreateEmpreendimentos from '@/components/Admin/CreateEmpreendimentos.vue'
+import type { ImovelType } from '@/interfaces/interfaces'
 
 const currentComponent = ref<Component>(HomePage)
 const currentPageName = computed(() => {
@@ -107,6 +112,7 @@ const userInfos = ref()
 const loading = ref(false)
 const selectedCard = ref()
 const isMenuOpen = ref(false)
+const imoveisList = ref<ImovelType[]>([])
 
 onMounted(async () => {
   loading.value = true
@@ -125,6 +131,10 @@ function logOut() {
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
+}
+
+function updateImovelList(list: ImovelType[]) {
+  imoveisList.value = list
 }
 
 function editImovel(card: number) {

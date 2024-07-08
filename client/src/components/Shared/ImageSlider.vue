@@ -86,5 +86,8 @@ defineComponent({
     width: 60px;
     height: 40px;
   }
+  figure {
+    height: 100%;
+  }
 }
 </style>

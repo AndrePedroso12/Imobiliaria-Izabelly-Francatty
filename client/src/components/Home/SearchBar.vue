@@ -24,7 +24,10 @@
 
         <option value="Apartamento">Apartamento</option>
         <option value="Casa">Casa</option>
+        <option value="Sala Comercial">Sala Comercial</option>
         <option value="Terreno">Terreno</option>
+        <option value="Area">Área</option>
+        <option value="Galpão">Galpão</option>
       </select>
     </div>
 

@@ -15,7 +15,7 @@ export interface ImovelType {
   banner?: boolean
   isfavourite?: boolean
   isTop?: boolean
-  category: 'Apartamento' | 'Casa' | 'Terreno' | 'Area' | 'Condomínio' | 'Galpão'
+  category: 'Apartamento' | 'Casa' | 'Terreno' | 'Area' | 'Condomínio' | 'Galpão' | 'Sala Comercial'
   model: 'Compra' | 'Alugar' | 'Compra e Aluga'
   mainImage: string
   images: string[]
@@ -43,7 +43,7 @@ export interface RawImovelData {
   isBanner?: boolean
   isFavorite?: boolean
   isTop?: boolean
-  tipo: 'Terreno' | 'Casa' | 'Apartamento' | 'Condomínio' | 'Galpão' | 'Area'
+  tipo: 'Apartamento' | 'Casa' | 'Terreno' | 'Area' | 'Condomínio' | 'Galpão' | 'Sala Comercial'
   pretensao: 'Compra' | 'Alugar' | 'Compra e Aluga'
   rua: string
   bairro: string

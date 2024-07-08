@@ -76,7 +76,7 @@ const selectedModel = ref('')
 const selectedCategory = ref('')
 const selectedCard = ref()
 
-const emit = defineEmits(['edit'])
+const emit = defineEmits(['edit', 'update'])
 
 // Lista única de cidades para o filtro
 const uniqueCities = computed(() => {
@@ -108,15 +108,20 @@ onMounted(async () => {
     hasError.value = true
   }
   loading.value = false
+  emit('update', allImoveis.value)
 })
 
 const filterType = ref<'comprar' | 'alugar' | 'todos'>('todos')
 
 const filteredCards = computed(() => {
   if (filterType.value === 'comprar' && allImoveis.value) {
-    return allImoveis.value.filter((card) => card.model === 'Compra')
+    return allImoveis.value.filter(
+      (card) => card.model === 'Compra' || card.model === 'Compra e Aluga'
+    )
   } else if (filterType.value === 'alugar' && allImoveis.value) {
-    return allImoveis.value.filter((card) => card.model === 'Alugar')
+    return allImoveis.value.filter(
+      (card) => card.model === 'Alugar' || card.model === 'Compra e Aluga'
+    )
   } else {
     return allImoveis.value
   }
@@ -126,9 +131,9 @@ const filter = (type: 'comprar' | 'alugar' | 'todos') => {
   filterType.value = type
 }
 
-async function setSelectedCard(card: number) {
+function setSelectedCard(card: number) {
   selectedCard.value = card
-  await emit('edit', selectedCard.value)
+  emit('edit', selectedCard.value)
 }
 
 async function deleteCard(card: number) {

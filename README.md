@@ -10,7 +10,7 @@ Site feito em Vue 3 e Laravel para a Imobiliaria Izabelly Francati de Jaguariuna
 
 ## CSS compilado em SCSS
 
-Todos CSS é compilado em SCSS e configurado a moda caralha
+Todos CSS é compilado em SCSS
 
 ## Customize configuration
 

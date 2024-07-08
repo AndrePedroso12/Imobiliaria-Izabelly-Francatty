@@ -44,8 +44,8 @@
       </div>
       <div class="card">
         <div class="infos">
-          <div class="number">{{ imoveisParaComprareAlugar?.length }}</div>
-          <div class="text">Imóveis para alugar e vender</div>
+          <div class="number">{{ EmpreendimentosList?.length }}</div>
+          <div class="text">Empreendimentos</div>
         </div>
 
         <div class="icon">
@@ -75,9 +75,9 @@
 import { Icon } from '@iconify/vue'
 import { Carousel, Slide } from 'vue3-carousel'
 import CardPrincipal from '../Shared/CardPrincipal.vue'
-import type { ImovelType, SnapAlign } from '@/interfaces/interfaces'
+import type { EmpreendimentoType, ImovelType, SnapAlign } from '@/interfaces/interfaces'
 import { computed, ref } from 'vue'
-import { useImoveis } from '@/composables'
+import { useEmpreendimentos, useImoveis } from '@/composables'
 import { onMounted } from 'vue'
 import LoaderDots from '../Shared/LoaderDots.vue'
 import LoaderSpinner from '../Shared/LoaderSpinner.vue'
@@ -85,28 +85,31 @@ import frases from '@/assets/frases.json'
 import type { Quote } from '@/interfaces/interfaces'
 
 const ImoveisFunction = useImoveis()
+const EmpreendimentosFunction = useEmpreendimentos()
+const EmpreendimentosList = ref<EmpreendimentoType[]>()
 const imoveisList = ref<ImovelType[]>()
 const fraseDoDia = ref<Quote | null>(null)
 const loadingImoveis = ref(false)
 const loadingFrase = ref(false)
 const imoveisParaAlugar = computed(() => {
   if (!imoveisList.value) return
-  return imoveisList.value.filter((item) => item.model === 'Alugar')
+  return imoveisList.value.filter(
+    (item) => item.model === 'Alugar' || item.model === 'Compra e Aluga'
+  )
 })
 
 const imoveisParaComprar = computed(() => {
   if (!imoveisList.value) return
-  return imoveisList.value.filter((item) => item.model === 'Compra')
-})
-
-const imoveisParaComprareAlugar = computed(() => {
-  if (!imoveisList.value) return
-  return imoveisList.value.filter((item) => item.model === 'Compra e Aluga')
+  return imoveisList.value.filter(
+    (item) => item.model === 'Compra' || item.model === 'Compra e Aluga'
+  )
 })
 
 const props = defineProps<{
   user?: any
 }>()
+
+const emit = defineEmits(['update'])
 
 async function getImoveis() {
   loadingImoveis.value = true
@@ -115,6 +118,18 @@ async function getImoveis() {
     if (data) imoveisList.value = data
   } catch (error) {
     console.error('Erro ao carregar imóveis:', error)
+  }
+  loadingImoveis.value = false
+  emit('update', imoveisList.value)
+}
+
+async function getEmpreendimentos() {
+  loadingImoveis.value = true
+  try {
+    const data = await EmpreendimentosFunction.carregarEmpreendimentos()
+    if (data) EmpreendimentosList.value = data
+  } catch (error) {
+    console.error('Erro ao carregar Empreendimentos:', error)
   }
   loadingImoveis.value = false
 }
@@ -131,6 +146,7 @@ async function getFrases() {
 
 onMounted(() => {
   getImoveis()
+  getEmpreendimentos()
   getFrases()
 })
 
@@ -273,5 +289,9 @@ const breakpoints = ref({
       }
     }
   }
+}
+
+.carousel__slide {
+  min-width: 20rem;
 }
 </style>

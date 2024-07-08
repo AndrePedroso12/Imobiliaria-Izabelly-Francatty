@@ -36,9 +36,7 @@ onMounted(async () => {
   if (ImoviesRef.value) {
     banners.value = ImoviesRef.value.filter((obj: any) => obj.banner === true)
     maisBuscados.value = ImoviesRef.value.filter((obj: any) => obj.isfavourite === true)
-    novosImoveis.value = ImoviesRef.value.filter(
-      (item: any) => !item.isfavourite && !item.isTop && !item.banner
-    )
+    novosImoveis.value = ImoviesRef.value.filter((item: any) => !item.isfavourite && !item.isTop)
     destaque.value = ImoviesRef.value.filter((obj: any) => obj.isTop === true)[0]
   }
 })
@@ -52,7 +50,7 @@ onMounted(async () => {
       <SearchBar :imoveis="ImoviesRef" />
       <SeçãoMaisBuscados :maisBuscados="maisBuscados" v-if="maisBuscados" />
       <SeçãoEmpreendimentos />
-      <SeçãoNovos :novosCadastros="novosImoveis" v-if="novosImoveis" />
+      <SeçãoNovos :novosCadastros="novosImoveis" v-if="novosImoveis.length" />
       <SeçãoQuemSomos />
       <SeçãoCategorias :categorias="ImoviesRef" v-if="ImoviesRef" />
       <SeçãoDestaques :destaque="destaque" v-if="destaque" />
