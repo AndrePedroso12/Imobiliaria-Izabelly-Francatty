@@ -8,6 +8,7 @@ use App\Http\Resources\ImoveisHomeResource;
 use App\Http\Resources\ImovelResource;
 use App\Models\Imovel;
 use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -86,6 +87,9 @@ class ImovelController extends Controller
 
             return response(new ImoveisAdminResource($imovel));
         }
+        throw new HttpResponseException(response()->json([
+            'errors' => ['video' => "Nenhum vídeo enviado"],
+        ], 422));
     }
 
     public function getVideo($id)
@@ -143,9 +147,7 @@ class ImovelController extends Controller
             DB::beginTransaction();
             foreach ($imovel->images as $img) {
 
-                // Verifique se o arquivo existe
                 if (Storage::exists('public/' . $img->img)) {
-                    // Se o arquivo existe, exclua-o
                     Storage::delete('public/' . $img->imagem);
                 }
                 $img->delete();
@@ -157,6 +159,29 @@ class ImovelController extends Controller
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response(["message" => "Falha ao Deletar imovel"], 500);
+        }
+    }
+
+    public function deleteVideo($id)
+    {
+        if (!is_numeric($id)) {
+            return response(["errors" => "Id Invalido"], 400);
+        }
+        $imovel = Imovel::find($id);
+        if (!$imovel) {
+            return response(["error" => 'Imóvel não encontrado'], 404);
+        }
+
+        try {
+            if (Storage::exists('public/' . $imovel->video)) {
+                $tmp = Storage::delete('public/' . $imovel->video);
+            }
+
+            $imovel->update(['video' => null]);
+            return response(["message" => "Vídeo deletado com sucesso!"]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response(["message" => "Falha ao Deletar vídeo"], 500);
         }
     }
 }
