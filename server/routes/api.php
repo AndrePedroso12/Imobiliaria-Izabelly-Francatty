@@ -41,6 +41,7 @@ Route::middleware(CheckToken::class)->group(function () {
         Route::post('/addVideo/{id}', [ImovelController::class, 'addVideo']);
         Route::put('/{id}', [ImovelController::class, 'updateImovel']);
         Route::delete('/{id}', [ImovelController::class, 'deleteImovel']);
+        Route::delete('/video/{id}', [ImovelController::class, 'deleteVideo']);
     });
     Route::prefix('imagem')->group(function () {
         Route::delete('/{id}', [ImagesController::class, 'deleteImagem']);

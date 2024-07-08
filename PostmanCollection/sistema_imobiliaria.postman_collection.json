@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "924d0f22-3ec1-428d-80b1-6a4086c73f3a",
+		"_postman_id": "655303ce-565d-4bed-bdbd-87d3d0c97bbf",
 		"name": "sistema_imobiliaria",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25009092"
@@ -24,11 +24,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/login",
-							"protocol": "http",
+							"raw": "{{url}}/api/login",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -55,7 +53,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"bruno\",\r\n    \"email\":\"aaa@gmail.com\",\r\n    \"password\":\"Foxcpc160580.\"\r\n}",
+							"raw": "{\r\n    // \"name\":\"bruno\",\r\n    // \"email\":\"aaa@gmail.com\",\r\n    // \"password\":\"Foxcpc160580.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -63,11 +61,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user",
-							"protocol": "http",
+							"raw": "{{url}}/api/user",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -102,11 +98,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user/changePassword",
-							"protocol": "http",
+							"raw": "{{url}}/api/user/changePassword",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -145,11 +139,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user/2",
-							"protocol": "http",
+							"raw": "{{url}}/api/user/2",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -188,11 +180,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user",
-							"protocol": "http",
+							"raw": "{{url}}/api/user",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -227,11 +217,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user/3",
-							"protocol": "http",
+							"raw": "{{url}}/api/user/3",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -267,11 +255,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/user/4",
-							"protocol": "http",
+							"raw": "{{url}}/api/user/4",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -312,60 +298,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
 								"imovel"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "addVideo",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "video",
-									"type": "file",
-									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.mp4"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://server.test/api/imovel/getVideo/5",
-							"protocol": "http",
-							"host": [
-								"server",
-								"test"
-							],
-							"path": [
-								"api",
-								"imovel",
-								"getVideo",
-								"5"
 							]
 						}
 					},
@@ -392,22 +331,20 @@
 								{
 									"key": "video",
 									"type": "file",
-									"src": "/C:/Users/Bruno/OneDrive/Imagens/pexels-veeterzy-39811.mp4"
+									"src": []
 								}
 							]
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/addVideo/11",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/addVideo/5",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
 								"imovel",
 								"addVideo",
-								"11"
+								"5"
 							]
 						}
 					},
@@ -441,11 +378,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/11",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/11",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -484,16 +419,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/11",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/1",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
 								"imovel",
-								"11"
+								"1"
 							]
 						}
 					},
@@ -527,11 +460,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/admin",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/admin",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -570,11 +501,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/home",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/home",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -610,11 +539,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/5",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/5",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -650,16 +577,87 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/imovel/2",
-							"protocol": "http",
+							"raw": "{{url}}/api/imovel/2",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
 								"imovel",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteVideo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/imovel/video/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"video",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVideo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/imovel/getVideo/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"imovel",
+								"getVideo",
+								"5"
 							]
 						}
 					},
@@ -706,11 +704,9 @@
 							]
 						},
 						"url": {
-							"raw": "http://server.test/api/empreendimento",
-							"protocol": "http",
+							"raw": "{{url}}/api/empreendimento",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -758,11 +754,9 @@
 							]
 						},
 						"url": {
-							"raw": "http://server.test/api/empreendimento/1",
-							"protocol": "http",
+							"raw": "{{url}}/api/empreendimento/1",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -801,11 +795,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/empreendimento/6",
-							"protocol": "http",
+							"raw": "{{url}}/api/empreendimento/6",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -844,11 +836,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/empreendimento",
-							"protocol": "http",
+							"raw": "{{url}}/api/empreendimento",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -883,11 +873,9 @@
 							}
 						},
 						"url": {
-							"raw": "http://server.test/api/empreendimento/6",
-							"protocol": "http",
+							"raw": "{{url}}/api/empreendimento/6",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -904,11 +892,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://server.test/api/imagem/filename/iq7DSOqlE8ObL4oqqWWitPe2fbLWvqL9B3zwtTxw.jpg",
-							"protocol": "http",
+							"raw": "{{url}}/api/imagem/filename/iq7DSOqlE8ObL4oqqWWitPe2fbLWvqL9B3zwtTxw.jpg",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -941,11 +927,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://server.test/api/imagem/3",
-							"protocol": "http",
+							"raw": "{{url}}/api/imagem/3",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -962,11 +946,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://server.test/api/imagem/",
-							"protocol": "http",
+							"raw": "{{url}}/api/imagem/",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -993,11 +975,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://server.test/api/imagem/5",
-							"protocol": "http",
+							"raw": "{{url}}/api/imagem/5",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -1039,11 +1019,9 @@
 							]
 						},
 						"url": {
-							"raw": "http://server.test/api/imagem/imovel/1",
-							"protocol": "http",
+							"raw": "{{url}}/api/imagem/imovel/1",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -1086,11 +1064,9 @@
 							]
 						},
 						"url": {
-							"raw": "http://server.test/api/imagem/newMainImage/1",
-							"protocol": "http",
+							"raw": "{{url}}/api/imagem/newMainImage/1",
 							"host": [
-								"server",
-								"test"
+								"{{url}}"
 							],
 							"path": [
 								"api",
