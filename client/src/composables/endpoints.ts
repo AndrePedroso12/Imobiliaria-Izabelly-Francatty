@@ -1,5 +1,5 @@
 const getEndpoints = () => {
-  const apiUrl = 'https://server.imobiliriafrancatti.com.br/public'
+  const apiUrl = 'https://server.imobiliariafrancatti.com.br/public'
   const localUrl = 'http://server.test'
 
   return {
