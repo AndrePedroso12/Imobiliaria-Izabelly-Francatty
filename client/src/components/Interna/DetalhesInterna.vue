@@ -62,7 +62,7 @@ const imoveisFunction = useImoveis()
   flex-direction: column;
   padding: 30px;
   border-radius: 16px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #bab9b9;
   margin-bottom: 2rem;
 }
 .title {
@@ -85,7 +85,7 @@ const imoveisFunction = useImoveis()
   width: calc(50% - 15px);
   margin-bottom: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid #bab9b9;
   display: flex;
   justify-content: space-between;
   font-size: 20px;

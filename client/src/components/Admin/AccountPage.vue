@@ -118,7 +118,7 @@ async function savePassword() {
     padding: 35px 40px 40px;
     margin-bottom: 1.875rem;
     background-color: #fff;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -153,7 +153,7 @@ async function savePassword() {
     font-size: 0.9375rem;
     line-height: 1.9;
     color: #1a1a1a;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     background-color: #fff;
     background-image: none;
     border-radius: 12px;

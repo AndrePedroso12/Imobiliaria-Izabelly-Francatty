@@ -172,7 +172,7 @@ const breakpoints = ref({
   padding: 45px 40px;
   border-radius: 24px;
   background: #fff;
-  border: 1px solid #e9e9e9;
+  border: 1px solid #bab9b9;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
@@ -232,7 +232,7 @@ const breakpoints = ref({
     padding: 45px 40px;
     border-radius: 24px;
     background: #fff;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     display: flex;
     align-items: center;
     width: 50%;

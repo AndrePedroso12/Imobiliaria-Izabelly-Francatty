@@ -85,7 +85,7 @@ a {
   transition: all 0.2s ease-in-out 0s;
   position: relative;
   overflow: hidden;
-  border: 1px solid #e9e9e9;
+  border: 1px solid #bab9b9;
   padding: 10px;
   background: #fff;
   margin: 0 15px;

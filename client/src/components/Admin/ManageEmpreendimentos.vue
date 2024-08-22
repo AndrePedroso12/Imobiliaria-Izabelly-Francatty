@@ -82,7 +82,7 @@ function confirmDeleteEmpreendimento() {
   border-radius: 24px;
   background: #fff;
   margin-bottom: 20px;
-  border: 1px solid #e9e9e9;
+  border: 1px solid #bab9b9;
   cursor: pointer;
   @media (max-width: 786px) {
     padding: 35px 15px 40px;
@@ -117,7 +117,7 @@ select {
   line-height: 1.9;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #e9e9e9;
+  border: 1px solid #bab9b9;
   appearance: none;
   border-radius: 9px;
   transition:

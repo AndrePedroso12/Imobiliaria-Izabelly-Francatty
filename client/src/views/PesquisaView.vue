@@ -507,7 +507,7 @@ onMounted(async () => {
   padding: 30px;
   background-color: #f9f9f9;
   border-radius: 16px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #bab9b9;
   justify-content: flex-start;
   gap: 20px;
   height: fit-content;
@@ -609,7 +609,7 @@ select {
   line-height: 1.9;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #e9e9e9;
+  border: 1px solid #bab9b9;
   appearance: none;
   border-radius: 12px;
   transition:
@@ -659,7 +659,7 @@ select {
   input {
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     appearance: none;
     border-radius: 12px;
     color: var(--color-text);
@@ -684,7 +684,7 @@ select {
 
   .active-filter {
     border-radius: 50px;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     padding: 1px 10px 2px;
     font-size: 12px;
     margin: 10px;

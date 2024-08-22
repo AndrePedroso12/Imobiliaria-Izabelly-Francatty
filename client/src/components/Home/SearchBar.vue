@@ -341,7 +341,7 @@ function goToResults() {
     input {
       background-color: #fff;
       background-clip: padding-box;
-      border: 1px solid #e9e9e9;
+      border: 1px solid #bab9b9;
       appearance: none;
       border-radius: 12px;
       color: var(--color-text);
@@ -372,7 +372,7 @@ function goToResults() {
     line-height: 1.9;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     appearance: none;
     border-radius: 12px;
     transition:

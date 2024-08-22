@@ -28,7 +28,7 @@ const infos = ref(props.cardInfos)
   flex-direction: column;
   padding: 30px;
   border-radius: 16px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #bab9b9;
   margin-bottom: 2rem;
 }
 .title {

@@ -62,7 +62,7 @@ const infos = ref(props.cardInfos)
   border-radius: 0;
   background: #fff;
   padding: 5px 15px;
-  border-right: 1px solid #e9e9e9;
+  border-right: 1px solid #bab9b9;
   color: #8d8d8d;
   @media (max-width: 768px) {
     width: 50%;

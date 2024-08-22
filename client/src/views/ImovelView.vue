@@ -435,7 +435,7 @@ function toggleExpand() {
         -webkit-transition: all 0.2s ease-in-out 0s;
         -o-transition: all 0.2s ease-in-out 0s;
         transition: all 0.2s ease-in-out 0s;
-        border: 1px solid #e9e9e9;
+        border: 1px solid #bab9b9;
         background: transparent;
         width: 35px;
         height: 35px;
@@ -514,7 +514,7 @@ function toggleExpand() {
       flex-direction: column;
       padding: 30px;
       border-radius: 16px;
-      border: 1px solid #ebebeb;
+      border: 1px solid #bab9b9;
       margin-bottom: 2rem;
 
       .title {
@@ -536,7 +536,7 @@ function toggleExpand() {
     flex-direction: column;
     padding: 30px;
     border-radius: 16px;
-    border: 1px solid #ebebeb;
+    border: 1px solid #bab9b9;
     margin-bottom: 2rem;
     .title {
       font-size: 27px;
@@ -571,7 +571,7 @@ function toggleExpand() {
     flex-direction: column;
     padding: 30px;
     border-radius: 16px;
-    border: 1px solid #ebebeb;
+    border: 1px solid #bab9b9;
     margin-bottom: 2rem;
     &.closed {
       padding: 1rem 30px;
@@ -623,7 +623,7 @@ function toggleExpand() {
     width: 100%;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #e9e9e9;
+    border: 1px solid #bab9b9;
     appearance: none;
     border-radius: 12px;
     color: var(--color-text);
