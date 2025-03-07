@@ -11,8 +11,8 @@
         de empreendimentos.
         <br />
         <br />
-        E agora com um ponto novo ponto de atendimento para melhor atende-los, venha nós conhecer
-        estamos localizados na Av. Francisco Sales Pires, 25 - Florianópolis.
+        E agora com um ponto novo de atendimento para melhor atende-los, venha nós conhecer estamos
+        localizados na Av. Francisco Sales Pires, 25 - Florianópolis.
       </p>
       <div class="icons">
         <div class="icon_line">
